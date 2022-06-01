@@ -1,0 +1,49 @@
+.project-container-fluid{
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    padding-top: 0%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.project-icon i{
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+.postTitle{
+    display: inline;
+    position: relative;
+    left: 33%;
+}
+.postTitle:hover{
+    color: #e098ff;
+}
+.pImg{
+    transition:transform 5s;
+}
+.carousel-item:hover .pImg{
+    transform: scale(1.5);
+}
+.pColor{
+    color: #fff !important;
+    z-index: 1;
+    background-color: #6e72fc;
+    background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);
+    background-size: 200% auto;
+    transition: all 0.3s ease-in-out;
+    border: #ad1deb;
+}
+@media screen and (max-width: 990px) {
+    .postTitle{
+        left: 23%;
+    }
+}
+@media screen and (max-width: 567px) {
+    .project-icon i{
+        font-size: 0.7rem;
+    }
+    .postTitle{
+        left: 15%;
+    }
+    
+}

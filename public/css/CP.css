@@ -1,0 +1,210 @@
+body{
+  font-family: "Montserrat";
+  font-weight: 400;
+  line-height: 2;
+  background-color: #151515;
+}
+
+.logo_pic{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    float: left;
+}
+
+h2{
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  color: #66BFBF;
+  font-weight: 500;
+}
+
+h3{
+  font-size: 1.5rem;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1;
+}
+
+h4{
+  font-size: 1rem;
+  color: #fff;
+}
+
+#stats{
+  text-align: center;
+  padding: 5% 10%;
+}
+
+.cf{
+  padding-bottom: 15%;
+}
+
+.heading{
+  color: #fff;
+  padding-bottom: 10%;
+  font-weight: 600;
+}
+
+.heading2{
+  color: #fff;
+  padding-bottom: 5%;
+  font-weight: 600;
+}
+
+.heading3{
+  color: #fff;
+  padding: 10% 0 5%;
+  font-weight: 600;
+}
+
+.left-border{
+  border-left: 2px solid white;
+  padding-left: 10%;
+}
+
+.bottom-border{
+  padding-bottom: 10%;
+  border-bottom: 2px solid white;
+}
+
+.time{
+  padding-bottom: 1rem;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+/* responsive */
+
+@media screen and (max-width:1350px){
+  
+   .logo_pic{
+    width:170px;
+    height:170px;
+  }
+
+  h1{
+    font-size: 2rem;
+  }
+
+  h2{
+    font-size: 1.8rem;
+  }
+
+  h3{
+    font-size: 1.2rem;
+  } 
+}
+
+@media screen and (max-width:1200px){
+
+  .left-border{
+    padding-left: 5%;
+  }
+
+  #stats{
+    padding: 5% 5%;
+  }
+  
+}
+
+@media screen and (max-width:992px){
+
+  h1{
+    font-size: 3rem;
+  }
+
+  h3{
+    font-size: 1.5rem;
+  }
+
+  .logo_pic{
+    width:200px;
+    height:200px;
+  }
+
+  .left-border{
+    border-left: 0;
+    padding-top: 10%;
+    padding-right: 8%;
+  }
+
+  .bottom-border{
+    border-top: 2px solid white;
+    padding-top: 10%;
+  }
+
+  .stats{
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+}
+
+@media screen and (max-width:850px){
+  
+  .logo_pic{
+   width:170px;
+   height:170px;
+ }
+
+ h1{
+   font-size: 2rem;
+ }
+
+ h2{
+   font-size: 1.8rem;
+ }
+
+ h3{
+   font-size: 1.2rem;
+ }
+ 
+ #stats{
+   padding-left: 0;
+   padding-right: 0;
+ }
+
+}
+
+@media screen and (max-width:650px){
+  
+  .logo_pic{
+    float: none;
+  }
+
+}
+
+@media screen and (max-width:400px){
+
+  .logo_pic{
+    height: 150px;
+    width: 150px;
+  }
+  
+  .left-border{
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  h1{
+    font-size: 1.6rem;
+  }
+
+  h2{
+    font-size: 1.4rem;
+  }
+
+  h3{
+    font-size: 1rem;
+  }
+  
+}
+
+

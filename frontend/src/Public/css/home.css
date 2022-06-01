@@ -1,0 +1,76 @@
+/* .App {
+  /* text-align: center; */
+/* } */
+
+.home-text-center{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  }
+
+  .home-btn{
+  position: fixed;
+    float: right;
+    color:red;
+    z-index:9999 ;
+    
+  }
+  .home-m-b-30{
+    color: rgb(250, 250, 250);
+    margin-top: 65px;
+    height: 59px;
+    margin-left: 20px;
+  }
+
+  .home-block-title {
+    position: fixed;
+    z-index:9999 ;
+    color: rgb(250, 250, 250);
+    display: flex;
+    justify-self: center;
+    margin-left: 145px;
+    margin-top: 25px;
+  }
+  
+  .home-top-right{
+    position: relative;
+     z-index: 998;
+    
+   }
+
+  .home-title{
+    position: fixed;
+    z-index:9999 ;
+    top: 20%;
+    left:40%;
+    font-family: 'PT Sans', sans-serif;
+    color:rgb(201, 140, 61);
+    font-size: 5rem;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    .home-title{
+      top:21%;
+      left:37%;
+    }
+    .home-text-center{
+      height: 70%;
+    }
+  }
+  
+  .home-m-b-20{
+    height: 180px;
+    width: 280px;
+    margin-left: 70px;
+    text-align: center;
+  }
+
+  .Headerimg{
+    height: 180px;
+    width: 380px;
+  }
+
+  .Homecpfix{
+    margin-left: 105px;
+  }

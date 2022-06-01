@@ -1,0 +1,245 @@
+/* *,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
+.PostBody {
+  background: whitesmoke;
+  font-size: 12px;
+}
+
+.PostBody,
+.PostButton,
+.PostInput {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+/* .gif {
+  width: 250px;
+  padding-top: 2rem;
+} */
+.PostBackground {
+  display: flex;
+  min-height: 100vh;
+}
+
+.Postcontainer {
+  flex: 0 1 700px;
+  margin: auto;
+  padding: 10px;
+}
+.Postgif {
+  width: 5px;
+  height: 5px;
+}
+.Postscreen {
+  position: relative;
+  background: #3e3e3e;
+  border-radius: 15px;
+}
+
+.Postscreen:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+.Postscreen-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: #4d4d4f;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.Postscreen-header-left {
+  margin-right: auto;
+}
+
+.Postscreen-header-button {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 3px;
+  border-radius: 8px;
+  background: white;
+}
+
+.Postscreen-header-button.close {
+  background: #ed1c6f;
+}
+
+.Postscreen-header-button.maximize {
+  background: #e8e925;
+}
+
+.Postscreen-header-button.minimize {
+  background: #74c54f;
+}
+
+.Postscreen-header-right {
+  display: flex;
+}
+
+.Postscreen-header-ellipsis {
+  width: 3px;
+  height: 3px;
+  margin-left: 2px;
+  border-radius: 8px;
+  background: #999;
+}
+
+.Postscreen-body {
+  display: flex;
+}
+
+.Postscreen-body-item {
+  flex: 1;
+  padding: 50px;
+}
+
+.Postscreen-body-item.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.Postapp-title {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: #9f1dea;
+  font-size: 26px;
+}
+
+.Postapp-title:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 25px;
+  height: 4px;
+  background: #9f1dea;
+}
+
+.Postapp-contact {
+  margin-top: auto;
+  font-size: 8px;
+  color: #888;
+}
+
+.Postapp-form-group {
+  margin-bottom: 15px;
+}
+
+.Postapp-form-group.message {
+  margin-top: 40px;
+}
+
+.Postapp-form-group.buttons {
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.Postapp-form-control {
+  width: 100%;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #666;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.Postapp-form-control::placeholder {
+  color: #666;
+}
+
+.Postapp-form-control:focus {
+  border-bottom-color: #ddd;
+}
+
+.Postapp-form-button {
+  background: none;
+  border: none;
+  color: #9f1dea;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.Postapp-form-button:hover {
+  color: #c28ee0;
+}
+
+.Postcredits {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  color: #ffa4bd;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.Postcredits-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.Postdribbble {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+
+@media screen and (max-width: 520px) {
+  .Postscreen-body {
+    flex-direction: column;
+  }
+
+  .Postscreen-body-item.left {
+    margin-bottom: 30px;
+  }
+
+  .Postapp-title {
+    flex-direction: row;
+  }
+
+  .Postapp-title span {
+    margin-right: 12px;
+  }
+
+  .Postapp-title:after {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .Postscreen-body {
+    padding: 40px;
+  }
+
+  .Postscreen-body-item {
+    padding: 0;
+  }
+}

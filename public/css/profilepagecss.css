@@ -1,0 +1,57 @@
+.aboutus {
+    position: relative;
+    right : 10px;
+}
+
+.dp { 
+    width : 100px ; 
+    height : 100px ;
+}
+
+
+       .sidenav {
+        /* padding-top: 20px;  */
+        background-color: #d4d3d3;
+        /* height: 100%; */
+      } 
+
+      .checked {
+          color : green ;
+      }
+
+      .gradientt {
+        background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+      } 
+
+      .upcolor {
+          background-color: rgba(196, 102, 0, 0.6);
+      } 
+
+      .downcolor {
+          background-color: rgba(156, 89, 182, 0.24);
+      } 
+
+      .choosecolor {
+        background-color: rgba(196, 101, 0, 0.089);
+        border-color: black;
+      }
+
+      .edit {
+          position: relative;
+          bottom: 0px;
+      } 
+
+      .bordercolor {
+          border-color: #a00606;
+      } 
+
+      .posts { 
+        font-family: 'ABeeZee';font-size: 22px;
+          position: relative ; 
+          width : 150px ;
+          left : 40% ;
+      } 
+
+      .nounderline {
+        text-decoration: none !important
+      }
