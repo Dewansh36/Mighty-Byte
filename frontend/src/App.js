@@ -8,7 +8,7 @@ import Register from './Components/Login/Registration';
 import Footer from './Components/footer/footer'
 import Select from './Components/Select/Select'
 import Profile from './Components/User/Profile'
-import Project from './Components/Project/Project'
+import Project from './Components/project/Project'
 import CreatePost from './Components/post/Post'
 import News from './Components/news/News'
 import Search from './Components/Search/Search';

@@ -73,7 +73,7 @@ function Views() {
 
     const likefunc=() => {
         setLoading(true);
-        axios.get(`https://bit-dev22.herokuapp.com/posts/${id}/like`, {
+        axios.get(`http://localhost:4000/posts/${id}/like`, {
             withCredentials: true
         })
             .then((response) => {
@@ -96,7 +96,7 @@ function Views() {
     }
     const dislikefunc=() => {
         setLoading(true);
-        axios.get(`https://bit-dev22.herokuapp.com/posts/${id}/dislike`, {
+        axios.get(`http://localhost:4000/posts/${id}/dislike`, {
             withCredentials: true
         })
             .then((response) => {
@@ -119,7 +119,7 @@ function Views() {
     }
     const commentDeletor=(comment) => {
         setLoading(true);
-        axios.delete(`https://bit-dev22.herokuapp.com/posts/${id}/comments/${comment._id}`, {
+        axios.delete(`http://localhost:4000/posts/${id}/comments/${comment._id}`, {
             withCredentials: true
         })
             .then((respsonse) => {
@@ -142,7 +142,7 @@ function Views() {
     const commentCreator=(e) => {
         e.preventDefault();
         setLoading(true);
-        axios.post(`https://bit-dev22.herokuapp.com/posts/${id}/comments/new`, {
+        axios.post(`http://localhost:4000/posts/${id}/comments/new`, {
             text: commentText
         }, {
             withCredentials: true
@@ -169,7 +169,7 @@ function Views() {
     useEffect(() => {
         if (curUser!=undefined) {
             console.log(id);
-            axios.get(`https://bit-dev22.herokuapp.com/posts/${id}`, {
+            axios.get(`http://localhost:4000/posts/${id}`, {
                 withCredentials: true
             })
                 .then((response) => {

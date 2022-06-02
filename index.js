@@ -23,13 +23,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: "https://bit-dev.vercel.app", // <-- location of the react app were connecting to
+        origin: "http://localhost:3000", // <-- location of the react app were connecting to
         credentials: true,
     })
 );
 
 //Setting Up mongoose
 const connectDatabase=() => {
+    // console.log('Connecting!');
     mongoose.connect(process.env.db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,

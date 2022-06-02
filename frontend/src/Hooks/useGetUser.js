@@ -12,7 +12,7 @@ function useGetUser(intialState, id=undefined) {
 
     useEffect(() => {
         if (id==undefined) {
-            axios.get('https://bit-dev22.web.app/getUser', { withCredentials: true })
+            axios.get('http://localhost:4000/getUser', { withCredentials: true })
                 .then((response) => {
                     const { error, user }=response.data;
                     if (!user) {
@@ -29,7 +29,7 @@ function useGetUser(intialState, id=undefined) {
                 })
         }
         else {
-            axios.get(`https://bit-dev22.web.app/user/${id}`, { withCredentials: true })
+            axios.get(`http://localhost:4000/user/${id}`, { withCredentials: true })
                 .then((response) => {
                     const { error, user }=response.data;
                     if (!user) {

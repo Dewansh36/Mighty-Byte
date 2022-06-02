@@ -1,3 +1,4 @@
+// require('dotenv').config();
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,8 +28,9 @@ const Login=() => {
             console.log("error");
             return;
         }
+        // console.log(`${process.env.backend_url}`);
         setLoading(true);
-        axios.post('https://bit-dev22.herokuapp.com/login', {
+        axios.post(`http://localhost:4000/login`, {
             username: username,
             password: password
         }, { withCredentials: true }).then((response) => {
@@ -43,6 +45,7 @@ const Login=() => {
 
         })
             .catch((err) => {
+                console.log(err);
                 notify(err.message);
                 setLoading(false);
             })

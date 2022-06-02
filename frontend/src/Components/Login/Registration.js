@@ -159,7 +159,7 @@ const Register=() => {
             return;
         }
         // console.log(state);
-        axios.post('https://bit-dev22.herokuapp.com/register', state, { withCredentials: true })
+        axios.post('http://localhost:4000/register', state, { withCredentials: true })
             .then((response) => {
                 let { error, success }=response.data;
                 if (error!=undefined) {

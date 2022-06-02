@@ -13,7 +13,7 @@ const Navbar=(props) => {
     const profileLink="/users/"+user._id;
     console.log(profileLink);
     const logoutHandler=() => {
-        axios.get('https://bit-dev22.herokuapp.com/logout', { withCredentials: true })
+        axios.get('http://localhost:4000/logout', { withCredentials: true })
             .then((response) => {
                 let { error }=response.data;
                 if (error==undefined) {

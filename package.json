@@ -1,7 +1,7 @@
 {
   "name": "Bitdev_personal",
   "version": "1.0.0",
-  "description": "",
+  "description": "A developer connecting platform",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.24.0",

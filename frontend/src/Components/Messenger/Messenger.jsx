@@ -48,7 +48,7 @@ export default function Messenger(props) {
   useEffect(() => {
     const getConversations=async () => {
       try {
-        const res=await axios.get("https://bit-dev22.herokuapp.com/api/conversations/"+user._id);
+        const res=await axios.get("http://localhost:4000/api/conversations/"+user._id);
         setConversations(res.data.conversation);
       } catch (err) {
         console.log(err);
@@ -60,7 +60,7 @@ export default function Messenger(props) {
   useEffect(() => {
     const getMessages=async () => {
       try {
-        const res=await axios.get("https://bit-dev22.herokuapp.com/api/messages/"+currentChat?._id);
+        const res=await axios.get("http://localhost:4000/api/messages/"+currentChat?._id);
         setMessages(res.data);
         // console.log(res);
       } catch (err) {
@@ -89,7 +89,7 @@ export default function Messenger(props) {
     });
 
     try {
-      const res=await axios.post("https://bit-dev22.herokuapp.com/api/messages", message);
+      const res=await axios.post("http://localhost:4000/api/messages", message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {

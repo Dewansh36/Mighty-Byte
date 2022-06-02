@@ -55,6 +55,8 @@ module.exports.getAllPosts=async (req, res, next) => {
 module.exports.create=async (req, res, next) => {
     const user=await User.findById(req.user.id);
     const post=new Post(req.body);
+    console.log(req.body);
+    console.log(req.files);
     post.author=user.id;
     post.datePosted=Date.now();
     for (let file of req.files) {
@@ -69,6 +71,7 @@ module.exports.create=async (req, res, next) => {
     await post.save();
     await user.save();
     // console.log(post, user);
+    console.log(post);
     res.send({ success: 'post created successfully!', post: post });
     // req.flash('success', 'Posted Successfully!');
     // res.redirect(`/posts/${post.id}`);
