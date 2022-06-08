@@ -9,12 +9,10 @@ import Home3 from '../../Public/image/home3.jpg'
 import { Grid, Row, Col, Container } from "react-bootstrap"
 function App() {
   return (
-    <div className="App">
-
+    <div className="HomeApp">
       <Header />
 
       <h1 className="home-title">BITDEV</h1>
-      <ParticleBackground></ParticleBackground>
 
       <section className="home-text-center">
         <Container>
@@ -42,6 +40,7 @@ function App() {
         </Container>
 
       </section>
+      <ParticleBackground></ParticleBackground>
     </div>
   );
 }

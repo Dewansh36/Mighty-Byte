@@ -57,12 +57,13 @@ const Navbar=(props) => {
                             </button>
                         </form>
                         <ul className="aboutus navbar-nav ms-md-3">
-                            <li className="nav-item">
-                                <a className="nav-link" onClick={logoutHandler}>Logout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-power" viewBox="0 0 16 16">
-                                    <path d="M7.5 1v7h1V1h-1z" />
-                                    <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z" />
-                                </svg></a>
-                            </li>
+                            <a className="nav-link">
+                                <li className="nav-item">
+                                    <button className='btn' onClick={logoutHandler}>
+                                        Logout <i class="fa-solid fa-door-open fa-xl"></i>
+                                    </button>
+                                </li>
+                            </a>
                         </ul>
                         {/* <form className="d-flex" action={profileLink}>
                             <button type="submit" className="btn btn-success text-black rounded-circle mx-1">AA

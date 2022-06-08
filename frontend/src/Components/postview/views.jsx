@@ -129,9 +129,9 @@ function Views() {
                     notify(error.message, 'error');
                 }
                 else {
-                    setLoading(false);
                     setPost(post);
                     notify(success, 'info');
+                    setLoading(false);
                 }
             })
             .catch((error) => {
@@ -154,10 +154,10 @@ function Views() {
                     notify(error.message, 'error');
                 }
                 else {
-                    setLoading(false);
                     setPost(post);
                     setComment('');
                     notify(success, 'success');
+                    setLoading(false);
                 }
             })
             .catch((error) => {
@@ -179,7 +179,6 @@ function Views() {
                         setLoading(false);
                     }
                     else {
-                        notify(success, 'success');
                         setPost(post);
                         console.log("Post:  ", post);
                         setLoading(false);
@@ -190,7 +189,7 @@ function Views() {
                     setLoading(false);
                 })
         }
-    }, []);
+    }, [post]);
     if (loading==true) {
         return (
             <Loading />

@@ -9,37 +9,24 @@ import Navbar from '../navbar/navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import useGetUser from '../../Hooks/useGetUser';
 
 function Select() {
 
     const [loading, setLoading]=useState(true);
-    const [curUser, setUser]=useState({});
-
+    const [curUser, setUser]=useGetUser({});
     const navigate=useNavigate();
 
     const notify=(message, type) => toast(`${message}`, { type: type });
 
     useEffect(() => {
-        axios.get('http://localhost:4000/getUser', { withCredentials: true })
-            .then((response) => {
-                const { error, success, user }=response.data;
-                console.log(response.data);
-                if (!user) {
-                    notify(error, "error");
-                    navigate('/login');
-                }
-                else if (error!=undefined) {
-                    notify(error, "error");
-                    setLoading(false);
-                }
-                else {
-                    notify("Welcome!", "success");
-                    setUser(user);
-                    setLoading(false);
-                }
-            })
+        // console.log("User: ", curUser.displayname);
+        if (curUser!=undefined&&curUser.displayname!=undefined) {
+            setLoading(false);
+        }
+    }, [curUser])
 
-    }, [])
+
     if (loading==true) {
         return (
             <Loading />
