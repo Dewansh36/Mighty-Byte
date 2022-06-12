@@ -8,6 +8,7 @@ import useGetUser from '../../Hooks/useGetUser';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from '../navbar/navbar'
+import image from '../postview/calendar-solid.svg'
 
 function Views() {
     const { id }=useParams();
@@ -200,68 +201,46 @@ function Views() {
         <>
             <Navbar user={curUser} />
             <ToastContainer />
-            <div className="container mt-5 viewBorder">
-                <div className="row">
-                    <div className="col-12">
-                        <article className="blog-card">
-                            <div className="blog-card__background">
-                                <div className="card__background--wrapper">
-                                    {/* <div className="card__background--main">
-
-                                        <div className="card__background--layer"></div>
-                                    </div> */}
-                                    <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
-                                        <div className="carousel-inner">
-                                            {
-                                                post.images.map((image) => {
-                                                    return (
-                                                        <div className="carousel-item active">
-                                                            <img src={image.url} className="d-block w-100 viewPostImage" alt="..." />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span className="visually-hidden">Previous</span>
-                                        </button>
-                                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span className="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-card__head">
-                                <span className="date__box">
-                                    <span className="date__day">{post.datePosted}</span>
-                                </span>
-                            </div>
-                            <div className="blog-card__info">
-                                <h5>{post.title}</h5>
-                                <p>
-                                    <a href={`/users/${post.author._id}`} className="icon-link mr-3"><i className="fa fa-pencil-square-o"></i> {post.author.displayname}</a>
-                                    <a href="#" className="icon-link mr-3 ms-2 bi bi-heart-fill"><svg className="ms-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                    </svg> {post.likes.length}</a>
-                                    <a href="#" className="icon-link"><i className="fa fa-comments-o ms-2"></i> {post.comments.length}</a>
-                                </p>
-                                <p>{post.description}</p>
-                                {
-                                    likeElement()
-                                }
-                            </div>
-                        </article>
+            <div>
+        <div className="c-card">
+        <div className="carousel-wrapper p-3">
+            
+            <div className="carousel-container">
+                
+                <div className="carousel">
+                    <div >
+                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="" width={"500px"}/>
+                    </div>
+                    <div >
+                        <img src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" alt="" width={"500px"}/>
+                    </div>
+                    <div >
+                        <img src="https://images.unsplash.com/photo-1525278070609-779c7adb7b71?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""width={"500px"} />
                     </div>
                 </div>
             </div>
-
-            <section className="detail-page">
-                <div className="container mt-5">
-
+            <div >
+                
+                <div class="card-body">
+                    <h5 className="card-title">Title</h5>
+                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
-            </section>
+                <ul class="list-group list-group-flush">
+                    <li className="list-group-item">Author:</li>
+                    <li className="list-group-item">Tech-Stack:</li>
+                </ul>
+                <div class="card-body d-flex justify-content-around">
+                    <a href="#" className="card-link">
+                        <img src={image} alt=""  width={"30em"}/>    
+                    </a>
+                    <input type="checkbox" id="cb1" />
+                    <label for="cb1">Toggle me</label>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+    </div>
             {/* comments  */}
             <div className="container mt-5 mb-5">
                 <div className="d-flex justify-content-center row">
@@ -314,3 +293,65 @@ function Views() {
 export default Views
 
 
+{/* <div className="container mt-5 viewBorder">
+                <div className="row">
+                    <div className="col-12">
+                        <article className="blog-card">
+                            <div className="blog-card__background">
+                                <div className="card__background--wrapper">
+                                    {/* <div className="card__background--main">
+
+                                        <div className="card__background--layer"></div>
+                                    </div> */}
+            //                         <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+            //                             <div className="carousel-inner">
+            //                                 {
+            //                                     post.images.map((image) => {
+            //                                         return (
+            //                                             <div className="carousel-item active">
+            //                                                 <img src={image.url} className="d-block w-100 viewPostImage" alt="..." />
+            //                                             </div>
+            //                                         )
+            //                                     })
+            //                                 }
+            //                             </div>
+            //                             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            //                                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            //                                 <span className="visually-hidden">Previous</span>
+            //                             </button>
+            //                             <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            //                                 <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            //                                 <span className="visually-hidden">Next</span>
+            //                             </button>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //                 <div className="blog-card__head">
+            //                     <span className="date__box">
+            //                         <span className="date__day">{post.datePosted}</span>
+            //                     </span>
+            //                 </div>
+            //                 <div className="blog-card__info">
+            //                     <h5>{post.title}</h5>
+            //                     <p>
+            //                         <a href={`/users/${post.author._id}`} className="icon-link mr-3"><i className="fa fa-pencil-square-o"></i> {post.author.displayname}</a>
+            //                         <a href="#" className="icon-link mr-3 ms-2 bi bi-heart-fill"><svg className="ms-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            //                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+            //                         </svg> {post.likes.length}</a>
+            //                         <a href="#" className="icon-link"><i className="fa fa-comments-o ms-2"></i> {post.comments.length}</a>
+            //                     </p>
+            //                     <p>{post.description}</p>
+            //                     {
+            //                         likeElement()
+            //                     }
+            //                 </div>
+            //             </article>
+            //         </div>
+            //     </div>
+            // </div>
+
+            // <section className="detail-page">
+            //     <div className="container mt-5">
+
+            //     </div>
+            // </section> */}
