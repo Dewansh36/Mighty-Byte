@@ -9,38 +9,19 @@ import Home3 from '../../Public/image/home3.jpg'
 import { Grid, Row, Col, Container } from "react-bootstrap"
 function App() {
   return (
-    <div className="HomeApp">
-      <Header />
-
-      <h1 className="home-title">BITDEV</h1>
-
-      <section className="home-text-center">
-        <Container>
-          <Row>
-            <Col lg={4} className="HomeFix">
-              <img alt="" className="home-m-b-20" width="150" height="100" src={Home1}></img>
-              <h6 className="home-block-title p-b-5">Launch Design<i className="pg-arrow_right"></i></h6>
-              <p className="home-m-b-30">Awesome project for sharing website to showoff your coding skills and get to know about
-                current project trends</p>
-            </Col>
-
-            <Col lg={4} className="HomeFix">
-              <img alt="" className="home-m-b-20" width="150" height="100" src={Home2}></img>
-              <h6 className="home-block-title p-b-5">Easy Interaction<i className="pg-arrow_right"></i></h6>
-              <p className="home-m-b-30">Add your college mates in your friend lists and interact with them easily</p>
-            </Col>
-
-            <Col lg={4} className="HomeFix">
-              <img alt="" className="home-m-b-20" width="150" height="100" src={Home3}></img>
-              <h6 className="home-block-title p-b-5 Homecpfix">Competitive Programming<i className="pg-arrow_right"></i></h6>
-              <p className="home-m-b-30">Competitive programming made easier with better interactions and uptodate competition
-                updates</p>
-            </Col>
-          </Row>
-        </Container>
-
-      </section>
-      <ParticleBackground></ParticleBackground>
+    <div className='homebody'>
+      <div className='d-flex'>
+        <a href='/login' className='ms-auto m-3'><button type="button" class="btn btn-outline-dark">Login</button></a>
+        <a href='/register' className='m-3'><button type="button" class="btn btn-outline-dark">Register</button></a>
+      </div>
+      <div className="full-screen">
+        {/* <Header /> */}
+        <div>
+          <h1 className='homeh1'>Landing Page</h1>
+          <br />
+          {/* <a className="button-line" href="#!">More</a> */}
+        </div>
+      </div>
     </div>
   );
 }

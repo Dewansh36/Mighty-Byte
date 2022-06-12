@@ -78,18 +78,15 @@ module.exports.create=async (req, res, next) => {
 }
 
 module.exports.edit=async (req, res, next) => {
-    let post=await Post.findById(req.params.id)
+    let post=await Post.findById(req.params.id);
+    // console.log("req: ", req.body, req.files);
     if (!post) {
-        return next(new Apperror('Product not found', 404))
+        return next(new Apperror('Product not found', 404));
     }
-    post=await Product.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-    })
+    post.title=req.body.title;
+    post.description=req.body.description;
+    post.techStack=req.body.techStack;
 
-    if (!post) {
-        return next(new Apperror('Product not found', 404))
-    }
     for (let file of req.files) {
         let obj={
             url: file.path,
@@ -98,10 +95,12 @@ module.exports.edit=async (req, res, next) => {
         const imageDetail=await cloudinary.api.resource(obj.public_id);
         post.images.push(obj);
     }
-    if (req.body.deleteImages) {
-        for (let img of req.body.deleteImages) {
+    // console.log(post.images, req.body.remove);
+    if (req.body.remove) {
+        for (let img of req.body.remove) {
             for (let i=0; i<post.images.length; i++) {
-                if (post.images[i].public_id==img) {
+                console.log(post.images[i].public_id, img);
+                if (post.images[i]._id==img) {
                     cloudinary.uploader.destroy(post.images[i].public_id, (err, result) => {
                         console.log(result);
                     });
@@ -111,6 +110,7 @@ module.exports.edit=async (req, res, next) => {
             }
         }
     }
+    console.log("after: ", post.images, req.body.remove);
     await post.save();
     res.send({ success: "Post Edited Successfully!", post: post });
 }
