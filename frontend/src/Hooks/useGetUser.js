@@ -29,7 +29,7 @@ function useGetUser(intialState, id=undefined) {
                 })
         }
         else {
-            axios.get(`http://localhost:4000/user/${id}`, { withCredentials: true })
+             axios.get(`http://localhost:4000/user/${id}`, { withCredentials: true })
                 .then((response) => {
                     const { error, user }=response.data;
                     if (!user) {

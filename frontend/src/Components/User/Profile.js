@@ -3,23 +3,48 @@ import Navbar from '../navbar/navbar'
 import { useParams } from "react-router-dom";
 import "./Profile.css";
 import useGetUser from '../../Hooks/useGetUser';
+import { Image } from "react-bootstrap";
 import Loading from '../loading'
 const Profile=() => {
   const { id }=useParams();
   const [curUser]=useGetUser({});
   const [reqUser]=useGetUser({}, id);
+  const [likes,setLikes]=useState(0);
   const [loading, setLoading]=useState(true);
   const [toogleState, setToogleState]=useState(1);
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const [Date,setDate]=useState("Jan 2012")
+
+  const myStyle={
+    color: "#6c301f",
+    textDecoration: "none"
+  }
   const toogleTab=(index) => {
     setToogleState(index);
   };
   useEffect(() => {
-    if (curUser.displayname!=undefined&&reqUser.displayname!=undefined) {
+    console.log(curUser)
+    console.log(reqUser)
+    if (curUser.displayname!=undefined && reqUser.displayname!=undefined) {
       setLoading(false);
-      console.log("Current: ", curUser);
-      console.log("Required:  ", reqUser);
+      let like=0;
+      for(let i=0;i<reqUser.posts.length;i++){
+        like+=(reqUser.posts[i].likes.length);
+      }
+      let date=reqUser.createdAt;
+      console.log(date);
+      if(date){
+        let month = months[Number(date.slice(5,7))-1];
+        let year= date.slice(0,4);
+        console.log(month);
+        console.log(year);
+        date=month+" "+year;
+        setDate(date);
+      }
+      setLikes(like);
+      console.log(likes);
     }
-  }, [curUser, reqUser])
+  }, [curUser,reqUser])
   if (loading==true) {
     return (
       <Loading />
@@ -57,7 +82,7 @@ const Profile=() => {
                 <i className="fa fa-star-o"></i>
               </div>
 
-              <div className="profile-since">Member since: Jan 2012</div>
+              <div className="profile-since">Member since: {Date}</div>
 
               <div className="profile-details">
                 <ul className="fa-ul">
@@ -66,7 +91,7 @@ const Profile=() => {
                   </li>
                   <li>
                     <i className="fa-li fa fa-thumbs-up"></i>Likes:{" "}
-                    <span>456</span>
+                    <span>{likes}</span>
                   </li>
                   <li>
                     <i className="fa-li fa fa-comment"></i>Comments:{" "}
@@ -90,7 +115,7 @@ const Profile=() => {
                   <span style={{ color: "black" }}>User info</span>
                 </h3>
                 {
-                  (curUser._id==id)?
+                  (reqUser._id==id)?
                     <a href={`/user/${reqUser._id}/edit`}>
                       <button className="btn btn-primary edit-profile">
                         <i className="fa fa-pencil-square fa-lg"></i> Edit profile
@@ -122,13 +147,14 @@ const Profile=() => {
                     </div>
                   </div>
                   <div className="profile-user-details">
-                    <div className="profile-user-details-label" style={{ fontSize: '15px' }}>
+                    <div className="profile-user-details-label">
                       Codeforces&nbsp;<span class="iconify" data-icon="simple-icons:codeforces"></span>
                     </div>
                     <div className="profile-user-details-value">
                       {reqUser.cfhandle}
                     </div>
                   </div>
+                  {/* <br></br> */}
                   <div className="profile-user-details">
                     <div className="profile-user-details-label">
                       Codechef&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -193,7 +219,7 @@ const Profile=() => {
                       return (
                         <div className="card1 my-3">
                           <div className="image-data">
-                            <div className="background-image"></div>
+                          <a href={"/posts/"+post._id} style={{textDecorationStyle: "none"}}><Image className="background-image" src={post.images.length?(post.images[0].url):"https://ebsedu.org/wp-content/uploads/2020/06/AI-CAREER.jpg"}/></a>
                             <div className="user-details">
                               <a href="#" className="author">
                                 <i className="fas fa-user"></i>{reqUser.displayname}
@@ -204,7 +230,7 @@ const Profile=() => {
                             </div>
                           </div>
                           <div className="post-data">
-                            <h3 className="profile-h3 profile-title">{post.title}</h3 >
+                            <h3 className="profile-h3 profile-title"><a href={"/posts/"+post._id} style={myStyle}>{post.title}</a></h3 >
                             <p className="description">
                               {post.description}
                             </p>

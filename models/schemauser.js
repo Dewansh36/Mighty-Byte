@@ -61,6 +61,10 @@ const userSchema=new schema({
             ref: 'Comment'
         }
     ],
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
 });

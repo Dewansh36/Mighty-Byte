@@ -168,7 +168,7 @@ function Views() {
     const notify=(message, type) => toast(`${message}`, { type: type });
     useEffect(() => {
         if (curUser!=undefined) {
-            console.log(id);
+            // console.log(id);
             axios.get(`http://localhost:4000/posts/${id}`, {
                 withCredentials: true
             })
@@ -180,7 +180,7 @@ function Views() {
                     }
                     else {
                         setPost(post);
-                        console.log("Post:  ", post);
+                        // console.log("Post:  ", post);
                         setLoading(false);
                     }
                 })
@@ -195,7 +195,7 @@ function Views() {
             <Loading />
         )
     }
-    console.log("Post:  ", post);
+    // console.log("Post:  ", post);
     return (
         <>
             <Navbar user={curUser} />
