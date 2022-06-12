@@ -57,7 +57,7 @@ const Login=() => {
     }
     return (
 
-        <div>
+        <div className='d-flex justify-content-center mt-5'>
             <form id="msform" action="#" onSubmit={check} method='post'>
                 <fieldset>
                     <h2 className="fs-title">Login</h2>

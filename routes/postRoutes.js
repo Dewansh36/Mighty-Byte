@@ -19,7 +19,7 @@ router.route('/new')
 
 router.route('/:id')
     .get(checkLogin, catchAsync(postController.view))
-    .put(checkLogin, postAuth, catchAsync(postController.edit))
+    .put(checkLogin, upload.array("images"), catchAsync(postController.edit))
     .delete(checkLogin, postAuth, catchAsync(postController.delete));
 
 router.route('/:id/like')

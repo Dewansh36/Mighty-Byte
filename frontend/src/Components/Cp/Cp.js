@@ -8,6 +8,8 @@ import { Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import Navbar from '../navbar/navbar'
 import useGetUser from '../../Hooks/useGetUser';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function secondsToDhms(seconds) {
     seconds=Number(seconds);
@@ -28,25 +30,26 @@ const callApi=async (url) => {
 }
 
 function Cp() {
-    let rpRating=-1;
+    let [rpRating, setrating]=useState(undefined);
     const [curUser]=useGetUser({});
-    const [cfdata, setcfData]=useState({});
+    let [cfdata, setcfData]=useState(undefined);
     // const [ccdata, setccData]=useState({});
-    const [Upcomingdata, setUpcomingData]=useState({});
-    const [Problemdata, setProblemData]=useState({});
+    const [Upcomingdata, setUpcomingData]=useState(undefined);
+    const [Problemdata, setProblemData]=useState(undefined);
     const [loading, setLoading]=useState(true);
     const [error, setError]=useState('');
     let flag=false;
     // const ccname="dewansh_36";
-    let cfname="Dewansh05";
+    let cfname;
     // const ccurl="https://competitive-programming-score.herokuapp.com/api/codechef/"+ccname;
-    let cfurl="https://competitive-programming-score.herokuapp.com/api/codeforces/"+cfname;
+    let cfurl=undefined;
     let cn1, cn2, cn3, cl1, cl2, cl3, ct1, ct2, ct3;
     let pn1, pn2, pn3, pl1, pl2, pl3;
     useEffect(() => {
-        if (curUser!=undefined) {
+        if (curUser.cfhandle!=undefined) {
             cfname=curUser.cfhandle;
-            cfurl="https://competitive-programming-score.herokuapp.com/api/codeforces/"+cfname;
+            cfurl="https://codeforces.com/api/user.info?handles="+cfname;
+            // console.log(cfname, cfurl);
             flag=true;
         }
     }, [curUser]);
@@ -70,125 +73,97 @@ function Cp() {
     // }, [])
 
     useEffect(async () => {
-        Promise.all([
-            callApi(cfurl),
-            // callApi(ccurl),
-            callApi('https://codeforces.com/api/contest.list?gym=false'),
-            callApi('https://codeforces.com/api/problemset.problems'),
-        ]).then((values) => {
-            console.log(values);
-            setcfData(values[0]);
-            // setccData(values[1]);
-            setProblemData(values[2]);
-            setUpcomingData(values[1]);
-            rpRating=cfdata.rating;
-            setLoading(false);
-            console.log(rpRating);
-        })
-            .catch((err) => {
-                console.log(err);
-                setError('Something Went Wrong!');
-                setLoading(false);
-            })
-    }, [curUser]);
+        if (curUser.cfhandle!=undefined&&cfurl!=undefined) {
+            // console.log("CF: ", cfurl);
+            const values=(await axios.get(cfurl)).data;
+            setcfData(values.result[0]);
+            setrating(values.result[0].rating);
+            // setLoading(false);
+            // console.log(cfdata);
+            // rpRating=cfdata.rating;
+            // console.log(rpRating);
+        }
+    }, [curUser, cfurl]);
+    useEffect(async () => {
+        // console.log(rpRating);
+        if (cfdata.rating!=undefined) {
+            let val0=(await axios.get('https://codeforces.com/api/contest.list?gym=false')).data;
+            let val1=(await axios.get('https://codeforces.com/api/problemset.problems')).data;
+            setProblemData(val1.result);
+            setUpcomingData(val0.result);
+            console.log("Rating: ", rpRating);
+            // setLoading(false);
+        }
+    }, [cfdata, curUser])
     useEffect(() => {
-        if (Upcomingdata.result!=undefined&&rpRating!=-1) {
-            console.log(Upcomingdata);
-            let x=0;
-            while (Upcomingdata.result[x].phase=="BEFORE")
-                x++;
-            console.log(x);
-            x--;
-            cn1=Upcomingdata.result[x].name;
-            cl1="https://codeforces.com/contests/"+Upcomingdata.result[x].id;
-            let s=-1*(Upcomingdata.result[x].relativeTimeSeconds);
-            ct1="(starts in "+secondsToDhms(s)+")";
-            x--;
-            if (x>=0) {
-                cn2=Upcomingdata.result[x].name;
-                cl2="https://codeforces.com/contests/"+Upcomingdata.result[x].id;
-                s=-1*(Upcomingdata.result[x].relativeTimeSeconds);
-                ct2="(starts in "+secondsToDhms(s)+")";
-                x--;
-            }
-            else {
-                cn2="";
-                cl2="";
-                ct2="";
-            }
-            if (x>=0) {
-                cn3=Upcomingdata.result[x].name;
-                cl3="https://codeforces.com/contests/"+Upcomingdata.result[x].id;
-                s=-1*(Upcomingdata.result[x].relativeTimeSeconds);
-                ct3="(starts in "+secondsToDhms(s)+")";
-                x--;
-            }
-            else {
-                cn3="";
-                cl3="";
-                ct3="";
-            }
-            if (Problemdata!={}) {
-                if (rpRating<=800)
-                    rpRating=800;
-                else if (rpRating>800&&rpRating<=1000)
-                    rpRating=1000;
-                else if (rpRating>1000&&rpRating<=1200)
-                    rpRating=1200;
-                else if (rpRating>1200&&rpRating<=1400)
-                    rpRating=1400;
-                else if (rpRating>1400&&rpRating<=1600)
-                    rpRating=1600;
-                else if (rpRating>1600&&rpRating<=1800)
-                    rpRating=1800;
-                else if (rpRating>1800&&rpRating<=2000)
-                    rpRating=2000;
-                else if (rpRating>2000&&rpRating<=2200)
-                    rpRating=2200;
-                else if (rpRating>2200&&rpRating<=2400)
-                    rpRating=2400;
-                else if (rpRating>2400&&rpRating<=2600)
-                    rpRating=2600;
-                else if (rpRating>2600&&rpRating<=2800)
-                    rpRating=2800;
-                else if (rpRating>2800&&rpRating<=3000)
-                    rpRating=3000;
-                else if (rpRating>3000&&rpRating<=3200)
-                    rpRating=3200;
-                else
-                    rpRating=3400;
-                let y=0;
-                console.log(rpRating);
-                for (let problem of Problemdata.result.problems) {
-                    if (problem&&problem.rating&&problem.rating==rpRating) {
-                        let u="https://codeforces.com/problemset/problem/"+problem.contestId+"/"+problem.index;
-                        if (y==0) {
-                            pn1=problem.name;
-                            pl1=u;
-                        }
-                        else if (y==1) {
-                            pn2=problem.name;
-                            pl2=u;
-                        }
-                        else {
-                            pn3=problem.name;
-                            pl3=u;
-                        }
-                        y++;
-                    }
-                    if (y==3)
-                        break;
+        if (Upcomingdata!=undefined&&Problemdata.problems!=undefined&&rpRating!=undefined) {
+            // console.log(Upcomingdata);
+            let upcomingRounds=Upcomingdata.filter((contest) => {
+                if (contest.phase=='BEFORE') {
+                    return true;
                 }
+                return false;
+            });
+            while (upcomingRounds.length>3) {
+                upcomingRounds.pop();
+            }
+            setUpcomingData(upcomingRounds);
+            // console.log(Problemdata.problems);
+
+            if (rpRating<=800)
+                rpRating=800;
+            else if (rpRating>800&&rpRating<=1000)
+                rpRating=1000;
+            else if (rpRating>1000&&rpRating<=1200)
+                rpRating=1200;
+            else if (rpRating>1200&&rpRating<=1400)
+                rpRating=1400;
+            else if (rpRating>1400&&rpRating<=1600)
+                rpRating=1600;
+            else if (rpRating>1600&&rpRating<=1800)
+                rpRating=1800;
+            else if (rpRating>1800&&rpRating<=2000)
+                rpRating=2000;
+            else if (rpRating>2000&&rpRating<=2200)
+                rpRating=2200;
+            else if (rpRating>2200&&rpRating<=2400)
+                rpRating=2400;
+            else if (rpRating>2400&&rpRating<=2600)
+                rpRating=2600;
+            else if (rpRating>2600&&rpRating<=2800)
+                rpRating=2800;
+            else if (rpRating>2800&&rpRating<=3000)
+                rpRating=3000;
+            else if (rpRating>3000&&rpRating<=3200)
+                rpRating=3200;
+            else
+                rpRating=3400;
+            let y=0;
+            console.log(rpRating);
+            let reqProblems=[];
+            for (let problem of Problemdata.problems) {
+                if (problem&&problem.rating&&problem.rating==rpRating) {
+                    let u="https://codeforces.com/problemset/problem/"+problem.contestId+"/"+problem.index;
+                    if (y==0) {
+                        reqProblems.push(problem);
+                    }
+                    else if (y==1) {
+                        reqProblems.push(problem);
+                    }
+                    else {
+                        reqProblems.push(problem);
+                    }
+                    y++;
+                }
+                if (y==3)
+                    break;
+                // console.log(reqProblems);
+                setProblemData(reqProblems);
+                setLoading(false);
             }
         }
-    }, [curUser, flag, rpRating])
+    }, [Upcomingdata, Problemdata, rpRating])
 
-    // const [Problemdata, setProblemData]=useState({});
-    // useEffect(async () => {
-    //     const response=await axios.get('https://codeforces.com/api/problemset.problems');
-    //     setProblemData(response.data);
-    //     console.log(response.data);
-    // }, [])
 
     if (loading==true) {
         return (
@@ -212,7 +187,7 @@ function Cp() {
                                         <h3 className={Styles.resFix}> {cfname} <span id="cfhandle"></span></h3>
                                         <h3 className={Styles.resFix}>Current rating - {cfdata.rating} <span id="cfrating"></span> </h3>
                                         <h3 className={Styles.resFix}>Current rank -{cfdata.rank} <span id="cfcrank"></span></h3>
-                                        <h3 className={Styles.resFix}>Max rating - {cfdata["max rating"]} <span id="cfmrating"></span></h3>
+                                        <h3 className={Styles.resFix}>Max rating - {cfdata.maxRating} <span id="cfmrating"></span></h3>
                                     </p>
                                 </div>
                                 {/* <img className={Styles.logo_pic} src={ccImage} alt="codechef" />
@@ -227,6 +202,16 @@ function Cp() {
                             <Col lg={6} md={12} className={Styles.leftBorder}>
                                 <div className={Styles.bottomBorder}>
                                     <h1 className={Styles.heading2}>Upcoming Contests</h1>
+                                    {
+                                        Upcomingdata.map((contest) => {
+                                            return (
+                                                <div>
+                                                    <a href={"https://codeforces.com/contest/"+contest.id} id="ac1" target="_blank"><h3 id="c1">{contest.name}</h3></a>
+                                                    <h4 id="Time1" className={Styles.time}>{secondsToDhms(-1*contest.relativeTimeSeconds)}</h4>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                     <a href={cl1} id="ac1" target="_blank"><h3 id="c1">{cn1}</h3></a>
                                     <h4 id="Time1" className={Styles.time}>{ct1}</h4>
                                     <a href={cl2} id="ac2" target="_blank"><h3 id="c2">{cn2}</h3></a>
@@ -235,6 +220,15 @@ function Cp() {
                                     <h4 id="Time3" className={Styles.time}>{ct3}</h4>
                                 </div>
                                 <h1 className={Styles.heading3}>Recommended Problems</h1>
+                                {
+                                    Problemdata.map((problem) => {
+                                        return (
+                                            <div>
+                                                <a href={"https://codeforces.com/problemset/problem/"+problem.contestId+"/"+problem.index} id="ap1" target="_blank"><h3 id="p1">{problem.name}</h3></a>
+                                            </div>
+                                        )
+                                    })
+                                }
                                 <a href={pl1} id="ap1" target="_blank"><h3 id="p1">{pn1}</h3></a>
                                 <a href={pl2} id="ap2" target="_blank"><h3 id="p2">{pn2}</h3></a>
                                 <a href={pl3} id="ap3" target="_blank"><h3 id="p3">{pn3}</h3></a>
