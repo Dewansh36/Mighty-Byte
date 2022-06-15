@@ -14,7 +14,28 @@ const Project=() => {
   const [loading, setLoading]=useState(true);
   const [curUser]=useGetUser({});
   const [posts, setPosts]=useState([]);
+  const [suggestions, setSuggestions]=useState([])
   const notify=(message, type) => toast(`${message}`, { type: type });
+
+
+  useEffect(async () => {
+    if (curUser!=undefined) {
+      await axios.get("http://localhost:4000/user", {
+        withCredentials: true
+      })
+        .then((response) => {
+          let { success, user }=response.data;
+          // notify(success, 'success');
+          setSuggestions(user);
+          console.log(suggestions)
+          // setLoading(false);
+        })
+        .catch((err) => {
+          // notify('error', err.message);
+          // setLoading(false);
+        })
+    }
+  }, [curUser.friends])
   useEffect(() => {
     if (curUser!=undefined) {
       axios.get('http://localhost:4000/posts', {
@@ -72,7 +93,7 @@ const Project=() => {
               <div className="container-fluid project-container-fluid">
                 <div className="row" style={{ height: "100vh" }}>
                   <div
-                    className="col-xxl-8 col-lg-12 col-sm-12 col-md-12 overflow-auto hiddenscroll post"
+                    className="col-xxl-8 col-lg-8 col-sm-8 col-md-8 overflow-auto hiddenscroll post"
                     style={{ height: "100%" }}
                   >
                     {
@@ -103,11 +124,11 @@ const Project=() => {
                                 post.images.map((image) => {
                                   return (
                                     <Carousel.Item className="carousel-item">
-                                      <img
+                                      <a href={`/posts/${post._id}`}><img
                                         className="d-block w-100 pImg"
                                         src={image.url}
                                         alt="First slide"
-                                      />
+                                      /></a>
                                       {/* <Carousel.Caption>
                                       <h3>First slide label</h3>
                                       <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -219,10 +240,10 @@ const Project=() => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-xxl-4 d-none d-xxl-block my-3 bordered" style={{ height: "fit-content" }}>
+                  <div className="col-xxl-4 my-3 bordered" style={{ height: "fit-content" }}>
                     <p className="fw-bold fw-light mb-4">Suggestions for you... </p>
                     <div className="container-fluid project-container-fluid">
-                      <div className="row">
+                      {/* <div className="row">
                         <div className="col-3">
                           <button className="btn rounded-circle btn-success fs-6 text-black pColor">
                             aa
@@ -233,7 +254,26 @@ const Project=() => {
                           <div className="row mb-2 fs-6 fw-light">amanagarwal</div>
                         </div>
                         <div className="col-2 text-primary" style={{ cursor: "pointer" }}>Follow</div>
-                      </div>
+                      </div> */}
+                      {
+                        suggestions.map((user) => {
+                          return (
+                            <div className="row">
+                              <div className="col-3">
+                                <button className="btn rounded-circle btn-success fs-6 text-black pColor">
+                                  AA
+                                </button>
+                              </div>
+                              <div className="col-7 fs-6 mb-1">
+                                <a href={`/users/${user._id}`}><div className="row fw-bold">{user.displayname}</div></a>
+                                <a href={`/users/${user._id}`}><div className="row mb-2 fs-6 fw-light">{user.username}</div></a>
+                              </div>
+                              {/* <div className="col-2 text-primary" style={{ cursor: "pointer" }}>Follow</div> */}
+
+                            </div>
+                          )
+                        })
+                      }
                     </div>
                     <a href="/suggestions">
                       <div className="fw-light fw-bold text-center mb-2">
@@ -244,7 +284,7 @@ const Project=() => {
                 </div>
               </div>
             </div>
-            <div className="col-2 d-none d-sm-block"></div>
+            {/* <div className="col-2 d-none d-sm-block"></div> */}
           </div>
         </div>
         <ToastContainer />

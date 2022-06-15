@@ -28,6 +28,7 @@ router.route('/:id/like')
 router.route('/:id/dislike')
     .get(checkLogin, catchAsync(postController.dislike));
 
+    router.route('/:id/friends')
 router.route('/:id/edit')
     .put(checkLogin, postAuth, catchAsync(postController.edit));
 

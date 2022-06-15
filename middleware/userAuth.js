@@ -5,8 +5,7 @@ const userAuth=async (req, res, next) => {
     if (id==req.user.id) {
         return next();
     }
-    req.flash('error', 'You Are Not Autherized!');
-    res.redirect(`/users/${id}`);
+    res.send({error: 'You Are Not Autherized!'})
 }
 
 module.exports=userAuth;

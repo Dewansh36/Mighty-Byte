@@ -79,7 +79,7 @@ module.exports.create=async (req, res, next) => {
 
 module.exports.edit=async (req, res, next) => {
     let post=await Post.findById(req.params.id);
-    // console.log("req: ", req.body, req.files);
+    console.log("req: ", req.body, req.files);
     if (!post) {
         return next(new Apperror('Product not found', 404));
     }

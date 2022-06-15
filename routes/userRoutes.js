@@ -8,7 +8,7 @@ const userAuth=require('../middleware/userAuth');
 const catchAsync=require('../middleware/catchAsync');
 
 router.route('/')
-    .get(userController.getUsr)
+    .get(checkLogin, userController.getUsr);
     
 router.route('/:id')
     .get(checkLogin, userController.profile)
@@ -20,4 +20,12 @@ router.route('/:id/edit')
 
 router.route('/:id/friends')
     .get(catchAsync(userController.getFriends));
+
+router.route('/:id/addfriend')
+    .get(checkLogin, catchAsync(userController.addFriend));
+
+router.route('/:id/removefriend')
+    .get(checkLogin, catchAsync(userController.removeFriend));
+
+
 module.exports=router;

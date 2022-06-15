@@ -21,7 +21,7 @@ module.exports.getFriends=async (req, res, next) => {
                 path: 'friends'
             }
         );
-    console.log("Friends: ", curuser.friends);
+    // console.log("Friends: ", curuser.friends);
     res.send({
         success: true,
         curuser
@@ -53,7 +53,7 @@ module.exports.profile=async (req, res, next) => {
     }
     await curuser.save();
 
-    console.log("Required:  ", curuser);
+    // console.log("Required:  ", curuser);
     // res.render;
     // console.log(curuser);
     res.send({ success: 'User Fetched', user: curuser });
@@ -61,10 +61,11 @@ module.exports.profile=async (req, res, next) => {
 
 module.exports.edit=async (req, res, next) => {
     let { id }=req.params;
+    console.log(req.body);
     let changes=req.body;
     let user=await User.findByIdAndUpdate(id, changes, { new: true, runValidators: true });
-    console.log(user);
-    res.redirect(`/users/${id}`);
+    // console.log(user);
+    res.send({ success: "User Edited Successfully!", user: user });
 }
 
 module.exports.delete=async (req, res, next) => {
@@ -86,17 +87,69 @@ module.exports.delete=async (req, res, next) => {
 }
 
 module.exports.getUsr=async (req, res, next) => {
-    const userId=req.query.userId
-    // userId = JSON.stringify(userId)
-    console.log(userId)
-    const username=req.query.username
-
-    console.log(userId)
     try {
-        const user=userId? await User.findById(userId):await User.findOne({ username: username });
-        const { password, updatedAt, ...other }=user._doc;
-        res.status(200).json(other)
+        // console.log(req.user._id)
+        const user= await User.find().limit(6);
+        let suggestions=[];
+        for (let usr of user) {
+            if(req.user.email!==usr.email && usr.friends.includes(req.user._id)==false){
+                suggestions=suggestions.concat(usr);
+            }
+        }
+        suggestions.sort((a, b) => b.friends.length - a.friends.length);
+        // const user=userId? await User.findById(userId):await User.findOne({ username: username });
+        // const { password, updatedAt, ...other }=user._doc;
+        res.status(200).json({
+            user: suggestions
+        })
     } catch (error) {
         res.status(500).json(error)
     }
 }
+
+module.exports.addFriend = async (req,res,next) => {
+    let {id}=req.params;
+    let user1=await User.findById(req.user._id);
+    let user2=await User.findById(id);
+    user1.friends.push(id);
+    user2.friends.push(user1._id);
+    await user1.save();
+    await user2.save();
+    res.send({ success: "Friend added successfully!", user1: user1, user2: user2});
+}
+
+module.exports.removeFriend = async (req,res,next) => {
+    let {id}=req.params;
+    let user1=await User.findById(req.user._id);
+    let user2=await User.findById(id);
+    let index1=user1.friends.indexOf(id);
+    let index2=user2.friends.indexOf(user1._id);
+    user1.friends.splice(index1, 1);
+    user2.friends.splice(index2,1);
+    await user1.save();
+    await user2.save();
+    res.send({ success: "Friend removed successfully!", user1: user1, user2: user2});
+}
+
+// module.exports.getSuggestions = async (req,res,next) => {
+//     console.log(req.user);
+//     res.json({
+//         success: true,
+//     })
+// }
+
+// module.exports.getSuggestions = async (req,res,next) => {
+//     await User.find().then((res)=>{
+//         res.send(({success: 'Suggestions fetched successfully',user: res})); 
+//     })
+//     .catch((err)=>{
+//         res.send({err})
+//     })
+    // let size=users.length();
+    // for(let i=0;i<size;i++){
+    //     if(req.user._id==user._id && req.user.friends.include(user[i]._id)==true){
+    //         user.splice(i,1);
+    //     }
+    // }
+    // res.send(({success: 'Suggestions fetched successfully',user: user})); 
+// }
