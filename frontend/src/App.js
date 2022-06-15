@@ -5,7 +5,7 @@ import Home from './Components/Home/Home';
 import CP from './Components/Cp/Cp'
 import Login from './Components/Login/Login';
 import Register from './Components/Login/Registration';
-import Footer from './Components/footer/footer' 
+import Footer from './Components/footer/footer'
 import Select from './Components/Select/Select'
 import Profile from './Components/User/Profile'
 import Project from './Components/project/Project'

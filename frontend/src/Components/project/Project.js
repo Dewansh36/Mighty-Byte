@@ -8,7 +8,7 @@ import useGetUser from '../../Hooks/useGetUser';
 import { useState } from "react";
 import axios from "axios";
 import Navbar from '../navbar/navbar'
-import { Carousel,Dropdown,Button,ButtonGroup } from "react-bootstrap";
+import { Carousel, Dropdown, Button, ButtonGroup } from "react-bootstrap";
 
 const Project=() => {
   const [loading, setLoading]=useState(true);
@@ -52,7 +52,22 @@ const Project=() => {
         <Navbar user={curUser} />
         <div className="container-fluid project-container-fluid">
           <div className="row">
-            <div className="col-2 d-none d-sm-block"></div>
+            <div className="col-3 d-none d-sm-block mt-5 ms-3">
+              <button class="continue-application">
+                <div>
+                  <div class="pencil"></div>
+                  <div class="folder">
+                    <div class="top">
+                      <svg viewBox="0 0 24 27">
+                        <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                      </svg>
+                    </div>
+                    <div class="paper"></div>
+                  </div>
+                </div>
+                Create Post
+              </button>
+            </div>
             <div className="col-md-8 col-sm-12 bgcolour rounded-3">
               <div className="container-fluid project-container-fluid">
                 <div className="row" style={{ height: "100vh" }}>
@@ -70,7 +85,7 @@ const Project=() => {
                               </button> */}
                               <h6 className="d-inline">{post.author.displayname}</h6>
                             </a>
-                            <div className="d-inline float-end m-3">
+                            <div className="d-inline float-end m-1">
                               <Dropdown as={ButtonGroup}>
                                 {/* <Button variant="success"></Button> */}
 
@@ -85,19 +100,19 @@ const Project=() => {
                             </div>
                             <Carousel>
                               {
-                                post.images.map((image)=>{
+                                post.images.map((image) => {
                                   return (
                                     <Carousel.Item className="carousel-item">
-                                    <img
-                                      className="d-block w-100 pImg"
-                                      src={image.url}
-                                      alt="First slide"
-                                    />
-                                    {/* <Carousel.Caption>
+                                      <img
+                                        className="d-block w-100 pImg"
+                                        src={image.url}
+                                        alt="First slide"
+                                      />
+                                      {/* <Carousel.Caption>
                                       <h3>First slide label</h3>
                                       <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                                     </Carousel.Caption> */}
-                                  </Carousel.Item>
+                                    </Carousel.Item>
                                   )
                                 })
                               }

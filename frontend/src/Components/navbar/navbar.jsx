@@ -45,6 +45,9 @@ const Navbar=(props) => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/cp">Competitive Programming</a>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/news">Dev Flash</a>
+                            </li>
                         </ul>
                         <form action="/search" className="ms-auto nav-search-bar">
                             <select className="form-control type-select" name='type' required>
@@ -57,6 +60,11 @@ const Navbar=(props) => {
                             </button>
                         </form>
                         <ul className="aboutus navbar-nav ms-md-3">
+                            <a className='nav-link' href={"/users/"+user._id}>
+                                <li className='nav-item'>
+                                    <img src={user.avatar} className='avatarimage' />
+                                </li>
+                            </a>
                             <a className="nav-link">
                                 <li className="nav-item">
                                     <button className='btn' onClick={logoutHandler}>

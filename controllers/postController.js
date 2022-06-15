@@ -117,10 +117,9 @@ module.exports.edit=async (req, res, next) => {
 
 module.exports.delete=async (req, res, next) => {
     let { id }=req.params;
-    const post=await Post.findById(id).populate('author');
+    const post=await Post.findById(id).populate('author').populate('comments');
     if (post.author.id!=req.user.id) {
-        req.flash('error', 'You Cant Delete Others Posts');
-        res.redirect(`/posts/${id}`);
+        res.send({ error: "You Cant Delete Others Posts" });
     }
     const user=await User.findById(post.author.id).populate('posts');
     const index=user.posts.indexOf(post);
@@ -129,8 +128,7 @@ module.exports.delete=async (req, res, next) => {
     }
     await Post.findByIdAndDelete(id);
     await user.save();
-    req.flash('success', 'Successfully Deleted The Post');
-    res.redirect('/selectionPage');
+    res.send({ success: "Successfully Deleted Post!" });
 }
 
 module.exports.like=async (req, res, next) => {

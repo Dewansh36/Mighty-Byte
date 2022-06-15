@@ -23,7 +23,8 @@ module.exports.register=async (req, res, next) => {
             collegename: req.body.collegename,
             cfhandle: req.body.codeforces,
             cchandle: req.body.codechef,
-            description: req.body.description
+            description: req.body.description,
+            avatar: `https://avatars.dicebear.com/api/micah/${req.body.firstname}.svg`
         }
     );
     // console.log(req.body);
@@ -33,7 +34,7 @@ module.exports.register=async (req, res, next) => {
 
     console.log(regUser);
 
-    res.send({ success: 'Successfully Registered!' });
+    res.send({ success: 'Successfully Registered!', user: user });
 }
 
 module.exports.login=async (req, res, next) => {
