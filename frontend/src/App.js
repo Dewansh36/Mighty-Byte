@@ -14,6 +14,7 @@ import News from './Components/news/News'
 import Search from './Components/Search/Search';
 import ViewPost from './Components/postview/views';
 import EditPost from './Components/editPost/editpost';
+import EditProfile from './Components/editProfile/EditProfile';
 // import Project from './Components/project/Project'
 // import Conversation from './Components/Conversations/Conversations';
 import Messenger from './Components/Messenger/Messenger';
@@ -28,6 +29,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/selectPage' element={<Select />} />
           <Route path='/users/:id' element={<Profile />} />
+          <Route path='/users/:id/edit' element={<EditProfile />} />
           <Route path='/posts/:id/edit' element={<EditPost />} />
           <Route path='/posts/:id' element={<ViewPost />} />
           {/* <Route path='/editor' element={<Editor />} /> */}

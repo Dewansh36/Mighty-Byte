@@ -1,19 +1,28 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Navbar from '../navbar/navbar'
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Profile.css";
 import useGetUser from '../../Hooks/useGetUser';
 import { Image } from "react-bootstrap";
 import Loading from '../loading'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 const Profile=() => {
   const { id }=useParams();
   const [curUser]=useGetUser({});
   const [reqUser]=useGetUser({}, id);
   const [likes,setLikes]=useState(0);
   const [loading, setLoading]=useState(true);
+  const [isFriend,setFriend]=useState(false);
   const [toogleState, setToogleState]=useState(1);
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [Date,setDate]=useState("Jan 2012")
+  const navigate=useNavigate();
+  const notify=(message, type) => toast(`${message}`, { type: type });
 
   const myStyle={
     color: "#6c301f",
@@ -22,9 +31,94 @@ const Profile=() => {
   const toogleTab=(index) => {
     setToogleState(index);
   };
+  const addFriend = async()=>{
+    setLoading(true);
+    await axios.get(`http://localhost:4000/user/${id}/addfriend`, {
+        withCredentials: true
+    })
+        .then((response) => {
+            let { success, user }=response.data;
+                console.log(user);
+                window.location.reload(false);
+                setLoading(false);
+                notify(success, 'success');
+        })
+        .catch((err) => {
+            setLoading(false);
+            notify(err.message, 'error');
+        });
+  }
+  const removeFriend = async()=>{
+    setLoading(true);
+    await axios.get(`http://localhost:4000/user/${id}/removefriend`, {
+        withCredentials: true
+    })
+        .then((response) => {
+            let { success, user }=response.data;
+                console.log(user);
+                window.location.reload(false);
+                setLoading(false);
+                notify(success, 'success');
+        })
+        .catch((err) => {
+            setLoading(false);
+            notify(err.message, 'error');
+        });
+  }
+  let friendFunc=()=>{
+    if(curUser.displayname!=undefined && reqUser.displayname!=undefined){
+      let flag=false;
+            for (let friend of curUser.friends) {
+                if (friend._id==reqUser._id) {
+                    flag=true;
+                    break;
+                }
+            }
+      if(flag==true){
+        return (
+          <a onClick={removeFriend}>
+          <button className="btn btn-danger edit-profile">
+            <i className="fa fa-pencil-square fa-lg"></i> Unfriend
+          </button>
+        </a>)
+      }
+      else{
+        return (
+          <a onClick={addFriend}>
+          <button className="btn btn-primary edit-profile">
+            <i className="fa fa-pencil-square fa-lg"></i> Add friend
+          </button>
+        </a>)
+      }
+    }
+  }
+  useEffect(()=>{
+    let friendFunc=()=>{
+      if(curUser.displayname!=undefined && reqUser.displayname!=undefined){
+        console.log(curUser.friends);
+        console.log(reqUser.friends)
+        if(curUser.friends.include(reqUser._id)==true){
+          return (
+            <a onClick={removeFriend}>
+            <button className="btn btn-danger edit-profile">
+              <i className="fa fa-pencil-square fa-lg"></i> Unfriend
+            </button>
+          </a>)
+        }
+        else{
+          return (
+            <a onClick={addFriend}>
+            <button className="btn btn-primary edit-profile">
+              <i className="fa fa-pencil-square fa-lg"></i> Add friend
+            </button>
+          </a>)
+        }
+      }
+    }
+  },[reqUser.friends])
   useEffect(() => {
-    console.log(curUser)
-    console.log(reqUser)
+    // console.log(curUser)
+    // console.log(reqUser)
     if (curUser.displayname!=undefined && reqUser.displayname!=undefined) {
       setLoading(false);
       let like=0;
@@ -32,18 +126,20 @@ const Profile=() => {
         like+=(reqUser.posts[i].likes.length);
       }
       let date=reqUser.createdAt;
-      console.log(date);
+      // console.log(date);
       if(date){
         let month = months[Number(date.slice(5,7))-1];
         let year= date.slice(0,4);
-        console.log(month);
-        console.log(year);
+        // console.log(month);
+        // console.log(year);
         date=month+" "+year;
         setDate(date);
       }
       setLikes(like);
-      console.log(likes);
+      // console.log(likes);
     }
+    console.log(reqUser);
+    console.log(curUser);
   }, [curUser,reqUser])
   if (loading==true) {
     return (
@@ -53,6 +149,7 @@ const Profile=() => {
   return (
     <Fragment>
       <Navbar user={curUser} />
+      <ToastContainer></ToastContainer>
       {/* <img
         src="https://res.cloudinary.com/dewansh/image/upload/v1641545976/BitMart/Products/pOSTER_1_loitig.jpg"
         id="banner"
@@ -70,24 +167,13 @@ const Profile=() => {
                 alt=""
                 className="profile-img img-fluid center-block"
               />
-              <div className="profile-label">
-                <span className="badge bg-danger">Admin</span>
-              </div>
-
-              <div className="profile-stars">
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star-o"></i>
-              </div>
-
               <div className="profile-since">Member since: {Date}</div>
 
               <div className="profile-details">
                 <ul className="fa-ul">
                   <li>
-                    <i className="fa-li fa fa-tasks"></i>Posts: <span>{reqUser.posts.length}</span>
+                    <i className="faelectPage-li fa fa-tasks"></i>Posts: {" "}
+                    <span>{reqUser.posts.length}</span>
                   </li>
                   <li>
                     <i className="fa-li fa fa-thumbs-up"></i>Likes:{" "}
@@ -108,21 +194,27 @@ const Profile=() => {
             </div>
           </div>
 
-          <div className="col-lg-9 col-md-8 col-sm-8">
+          <div className="col-lg-9 col-md-8">
             <div className="main-box">
               <div className="profile-header">
                 <h3 className="profile-h3">
                   <span style={{ color: "black" }}>User info</span>
                 </h3>
                 {
-                  (reqUser._id==id)?
-                    <a href={`/user/${reqUser._id}/edit`}>
-                      <button className="btn btn-primary edit-profile">
-                        <i className="fa fa-pencil-square fa-lg"></i> Edit profile
-                      </button>
-                    </a>
-                    :
-                    <></>
+                  (reqUser._id==curUser._id)?(
+                  <a href={`/users/${reqUser._id}/edit`}>
+                  <button className="btn btn-primary edit-profile">
+                    <i className="fa fa-pencil-square fa-lg"></i> Edit profile
+                  </button>
+                </a>):(friendFunc())
+                }
+                {
+                  (curUser._id!=reqUser._id && isFriend)?(
+                    <a onClick={removeFriend}>
+                    <button className="btn btn-danger edit-profile">
+                      <i className="fa fa-pencil-square fa-lg"></i> Unfriend
+                    </button>
+                  </a>):(<></>)
                 }
               </div>
 
