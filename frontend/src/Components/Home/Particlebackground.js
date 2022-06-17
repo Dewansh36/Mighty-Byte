@@ -1,7 +1,7 @@
 import Particles from 'react-tsparticles'
 const ParticleBackground=() => {
     return (
-        <div className="App">
+        // <div className="App">
             <Particles
                 params={{
                     particles: {
@@ -61,7 +61,7 @@ const ParticleBackground=() => {
                     interactivity: {
                         detect_on: "canvas",
                         events: {
-                            onhover: { enable: false, mode: "repulse" },
+                            onhover: { enable: true, mode: "repulse" },
                             onclick: { enable: true, mode: "push" },
                             resize: true
                         },
@@ -70,9 +70,9 @@ const ParticleBackground=() => {
                             bubble: {
                                 distance: 400,
                                 size: 40,
-                                duration: 2,
+                                duration: 4,
                                 opacity: 8,
-                                speed: 3
+                                speed: 1
                             },
                             repulse: { distance: 200, duration: 0.4 },
                             push: { particles_nb: 4 },
@@ -83,8 +83,9 @@ const ParticleBackground=() => {
                 }}
             />
 
-        </div>
+        // </div>
     );
 };
 
 export default ParticleBackground
+
