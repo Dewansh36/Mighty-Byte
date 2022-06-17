@@ -9,20 +9,41 @@ import { Image } from "react-bootstrap";
 import Loading from '../loading'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Pagination from "react-js-pagination";
+import CalendarHeatmap from 'react-calendar-heatmap'
+import 'react-calendar-heatmap/dist/styles.css';
 
 
 const Profile=() => {
   const { id }=useParams();
   const [curUser]=useGetUser({});
+  const [currentPage,setCurrentPage]=useState(1);
   const [reqUser]=useGetUser({}, id);
   const [likes,setLikes]=useState(0);
   const [loading, setLoading]=useState(true);
   const [isFriend,setFriend]=useState(false);
+  const [resultPerPage,setResultPerPage]=useState(6);
   const [toogleState, setToogleState]=useState(1);
+  let startDate=new Date()
+
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const [Date,setDate]=useState("Jan 2012")
+  const [date,setDate]=useState("Jan 2012")
   const navigate=useNavigate();
   const notify=(message, type) => toast(`${message}`, { type: type });
+  startDate.setFullYear(startDate.getFullYear() - 1)
+  console.log(startDate)
+  const indexOfLastPost=currentPage*resultPerPage;
+  const indexOfFirstPost=indexOfLastPost-resultPerPage;
+  let posts=reqUser.posts;
+  let friends=reqUser.friends
+  if(posts!=undefined){
+    posts=posts.slice(indexOfFirstPost,indexOfLastPost)
+    friends=friends.slice(indexOfFirstPost,indexOfLastPost)
+  }
+
+  const setCurrentPageNo = (e)=>{
+    setCurrentPage(e);
+  }
 
   const myStyle={
     color: "#6c301f",
@@ -167,7 +188,7 @@ const Profile=() => {
                 alt=""
                 className="profile-img img-fluid center-block"
               />
-              <div className="profile-since">Member since: {Date}</div>
+              <div className="profile-since">Member since: {date}</div>
 
               <div className="profile-details">
                 <ul className="fa-ul">
@@ -258,6 +279,22 @@ const Profile=() => {
                     <div className="profile-user-details-value">{reqUser.cchandle}</div>
                   </div>
                 </div>
+                {/* <CalendarHeatmap
+                startDate={new Date('2016-01-01')}
+                endDate={new Date('2016-04-01')}
+                values={[
+                  { date: '20-01-01', count: 1 },
+                  { date: '2016-01-03', count: 4 },
+                  { date: '2016-01-06', count: 2 },
+                  // ...and so on
+                ]}
+                classForValue={(value) => {
+                  if (!value) {
+                    return 'color-empty';
+                  }
+                  return `color-scale-${value.count}`;
+                }} 
+              />*/}
                 {/* <div className="profile-social" id="userInfo2">
                   <ul className="fa-ul">
                     <li>
@@ -307,7 +344,7 @@ const Profile=() => {
                   }
                 >
                   {
-                    reqUser.posts.map((post) => {
+                    posts.map((post) => {
                       return (
                         <div className="card1 my-3">
                           <div className="image-data">
@@ -334,6 +371,25 @@ const Profile=() => {
                       )
                     })
                   }
+                   {
+                  (resultPerPage < reqUser.posts.length)?(<div className="paginationBox">
+                  <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={resultPerPage}
+                    totalItemsCount={reqUser.posts.length}
+                    onChange={setCurrentPageNo}
+                    nextPageText="Next"
+                    prevPageText="Prev"
+                    firstPageText="1st"
+                    lastPageText="last"
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    activeClass="pageItemActive"
+                    activeLinkClass="pageLinkActive"
+                    pageRangeDisplayed={3}
+                  ></Pagination>
+                </div>):(<></>)
+                }
                 </div>
                 <div
                   className={
@@ -367,11 +423,30 @@ const Profile=() => {
                     }
                   </ul>
                   <br />
-                  <div id="btnUser" className="me-3">
+                  {
+                  (resultPerPage < reqUser.friends.length)?(<div className="paginationBox">
+                  <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={resultPerPage}
+                    totalItemsCount={reqUser.posts.length}
+                    onChange={setCurrentPageNo}
+                    nextPageText="Next"
+                    prevPageText="Prev"
+                    firstPageText="1st"
+                    lastPageText="last"
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    activeClass="pageItemActive"
+                    pageRangeDisplayed={3}
+                    activeLinkClass="pageLinkActive"
+                  ></Pagination>
+                </div>):(<></>)
+                }
+                  {/* <div id="btnUser" className="me-3">
                     <a href="/friends" className="btn btn-success mb-3 profile-a">
                       View all users
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
