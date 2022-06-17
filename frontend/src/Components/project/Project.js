@@ -9,14 +9,27 @@ import { useState } from "react";
 import axios from "axios";
 import Navbar from '../navbar/navbar'
 import { Carousel, Dropdown, Button, ButtonGroup } from "react-bootstrap";
+import Pagination from "react-js-pagination";
 
 const Project=() => {
   const [loading, setLoading]=useState(true);
   const [curUser]=useGetUser({});
+  const [currentPage,setCurrentPage]=useState(1);
   const [posts, setPosts]=useState([]);
   const [suggestions, setSuggestions]=useState([])
+  const [resultPerPage,setResultPerPage]=useState(1);
   const notify=(message, type) => toast(`${message}`, { type: type });
 
+  const indexOfLastPost=currentPage*resultPerPage;
+  const indexOfFirstPost=indexOfLastPost-resultPerPage;
+  let friendPosts=posts;
+  if(friendPosts!=undefined){
+    friendPosts=friendPosts.slice(indexOfFirstPost,indexOfLastPost)
+  }
+
+  const setCurrentPageNo = (e)=>{
+    setCurrentPage(e);
+  }
 
   useEffect(async () => {
     if (curUser!=undefined) {
@@ -97,7 +110,7 @@ const Project=() => {
                     style={{ height: "100%" }}
                   >
                     {
-                      posts.map((post) => {
+                      friendPosts.map((post) => {
                         return (
                           <div className="m-3 bg-light viewPost">
                             <a href={`/users/${post.author._id}`}>
@@ -160,6 +173,25 @@ const Project=() => {
                           </div>
                         )
                       })
+                    }
+                    {
+                        (resultPerPage < posts.length)?(<div className="paginationBox">
+                        <Pagination
+                          activePage={currentPage}
+                          itemsCountPerPage={resultPerPage}
+                          totalItemsCount={posts.length}
+                          onChange={setCurrentPageNo}
+                          nextPageText="Next"
+                          prevPageText="Prev"
+                          firstPageText="1st"
+                          lastPageText="last"
+                          itemClass="page-item"
+                          pageRangeDisplayed={3}
+                          linkClass="page-link"
+                          activeClass="pageItemActive"
+                          activeLinkClass="pageLinkActive"
+                        ></Pagination>
+                      </div>):(<></>)
                     }
                     <div className="m-3 rounded-3 bg-light bordered">
                       <button className="btn rounded-circle btn-success d-inline my-3 text-center mx-2 fs-6 fw-normal text-black pColor">
