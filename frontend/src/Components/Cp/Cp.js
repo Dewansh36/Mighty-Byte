@@ -182,7 +182,7 @@ function Cp() {
                                 <h1 className={Styles.heading}>CP Stats</h1>
                                 <div className={Styles.cf}>
                                     <img className={Styles.logo_pic} src={cfImage} alt="codeforces" />
-                                    <p>
+                                    <p className={Styles.para}>
                                         <h2>Codeforces</h2>
                                         <h3 className={Styles.resFix}> {cfname} <span id="cfhandle"></span></h3>
                                         <h3 className={Styles.resFix}>Current rating - {cfdata.rating} <span id="cfrating"></span> </h3>
