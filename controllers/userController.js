@@ -138,18 +138,15 @@ module.exports.removeFriend = async (req,res,next) => {
 //     })
 // }
 
-// module.exports.getSuggestions = async (req,res,next) => {
-//     await User.find().then((res)=>{
-//         res.send(({success: 'Suggestions fetched successfully',user: res})); 
-//     })
-//     .catch((err)=>{
-//         res.send({err})
-//     })
-    // let size=users.length();
-    // for(let i=0;i<size;i++){
-    //     if(req.user._id==user._id && req.user.friends.include(user[i]._id)==true){
-    //         user.splice(i,1);
-    //     }
-    // }
-    // res.send(({success: 'Suggestions fetched successfully',user: user})); 
-// }
+module.exports.getUser = async(req,res,next)=>{
+    const {id} = req.params
+    // userId = JSON.stringify(userId)
+    console.log(id)
+    try {
+        const user = await User.findById(id)
+        const {password, updatedAt, ...other} = user._doc;
+        res.status(200).json(other)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

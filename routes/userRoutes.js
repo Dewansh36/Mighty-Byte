@@ -7,6 +7,9 @@ const checkLogin=require('../middleware/checkLogin');
 const userAuth=require('../middleware/userAuth');
 const catchAsync=require('../middleware/catchAsync');
 
+router.route('/con/:id')
+    .get(userController.getUser)
+
 router.route('/')
     .get(checkLogin, userController.getUsr);
     
