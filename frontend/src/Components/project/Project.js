@@ -17,7 +17,7 @@ const Project=() => {
   const [currentPage,setCurrentPage]=useState(1);
   const [posts, setPosts]=useState([]);
   const [suggestions, setSuggestions]=useState([])
-  const [resultPerPage,setResultPerPage]=useState(1);
+  const [resultPerPage,setResultPerPage]=useState(6);
   const notify=(message, type) => toast(`${message}`, { type: type });
 
   const indexOfLastPost=currentPage*resultPerPage;
