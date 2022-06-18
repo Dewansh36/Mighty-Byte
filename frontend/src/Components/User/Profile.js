@@ -17,31 +17,31 @@ import 'react-calendar-heatmap/dist/styles.css';
 const Profile=() => {
   const { id }=useParams();
   const [curUser]=useGetUser({});
-  const [currentPage,setCurrentPage]=useState(1);
+  const [currentPage, setCurrentPage]=useState(1);
   const [reqUser]=useGetUser({}, id);
-  const [likes,setLikes]=useState(0);
+  const [likes, setLikes]=useState(0);
   const [loading, setLoading]=useState(true);
-  const [isFriend,setFriend]=useState(false);
-  const [resultPerPage,setResultPerPage]=useState(6);
+  const [isFriend, setFriend]=useState(false);
+  const [resultPerPage, setResultPerPage]=useState(6);
   const [toogleState, setToogleState]=useState(1);
   let startDate=new Date()
 
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const [date,setDate]=useState("Jan 2012")
+  const months=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const [date, setDate]=useState("Jan 2012")
   const navigate=useNavigate();
   const notify=(message, type) => toast(`${message}`, { type: type });
-  startDate.setFullYear(startDate.getFullYear() - 1)
+  startDate.setFullYear(startDate.getFullYear()-1)
   console.log(startDate)
   const indexOfLastPost=currentPage*resultPerPage;
   const indexOfFirstPost=indexOfLastPost-resultPerPage;
   let posts=reqUser.posts;
   let friends=reqUser.friends
-  if(posts!=undefined){
-    posts=posts.slice(indexOfFirstPost,indexOfLastPost)
-    friends=friends.slice(indexOfFirstPost,indexOfLastPost)
+  if (posts!=undefined) {
+    posts=posts.slice(indexOfFirstPost, indexOfLastPost)
+    friends=friends.slice(indexOfFirstPost, indexOfLastPost)
   }
 
-  const setCurrentPageNo = (e)=>{
+  const setCurrentPageNo=(e) => {
     setCurrentPage(e);
   }
 
@@ -52,105 +52,105 @@ const Profile=() => {
   const toogleTab=(index) => {
     setToogleState(index);
   };
-  const addFriend = async()=>{
+  const addFriend=async () => {
     setLoading(true);
     await axios.get(`http://localhost:4000/user/${id}/addfriend`, {
-        withCredentials: true
+      withCredentials: true
     })
-        .then((response) => {
-            let { success, user }=response.data;
-                console.log(user);
-                window.location.reload(false);
-                setLoading(false);
-                notify(success, 'success');
-        })
-        .catch((err) => {
-            setLoading(false);
-            notify(err.message, 'error');
-        });
+      .then((response) => {
+        let { success, user }=response.data;
+        console.log(user);
+        window.location.reload(false);
+        setLoading(false);
+        notify(success, 'success');
+      })
+      .catch((err) => {
+        setLoading(false);
+        notify(err.message, 'error');
+      });
   }
-  const removeFriend = async()=>{
+  const removeFriend=async () => {
     setLoading(true);
     await axios.get(`http://localhost:4000/user/${id}/removefriend`, {
-        withCredentials: true
+      withCredentials: true
     })
-        .then((response) => {
-            let { success, user }=response.data;
-                console.log(user);
-                window.location.reload(false);
-                setLoading(false);
-                notify(success, 'success');
-        })
-        .catch((err) => {
-            setLoading(false);
-            notify(err.message, 'error');
-        });
+      .then((response) => {
+        let { success, user }=response.data;
+        console.log(user);
+        window.location.reload(false);
+        setLoading(false);
+        notify(success, 'success');
+      })
+      .catch((err) => {
+        setLoading(false);
+        notify(err.message, 'error');
+      });
   }
-  let friendFunc=()=>{
-    if(curUser.displayname!=undefined && reqUser.displayname!=undefined){
+  let friendFunc=() => {
+    if (curUser.displayname!=undefined&&reqUser.displayname!=undefined) {
       let flag=false;
-            for (let friend of curUser.friends) {
-                if (friend._id==reqUser._id) {
-                    flag=true;
-                    break;
-                }
-            }
-      if(flag==true){
+      for (let friend of curUser.friends) {
+        if (friend._id==reqUser._id) {
+          flag=true;
+          break;
+        }
+      }
+      if (flag==true) {
         return (
           <a onClick={removeFriend}>
-          <button className="btn btn-danger edit-profile">
-            <i className="fa fa-pencil-square fa-lg"></i> Unfriend
-          </button>
-        </a>)
-      }
-      else{
-        return (
-          <a onClick={addFriend}>
-          <button className="btn btn-primary edit-profile">
-            <i className="fa fa-pencil-square fa-lg"></i> Add friend
-          </button>
-        </a>)
-      }
-    }
-  }
-  useEffect(()=>{
-    let friendFunc=()=>{
-      if(curUser.displayname!=undefined && reqUser.displayname!=undefined){
-        console.log(curUser.friends);
-        console.log(reqUser.friends)
-        if(curUser.friends.include(reqUser._id)==true){
-          return (
-            <a onClick={removeFriend}>
             <button className="btn btn-danger edit-profile">
               <i className="fa fa-pencil-square fa-lg"></i> Unfriend
             </button>
           </a>)
-        }
-        else{
-          return (
-            <a onClick={addFriend}>
+      }
+      else {
+        return (
+          <a onClick={addFriend}>
             <button className="btn btn-primary edit-profile">
               <i className="fa fa-pencil-square fa-lg"></i> Add friend
             </button>
           </a>)
+      }
+    }
+  }
+  useEffect(() => {
+    let friendFunc=() => {
+      if (curUser.displayname!=undefined&&reqUser.displayname!=undefined) {
+        console.log(curUser.friends);
+        console.log(reqUser.friends)
+        if (curUser.friends.include(reqUser._id)==true) {
+          return (
+            <a onClick={removeFriend}>
+              <button className="btn btn-danger edit-profile">
+                <i className="fa fa-pencil-square fa-lg"></i> Unfriend
+              </button>
+            </a>)
+        }
+        else {
+          return (
+            <a onClick={addFriend}>
+              <button className="btn btn-primary edit-profile">
+                <i className="fa fa-pencil-square fa-lg"></i> Add friend
+              </button>
+            </a>)
         }
       }
     }
-  },[reqUser.friends])
+  }, [reqUser.friends])
   useEffect(() => {
     // console.log(curUser)
     // console.log(reqUser)
-    if (curUser.displayname!=undefined && reqUser.displayname!=undefined) {
+    if (curUser.displayname!=undefined&&reqUser.displayname!=undefined) {
       setLoading(false);
       let like=0;
-      for(let i=0;i<reqUser.posts.length;i++){
+      for (let i=0; i<reqUser.posts.length; i++) {
         like+=(reqUser.posts[i].likes.length);
       }
       let date=reqUser.createdAt;
       // console.log(date);
-      if(date){
-        let month = months[Number(date.slice(5,7))-1];
-        let year= date.slice(0,4);
+      if (date) {
+        let month=months[Number(date.slice(5, 7))-1];
+        let year=date.slice(0, 4);
         // console.log(month);
         // console.log(year);
         date=month+" "+year;
@@ -161,7 +161,7 @@ const Profile=() => {
     }
     console.log(reqUser);
     console.log(curUser);
-  }, [curUser,reqUser])
+  }, [curUser, reqUser])
   if (loading==true) {
     return (
       <Loading />
@@ -184,7 +184,7 @@ const Profile=() => {
                 <i className="fa fa-check-circle"></i> Online
               </div>
               <img
-                src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                src={reqUser.avatar}
                 alt=""
                 className="profile-img img-fluid center-block"
               />
@@ -207,11 +207,16 @@ const Profile=() => {
                 </ul>
               </div>
 
-              <div className="profile-message-btn center-block text-center">
-                <button className="btn btn-success">
-                  <i className="fa fa-envelope"></i> Send message
-                </button>
-              </div>
+              {
+                (curUser._id!=reqUser._id&&isFriend)? (
+                  <div className="profile-message-btn center-block text-center">
+                    <button className="btn btn-success">
+                      <i className="fa fa-envelope"></i> Send message
+                    </button>
+                  </div>
+                ):(<></>)
+
+              }
             </div>
           </div>
 
@@ -222,20 +227,20 @@ const Profile=() => {
                   <span style={{ color: "black" }}>User info</span>
                 </h3>
                 {
-                  (reqUser._id==curUser._id)?(
-                  <a href={`/users/${reqUser._id}/edit`}>
-                  <button className="btn btn-primary edit-profile">
-                    <i className="fa fa-pencil-square fa-lg"></i> Edit profile
-                  </button>
-                </a>):(friendFunc())
+                  (reqUser._id==curUser._id)? (
+                    <a href={`/users/${reqUser._id}/edit`}>
+                      <button className="btn btn-primary edit-profile">
+                        <i className="fa fa-pencil-square fa-lg"></i> Edit profile
+                      </button>
+                    </a>):(friendFunc())
                 }
                 {
-                  (curUser._id!=reqUser._id && isFriend)?(
+                  (curUser._id!=reqUser._id&&isFriend)? (
                     <a onClick={removeFriend}>
-                    <button className="btn btn-danger edit-profile">
-                      <i className="fa fa-pencil-square fa-lg"></i> Unfriend
-                    </button>
-                  </a>):(<></>)
+                      <button className="btn btn-danger edit-profile">
+                        <i className="fa fa-pencil-square fa-lg"></i> Unfriend
+                      </button>
+                    </a>):(<></>)
                 }
               </div>
 
@@ -348,7 +353,7 @@ const Profile=() => {
                       return (
                         <div className="card1 my-3">
                           <div className="image-data">
-                          <a href={"/posts/"+post._id} style={{textDecorationStyle: "none"}}><Image className="background-image" src={post.images.length?(post.images[0].url):"https://ebsedu.org/wp-content/uploads/2020/06/AI-CAREER.jpg"}/></a>
+                            <a href={"/posts/"+post._id} style={{ textDecorationStyle: "none" }}><Image className="background-image" src={post.images.length? (post.images[0].url):"https://ebsedu.org/wp-content/uploads/2020/06/AI-CAREER.jpg"} /></a>
                             <div className="user-details">
                               <a href="#" className="author">
                                 <i className="fas fa-user"></i>{reqUser.displayname}
@@ -371,25 +376,25 @@ const Profile=() => {
                       )
                     })
                   }
-                   {
-                  (resultPerPage < reqUser.posts.length)?(<div className="paginationBox">
-                  <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={resultPerPage}
-                    totalItemsCount={reqUser.posts.length}
-                    onChange={setCurrentPageNo}
-                    nextPageText="Next"
-                    prevPageText="Prev"
-                    firstPageText="1st"
-                    lastPageText="last"
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    activeClass="pageItemActive"
-                    activeLinkClass="pageLinkActive"
-                    pageRangeDisplayed={3}
-                  ></Pagination>
-                </div>):(<></>)
-                }
+                  {
+                    (resultPerPage<reqUser.posts.length)? (<div className="paginationBox">
+                      <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={resultPerPage}
+                        totalItemsCount={reqUser.posts.length}
+                        onChange={setCurrentPageNo}
+                        nextPageText="Next"
+                        prevPageText="Prev"
+                        firstPageText="1st"
+                        lastPageText="last"
+                        itemClass="page-item"
+                        linkClass="page-link"
+                        activeClass="pageItemActive"
+                        activeLinkClass="pageLinkActive"
+                        pageRangeDisplayed={3}
+                      ></Pagination>
+                    </div>):(<></>)
+                  }
                 </div>
                 <div
                   className={
@@ -403,7 +408,7 @@ const Profile=() => {
                           <li className="col-md-6">
                             <div className="img">
                               <img
-                                src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                src={friend.avatar}
                                 className="img-fluid"
                                 alt=""
                               />
@@ -413,8 +418,8 @@ const Profile=() => {
                                 <a className="profile-a" href={`/users/${friend._id}`}>{friend.displayname} </a>
                               </div>
                               <div className="time">
-                                <i className="fa fa-clock-o"></i> Last online: 5
-                                minutes ago
+                                <i class="fas fa-university mx-2"></i>
+                                {friend.collegename}
                               </div>
                             </div>
                           </li>
@@ -424,24 +429,24 @@ const Profile=() => {
                   </ul>
                   <br />
                   {
-                  (resultPerPage < reqUser.friends.length)?(<div className="paginationBox">
-                  <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={resultPerPage}
-                    totalItemsCount={reqUser.posts.length}
-                    onChange={setCurrentPageNo}
-                    nextPageText="Next"
-                    prevPageText="Prev"
-                    firstPageText="1st"
-                    lastPageText="last"
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    activeClass="pageItemActive"
-                    pageRangeDisplayed={3}
-                    activeLinkClass="pageLinkActive"
-                  ></Pagination>
-                </div>):(<></>)
-                }
+                    (resultPerPage<reqUser.friends.length)? (<div className="paginationBox">
+                      <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={resultPerPage}
+                        totalItemsCount={reqUser.posts.length}
+                        onChange={setCurrentPageNo}
+                        nextPageText="Next"
+                        prevPageText="Prev"
+                        firstPageText="1st"
+                        lastPageText="last"
+                        itemClass="page-item"
+                        linkClass="page-link"
+                        activeClass="pageItemActive"
+                        pageRangeDisplayed={3}
+                        activeLinkClass="pageLinkActive"
+                      ></Pagination>
+                    </div>):(<></>)
+                  }
                   {/* <div id="btnUser" className="me-3">
                     <a href="/friends" className="btn btn-success mb-3 profile-a">
                       View all users

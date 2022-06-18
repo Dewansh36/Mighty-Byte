@@ -14,20 +14,20 @@ import Pagination from "react-js-pagination";
 const Project=() => {
   const [loading, setLoading]=useState(true);
   const [curUser]=useGetUser({});
-  const [currentPage,setCurrentPage]=useState(1);
+  const [currentPage, setCurrentPage]=useState(1);
   const [posts, setPosts]=useState([]);
   const [suggestions, setSuggestions]=useState([])
-  const [resultPerPage,setResultPerPage]=useState(6);
+  const [resultPerPage, setResultPerPage]=useState(6);
   const notify=(message, type) => toast(`${message}`, { type: type });
 
   const indexOfLastPost=currentPage*resultPerPage;
   const indexOfFirstPost=indexOfLastPost-resultPerPage;
   let friendPosts=posts;
-  if(friendPosts!=undefined){
-    friendPosts=friendPosts.slice(indexOfFirstPost,indexOfLastPost)
+  if (friendPosts!=undefined) {
+    friendPosts=friendPosts.slice(indexOfFirstPost, indexOfLastPost)
   }
 
-  const setCurrentPageNo = (e)=>{
+  const setCurrentPageNo=(e) => {
     setCurrentPage(e);
   }
 
@@ -86,8 +86,8 @@ const Project=() => {
         <Navbar user={curUser} />
         <div className="container-fluid project-container-fluid">
           <div className="row">
-            <div className="col-3 d-none d-sm-block mt-5 ms-3">
-              <button class="continue-application">
+            <div className="col-md-3 col-sm-12 mt-5">
+              <button class="col-md-8 col-sm-6 continue-application my-3">
                 <div>
                   <div class="pencil"></div>
                   <div class="folder">
@@ -101,6 +101,11 @@ const Project=() => {
                 </div>
                 Create Post
               </button>
+              <a href="/suggestions">
+                <button className="col-sm-6 btn btn-outline-dark sugg my-3">
+                  View Suggestions
+                </button>
+              </a>
             </div>
             <div className="col-md-8 col-sm-12 bgcolour rounded-3">
               <div className="container-fluid project-container-fluid">
@@ -112,70 +117,59 @@ const Project=() => {
                     {
                       friendPosts.map((post) => {
                         return (
-                          <div className="m-3 bg-light viewPost">
-                            <a href={`/users/${post.author._id}`}>
-                              {/* <button className="btn rounded-circle btn-success d-inline my-3 text-center mx-2 fs-6 fw-normal text-black pColor">
-                                AA
-                              </button> */}
-                              <h6 className="d-inline">{post.author.displayname}</h6>
-                            </a>
-                            <div className="d-inline float-end m-1">
-                              <Dropdown as={ButtonGroup}>
-                                {/* <Button variant="success"></Button> */}
-
-                                <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
-
-                                <Dropdown.Menu>
-                                  <Dropdown.Item href={`users/${post.author._id}`}>View Profile</Dropdown.Item>
-                                  <Dropdown.Item href="#/action-2">Unfriend</Dropdown.Item>
-                                  <Dropdown.Item href="#/action-3">Message</Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
-                            </div>
-                            <Carousel>
-                              {
-                                post.images.map((image) => {
-                                  return (
-                                    <Carousel.Item className="carousel-item">
-                                      <a href={`/posts/${post._id}`}><img
-                                        className="d-block w-100 pImg"
-                                        src={image.url}
-                                        alt="First slide"
-                                      /></a>
-                                      {/* <Carousel.Caption>
-                                      <h3>First slide label</h3>
-                                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                    </Carousel.Caption> */}
-                                    </Carousel.Item>
-                                  )
-                                })
-                              }
-                            </Carousel>
-                            <div className="project-icon">
-                              <i class="far fa-thumbs-up ms-2 p-2"></i>
-                              <i class="far fa-comments p-2"></i>
-                              <h5 className="postTitle">{post.title}</h5>
-                            </div>
-                            <div>
-                              <p className="px-3 my-0 fw-light">{post.likes.length} Likes</p>
-                              <p className="px-3 text-bold my-0">{post.description}</p>
-                              <p className="px-3 fw-light my-0"> {new Date(post.datePosted).toDateString()} </p>
-                            </div>
-                            <div className="row m-0 ">
-                              <form>
-                                <input
-                                  type="text"
-                                  className="col-8 border-0 col-form-label form-control mb-3"
-                                  placeholder="Comment..."
-                                />
-                              </form>
+                          <div class="container-fluid post-container">
+                            <div className="row">
+                              <div className="col-md-10 col-sm-12 my-">
+                                <Carousel>
+                                  {
+                                    post.images.map((image) => {
+                                      return (
+                                        <Carousel.Item className="carousel-item">
+                                          <a href={`/posts/${post._id}`}><img
+                                            className="pImg"
+                                            src={image.url}
+                                            alt="First slide"
+                                          /></a>
+                                        </Carousel.Item>
+                                      )
+                                    })
+                                  }
+                                </Carousel>
+                              </div>
+                              <div className="col-md-2 col-sm-12">
+                                <div class="post-container__text">
+                                  <h1>{post.title}</h1>
+                                  <a href={"/users/"+post.author._id}>
+                                    <div className="d-flex my-2">
+                                      <img src={post.author.avatar} className="post-avatar" />
+                                      {post.author.displayname}
+                                    </div>
+                                  </a>
+                                  <p className="post-description mb-5">
+                                    {post.description}
+                                  </p>
+                                  <div class="post-container__text__timing ">
+                                    <div class="post-container__text__timing_time sugg-lg">
+                                      <h2>Likes</h2>
+                                      <p>{post.likes.length}</p>
+                                    </div>
+                                    <div class="post-container__text__timing_time sugg-lg">
+                                      <h2>Comments</h2>
+                                      <p>{post.comments.length}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="container-fluid">
+                                <a href={"/posts/"+post._id}><button class="post-btn">View Post <i class="fa fa-arrow-right"></i></button></a>
+                              </div>
                             </div>
                           </div>
                         )
                       })
                     }
                     {
-                        (resultPerPage < posts.length)?(<div className="paginationBox">
+                      (resultPerPage<posts.length)? (<div className="paginationBox">
                         <Pagination
                           activePage={currentPage}
                           itemsCountPerPage={resultPerPage}
@@ -193,108 +187,16 @@ const Project=() => {
                         ></Pagination>
                       </div>):(<></>)
                     }
-                    <div className="m-3 rounded-3 bg-light bordered">
-                      <button className="btn rounded-circle btn-success d-inline my-3 text-center mx-2 fs-6 fw-normal text-black pColor">
-                        AA
-                      </button>
-                      <h6 className="d-inline">Aman Agrawal</h6>
-                      <div className="d-inline float-end m-3">
-                        <Dropdown as={ButtonGroup}>
-                          {/* <Button variant="success"></Button> */}
-
-                          <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
-
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">View Profile</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Add friend</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Message</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                      <Carousel>
-                        <Carousel.Item>
-                          <img
-                            className="d-block w-100"
-                            src="https://ebsedu.org/wp-content/uploads/2020/06/AI-CAREER.jpg"
-                            alt="First slide"
-                          />
-                          <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                          <img
-                            className="d-block w-100"
-                            src="https://ebsedu.org/wp-content/uploads/2020/06/AI-CAREER.jpg"
-                            alt="Second slide"
-                          />
-
-                          <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                          <img
-                            className="d-block w-100"
-                            src="https://ebsedu.org/wp-content/uploads/2020/06/AI-CAREER.jpg"
-                            alt="Third slide"
-                          />
-
-                          <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                      </Carousel>
-                      <div className="project-icon">
-                        <i class="far fa-thumbs-up ms-2 p-2"></i>
-                        <i class="far fa-comments p-2"></i>
-                        <h5 className="postTitle">Project Title</h5>
-                      </div>
-                      <div>
-                        <p className="px-3 my-0 fw-light">100000 likes</p>
-                        <p className="px-3 text-bold my-0">Hello my project is about more...</p>
-                        <p className="px-3 fw-light my-0">
-                          view all 200000 comments
-                        </p>
-                        <p className="px-3 fw-light my-0"> 5 days ago </p>
-                      </div>
-                      <div className="row m-0 ">
-                        <form>
-                          <input
-                            type="text"
-                            className="col-8 border-0 col-form-label form-control mb-3"
-                            placeholder="Comment..."
-                          />
-                        </form>
-                      </div>
-                    </div>
                   </div>
-                  <div className="col-xxl-4 my-3 bordered" style={{ height: "fit-content" }}>
+                  <div className="col-xxl-4 my-3 bordered sugg-lg" style={{ height: "fit-content" }}>
                     <p className="fw-bold fw-light mb-4">Suggestions for you... </p>
-                    <div className="container-fluid project-container-fluid">
-                      {/* <div className="row">
-                        <div className="col-3">
-                          <button className="btn rounded-circle btn-success fs-6 text-black pColor">
-                            aa
-                          </button>
-                        </div>
-                        <div className="col-7 fs-6 mb-1">
-                          <div className="row fw-bold">Aman Agarwal</div>
-                          <div className="row mb-2 fs-6 fw-light">amanagarwal</div>
-                        </div>
-                        <div className="col-2 text-primary" style={{ cursor: "pointer" }}>Follow</div>
-                      </div> */}
+                    <div className="post-container-fluid project-post-container-fluid">
                       {
                         suggestions.map((user) => {
                           return (
                             <div className="row">
                               <div className="col-3">
-                                <button className="btn rounded-circle btn-success fs-6 text-black pColor">
-                                  AA
-                                </button>
+                                <img src={user.avatar} className="post-avatar" />
                               </div>
                               <div className="col-7 fs-6 mb-1">
                                 <a href={`/users/${user._id}`}><div className="row fw-bold">{user.displayname}</div></a>
@@ -307,11 +209,6 @@ const Project=() => {
                         })
                       }
                     </div>
-                    <a href="/suggestions">
-                      <div className="fw-light fw-bold text-center mb-2">
-                        See all suggestions...
-                      </div>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -326,3 +223,44 @@ const Project=() => {
 };
 
 export default Project;
+
+/*
+<div className="m-3 bg-light viewPost">
+                            <a href={`/users/${post.author._id}`}>
+                              <img src={post.author.avatar} className="avatarimage" />
+                              <h6 className="d-inline">{post.author.displayname}</h6>
+                            </a>
+                            <div className="d-inline float-end m-1">
+                              <Dropdown as={ButtonGroup}>
+                                {/* <Button variant="success"></Button> 
+
+                                <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+
+                                <Dropdown.Menu>
+                                  <Dropdown.Item href={`users/${post.author._id}`}>View Profile</Dropdown.Item>
+                                  <Dropdown.Item href="#/action-2">Unfriend</Dropdown.Item>
+                                  <Dropdown.Item href="#/action-3">Message</Dropdown.Item>
+                                </Dropdown.Menu>
+                              </Dropdown>
+                            </div>
+  <Carousel>
+    {
+      post.images.map((image) => {
+        return (
+          <Carousel.Item className="carousel-item">
+            <a href={`/posts/${post._id}`}><img
+              className="d-block w-100 pImg"
+              src={image.url}
+              alt="First slide"
+            /></a>
+            {/* <Carousel.Caption>
+                                      <h3>First slide label</h3>
+                                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                    </Carousel.Caption> 
+          </Carousel.Item>
+        )
+      })
+    }
+  </Carousel>
+                          </div>
+*/

@@ -24,6 +24,8 @@
 
 .pImg {
     transition: transform 5s;
+    height: 16rem;
+    width: 100%;
 }
 
 .carousel-item:hover .pImg {
@@ -63,10 +65,10 @@
 }
 
 .continue-application {
-    --color: #a8dadc;
-    --background: #f8f9fa;
-    --background-hover: #f8f9fa;
-    --background-left: #f1faee;
+    --color: #fff;
+    --background: #fc9400;
+    --background-hover: #fc9400;
+    --background-left: #fc9400;
     --folder: #f3e9cb;
     --folder-inner: #beb393;
     --paper: #fff;
@@ -262,20 +264,107 @@
     --pex: -24px;
 }
 
+.post-container {
+    background-color: #fff;
+    position: relative;
+    display: grid;
+    grid-template-columns: 300px 600px;
+    border-radius: 5px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.356);
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
 
-@media screen and (max-width: 990px) {
-    .postTitle {
-        left: 23%;
-    }
+/* .post-container img {
+    width: 300px;
+    height: 300px;
+    border-radius: 5px 0 0 5px;
+} */
+
+.post-container .post-btn {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    background-color: #fc9400;
+    color: #fff;
+    padding: 22px 45px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.294);
+}
+
+.post-container .post-btn i {
+    margin-left: 20px;
+    font-size: 1.5rem;
+}
+
+.post-container__text {
+    padding: 40px 40px 0;
+}
+
+.post-container__text h1 {
+    color: #351897;
+    font-weight: 400;
+}
+
+.post-container__text .post-container__text__star span {
+    font-size: 0.8rem;
+    color: #ffa800;
+    margin: -5px 0 20px;
+}
+
+.post-container__text p {
+    font-size: 0.9rem;
+}
+
+.post-container__text .post-container__text__timing {
+    display: flex;
+    margin: 20px 0 10px;
+}
+
+.post-container__text .post-container__text__timing .post-container__text__timing_time {
+    margin-right: 40px;
+}
+
+.post-container__text .post-container__text__timing h2 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #818189;
+}
+
+.post-container__text .post-container__text__timing p {
+    color: #351897;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.post-avatar {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+
+.post-description {
+    font-size: large
+}
+
+.sugg {
+    display: none;
 }
 
 @media screen and (max-width: 567px) {
-    .project-icon i {
-        font-size: 0.7rem;
+    .sugg {
+        display: block;
     }
 
-    .postTitle {
-        left: 15%;
+    .sugg-lg {
+        display: none;
     }
-
 }

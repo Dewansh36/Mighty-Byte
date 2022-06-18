@@ -156,6 +156,42 @@
 	border-radius: 50%;
 }
 
+.topic-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	height: 50px;
+	width: 100px;
+	font-family: 'Titillium Web', sans-serif;
+	color: #333;
+	border-radius: 10px;
+	/* box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); */
+	background: transparent;
+	margin: 5px;
+	transition: 2s;
+	font-size: xx-large;
+}
+
+.topic-btn .enlarge {
+	display: none;
+	overflow: hidden;
+	transition: 2s ease;
+	text-align: center;
+}
+
+.topic-btn:hover {
+	width: 200px;
+	border-radius: 5px;
+}
+
+.topic-btn:hover .enlarge {
+	padding: 2px;
+	font-size: medium;
+	display: inline;
+}
+
+
 @media screen and (prefers-color-scheme: dark) {
 
 	body,

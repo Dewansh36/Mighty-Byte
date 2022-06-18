@@ -40,13 +40,18 @@ const Navbar=(props) => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" aria-current="page" href="/posts">Project</a>
+                                <a className="topic-btn mx-3" aria-current="page" href="/posts">
+                                    <i class="fa-brands fa-dev"></i>
+                                    <span className='enlarge ms-3'>Project</span>
+                                </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/cp">Competitive Programming</a>
+                                <a className="topic-btn mx-3" href="/cp"><span class="iconify" data-icon="simple-icons:codeforces"></span>
+                                    <span className='enlarge ms-3'>CP</span>
+                                </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/news">Dev Flash</a>
+                                <a className="topic-btn mx-3" href="/news"><i class="fa-solid fa-newspaper"></i><span className='enlarge ms-3'>Dev Flash</span></a>
                             </li>
                         </ul>
                         <form action="/search" className="ms-auto nav-search-bar">
@@ -65,14 +70,12 @@ const Navbar=(props) => {
                                     <img src={user.avatar} className='avatarimage' />
                                 </li>
                             </a>
-                            <a className="nav-link">
-                                <li className="nav-item">
-                                    <button className='btn' onClick={logoutHandler}>
-                                        Logout <i class="fa-solid fa-door-open fa-xl"></i>
-                                    </button>
-                                </li>
-                            </a>
                         </ul>
+                        <a className="nav-link">
+                            <button className='btn' onClick={logoutHandler}>
+                                <i class="fa-solid fa-arrow-right-from-bracket fa-2xl"></i>
+                            </button>
+                        </a>
                         {/* <form className="d-flex" action={profileLink}>
                             <button type="submit" className="btn btn-success text-black rounded-circle mx-1">AA
                             </button>
