@@ -144,8 +144,8 @@ module.exports.getUser = async(req,res,next)=>{
     console.log(id)
     try {
         const user = await User.findById(id)
-        const {password, updatedAt, ...other} = user._doc;
-        res.status(200).json(other)
+        // const {password, updatedAt, ...other} = user._doc;
+        res.status(200).json(user)
     } catch (error) {
         res.status(500).json(error)
     }

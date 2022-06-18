@@ -99,7 +99,7 @@ const Project=() => {
                     <div class="paper"></div>
                   </div>
                 </div>
-                Create Post
+                <span>Create Post</span>
               </button>
               <a href="/suggestions">
                 <button className="col-sm-6 btn btn-outline-dark sugg my-3">
@@ -161,7 +161,7 @@ const Project=() => {
                                 </div>
                               </div>
                               <div className="container-fluid">
-                                <a href={"/posts/"+post._id}><button class="post-btn">View Post <i class="fa fa-arrow-right"></i></button></a>
+                                <a href={"/posts/"+post._id}><button class="view-btn"><span>View Post</span><i class="fa fa-arrow-right"></i></button></a>
                               </div>
                             </div>
                           </div>

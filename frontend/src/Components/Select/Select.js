@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import useGetUser from '../../Hooks/useGetUser';
 import image from '../Select/img2.gif'
+import GodBtn from '../GodBtn';
 
 function Select() {
     const[flip,setFlip]= useState(false);
@@ -67,7 +68,7 @@ function Select() {
                     </div>
                     <div className="back-facing">
                         <p className='s-text'>Get all the data about CP and get recommended problems based on your rating .</p>
-                        <p><a className="btn" href="/cp" >Explore</a></p>
+                        <p><a href="/cp" ><GodBtn text="Explore" pd="3rem"></GodBtn></a></p>
                     </div>
                 </div>
                 <div className={flip1 ? 's-element-card open col-2':'s-element-card col-2'} onClick={cardflip1}>
@@ -79,7 +80,7 @@ function Select() {
                     </div>
                     <div className="back-facing">
                         <p className='s-text'>Upload projects and check out others projects, make friends working in same domain.</p>
-                        <p><a className="btn" href="/posts" >Explore</a></p>
+                        <p><a href="/posts" ><GodBtn text="Explore" pd="3rem"></GodBtn></a></p>
                     </div>
                 </div>
                 
@@ -92,7 +93,7 @@ function Select() {
                     </div>
                     <div className="back-facing">
                         <p className='s-text'>Whether it is the invention of new Gadget or updation of old , you can know everything.</p>
-                        <p><a className="btn" href="/news" >Explore</a></p>
+                        <p><a href="/news" ><GodBtn text="Explore" pd="3rem"></GodBtn></a></p>
                     </div>
                 </div>
                 <div className='s-image col-2'>
