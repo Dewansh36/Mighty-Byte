@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import CalendarHeatmap from 'react-calendar-heatmap'
 import 'react-calendar-heatmap/dist/styles.css';
+import GodBtn from "../GodBtn";
 
 
 const Profile=() => {
@@ -106,19 +107,20 @@ const Profile=() => {
       else {
         return (
           <a onClick={addFriend}>
-            <button className="btn btn-primary edit-profile">
-              <i className="fa fa-pencil-square fa-lg"></i> Add friend
-            </button>
-          </a>)
+              <button className="edit-profile god-btn">
+                <span><i className="fa fa-pencil-square fa-lg"></i>&nbsp;&nbsp;Add friend</span>
+              </button>
+            </a>)
       }
     }
   }
   useEffect(() => {
     let friendFunc=() => {
-      if (curUser.displayname!=undefined&&reqUser.displayname!=undefined) {
+      if (curUser.email!=undefined && reqUser.email!=undefined) {
         console.log(curUser.friends);
         console.log(reqUser.friends)
         if (curUser.friends.include(reqUser._id)==true) {
+          setFriend(true);
           return (
             <a onClick={removeFriend}>
               <button className="btn btn-danger edit-profile">
@@ -127,10 +129,11 @@ const Profile=() => {
             </a>)
         }
         else {
+          setFriend(false);
           return (
             <a onClick={addFriend}>
-              <button className="btn btn-primary edit-profile">
-                <i className="fa fa-pencil-square fa-lg"></i> Add friend
+              <button className="edit-profile god-btn">
+                <span><i className="fa fa-pencil-square fa-lg"></i>&nbsp;&nbsp;Add friend</span>
               </button>
             </a>)
         }
@@ -142,6 +145,14 @@ const Profile=() => {
     // console.log(reqUser)
     if (curUser.displayname!=undefined&&reqUser.displayname!=undefined) {
       setLoading(false);
+      console.log(curUser)
+      console.log(reqUser)
+      for (let i=0; i<reqUser.friends.length; i++) {
+        if((reqUser.friends[i]._id)==curUser._id){
+          setFriend(true);
+          break;
+        }
+      }
       let like=0;
       for (let i=0; i<reqUser.posts.length; i++) {
         like+=(reqUser.posts[i].likes.length);
@@ -208,11 +219,11 @@ const Profile=() => {
               </div>
 
               {
-                (curUser._id!=reqUser._id&&isFriend)? (
+                (isFriend)? (
                   <div className="profile-message-btn center-block text-center">
-                    <button className="btn btn-success">
+                    <a href="/messenger"><button className="btn btn-success">
                       <i className="fa fa-envelope"></i> Send message
-                    </button>
+                    </button></a>
                   </div>
                 ):(<></>)
 
@@ -229,18 +240,10 @@ const Profile=() => {
                 {
                   (reqUser._id==curUser._id)? (
                     <a href={`/users/${reqUser._id}/edit`}>
-                      <button className="btn btn-primary edit-profile">
-                        <i className="fa fa-pencil-square fa-lg"></i> Edit profile
+                      <button className="edit-profile god-btn">
+                      <span><i className="fa fa-pencil-square fa-lg ml-2"></i>&nbsp;&nbsp;Edit Profile</span>
                       </button>
                     </a>):(friendFunc())
-                }
-                {
-                  (curUser._id!=reqUser._id&&isFriend)? (
-                    <a onClick={removeFriend}>
-                      <button className="btn btn-danger edit-profile">
-                        <i className="fa fa-pencil-square fa-lg"></i> Unfriend
-                      </button>
-                    </a>):(<></>)
                 }
               </div>
 

@@ -8,8 +8,8 @@ import '../../Public/css/registration.css'
 import Loading from '../loading'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Gbtn from '../Button';
 import ParticleBackground from "../Select/Particlebackground";
+import GodBtn from '../GodBtn';
 // import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 const Login=() => {
@@ -67,7 +67,9 @@ const Login=() => {
                         <h3 className="fs-subtitle">Login to your account</h3>
                         <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value) }}></input>
                         <input type="password" name="password" value={password} placeholder="Password" onChange={verify} />
-                        <Gbtn text="Submit" />
+                        <GodBtn text="Submit" pd="4rem" className="action-button">
+                            Submit
+                        </GodBtn>
                         <h3 className="fs-subtitle">Don't have an account?
                             <a href="/register">click here</a>
                         </h3>
@@ -76,6 +78,7 @@ const Login=() => {
                 <ToastContainer position='top-center' />
             </div>
         </>
+
     )
 }
 

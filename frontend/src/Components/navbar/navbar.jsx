@@ -5,6 +5,7 @@ import logo from '../../Public/image/Picture1.png'
 import '../../Public/css/navbar.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import GodBtn from '../GodBtn';
 
 
 const Navbar=(props) => {

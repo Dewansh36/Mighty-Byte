@@ -8,7 +8,7 @@ import '../../Public/css/registration.css'
 import Loading from '../loading'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Gbtn from '../Button';
+import Gbtn from '../GodBtn';
 // import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 const Login=({ route }) => {
