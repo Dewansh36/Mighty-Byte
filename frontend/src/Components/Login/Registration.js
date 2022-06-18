@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../loading'
 import { useNavigate } from 'react-router-dom';
+import ParticleBackground from '../Select/Particlebackground';
 
 const initialState={
     username: '',
@@ -133,7 +134,6 @@ const Register=() => {
                     bar[pos+1].classList.add('active');
                     setPos(pos+1);
                 }
-
             }
 
         }
@@ -161,18 +161,19 @@ const Register=() => {
         // console.log(state);
         axios.post('http://localhost:4000/register', state, { withCredentials: true })
             .then((response) => {
-                let { error, success }=response.data;
+                let { error, success, user, token, password }=response.data;
                 if (error!=undefined) {
                     notify(error, "error");
                 }
                 else {
                     notify(success, "success");
-                    navigate('/login');
+                    navigate('/verify', { state: { user: user, token: token, password: password } });
                 }
                 setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
+                notify(err.message, 'error');
                 setLoading(false);
             })
     }
@@ -183,8 +184,9 @@ const Register=() => {
     }
     return (
         <div>
+            <ParticleBackground />
             <ToastContainer position='top-center' />
-            <form action="/register" id="msform" method="post" onSubmit={submitHandler}>
+            <form action="/register" id="msform" method="post" onSubmit={submitHandler} className=" mx-auto mt-5 registrationform">
                 <ul id="progressbar">
                     <li className="prog active">Account Setup</li>
                     <li className="prog">Social Profiles</li>

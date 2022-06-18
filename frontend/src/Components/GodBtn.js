@@ -1,12 +1,13 @@
 import React from 'react';
 import '../Public/css/button.css'
-function Button(props) {
+function GodBtn(props) {
     let { text }=props;
+    let { pd }=props
     return (
-        <button className='dbtn effect01'>
+        <button className='god-btn' style={{ "padding": `1rem ${pd}` }}>
             <span>{text}</span>
         </button>
     )
 }
 
-export default Button;
+export default GodBtn;

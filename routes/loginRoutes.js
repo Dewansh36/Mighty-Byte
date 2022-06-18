@@ -13,6 +13,8 @@ router.route('/register')
 router.route('/login')
     .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/loginFail' }), loginController.login);
 
+router.route('/verify')
+    .post(catchAsync(loginController.verify));
 
 router.route('/getUser')
     .get(loginController.getUser);

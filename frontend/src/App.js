@@ -15,6 +15,7 @@ import Search from './Components/Search/Search';
 import ViewPost from './Components/postview/views';
 import EditPost from './Components/editPost/editpost';
 import EditProfile from './Components/editProfile/EditProfile';
+import Verify from './Components/Login/Verify';
 // import Project from './Components/project/Project'
 // import Conversation from './Components/Conversations/Conversations';
 import Messenger from './Components/Messenger/Messenger';
@@ -37,7 +38,7 @@ function App() {
           <Route path='/posts' element={<Project />} />
           <Route path='/news' element={<News />} />
           <Route path='/search' element={<Search />} />
-          {/* <Route path='/createPost' element={<CreatePost />} /> */}
+          <Route path='/verify' element={<Verify />} />
           <Route path='/messenger' element={<Messenger />} />
         </Routes>
       </div>
