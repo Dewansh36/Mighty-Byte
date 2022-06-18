@@ -10,6 +10,7 @@ import axios from "axios";
 import Navbar from '../navbar/navbar'
 import image from '../postview/calendar-solid.svg'
 import Carousel from 'react-bootstrap/Carousel';
+import Gbutton from '../GodBtn'
 
 function Views() {
     const { id }=useParams();
@@ -260,17 +261,20 @@ function Views() {
                             <div className='row'>
                             <time datetime="2021-03-30" className="card__date col-6">{datetime(post.datePosted)}</time>
                             <a href={`/posts/${post._id}/edit`} className='col-2'>
-                                <button>Edit</button>
+                                <Gbutton text="Edit"></Gbutton>
                             </a>
-                            <a href={`/users/${post.author._id}`} className='col-2'>
-                                <button>Profile</button>
-                            </a>
+                            {/* <a href={`/users/${post.author._id}`} className='col-2'>
+                                <Gbutton text="Profile"></Gbutton>
+                            </a> */}
                             </div>
                             <span className="card__title">{post.title}</span>
                             <br />
                             <span className='card__title'>{post.techStack}</span>
                             <p className='card__title1'>{post.description}</p>
-                            <p className='card__title1'>{post.author.displayname}</p>
+                            <a href={`/users/${post.author._id}`} style={{"text-decoration": "none"}}>
+                                <img src={post.author.avatar} alt="" width={"40px"}/>
+                                <p className='card__title1'>{post.author.displayname}</p>
+                            </a>
                         </div>
                         <div className='row'>
                             <a href="" className='col-4'>
