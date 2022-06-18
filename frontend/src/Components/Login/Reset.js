@@ -9,27 +9,18 @@ import Loading from '../loading'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Gbtn from '../Button';
-import ParticleBackground from "../Select/Particlebackground";
 // import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 const Login=() => {
     const navigate=useNavigate();
-    const [password, setPassword]=useState('');
-    const [username, setUsername]=useState('');
+    const [password, setpassword]=useState('');
+    const [cpass, setcpass]=useState('');
     const [loading, setLoading]=useState(false);
 
     const notify=(message, type) => toast(`${message}`, { type: type });
 
-    const verify=(e) => {
-        setPassword(e.target.value);
-    }
-
     const check=(e) => {
         e.preventDefault();
-        if (password.length<4) {
-            console.log("error");
-            return;
-        }
         // console.log(`${process.env.backend_url}`);
         setLoading(true);
         axios.post(`http://localhost:4000/login`, {
@@ -58,24 +49,19 @@ const Login=() => {
         )
     }
     return (
-        <>
-            <ParticleBackground />
-            <div className='d-flex justify-content-center mt-5'>
-                <form id="msform" action="#" onSubmit={check} method='post'>
-                    <fieldset>
-                        <h2 className="fs-title">Login</h2>
-                        <h3 className="fs-subtitle">Login to your account</h3>
-                        <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value) }}></input>
-                        <input type="password" name="password" value={password} placeholder="Password" onChange={verify} />
-                        <Gbtn text="Submit" />
-                        <h3 className="fs-subtitle">Don't have an account?
-                            <a href="/register">click here</a>
-                        </h3>
-                    </fieldset>
-                </form>
-                <ToastContainer position='top-center' />
-            </div>
-        </>
+
+        <div className='d-flex justify-content-center mt-5'>
+            <form id="msform" action="#" onSubmit={check} method='post'>
+                <fieldset>
+                    <h2 className="fs-title">Reset Password</h2>
+                    <h3 className="fs-subtitle">Create new Password</h3>
+                    <input type="password" name="username" placeholder="Password" value={password} onChange={(e) => { setpassword(e.target.value) }}></input>
+                    <input type="text" name="username" placeholder="Confirm Password" value={cpass} onChange={(e) => { setcpass(e.target.value) }}></input>
+                    <Gbtn text="Submit" />
+                </fieldset>
+            </form>
+            <ToastContainer position='top-center' />
+        </div>
     )
 }
 

@@ -22,7 +22,7 @@
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^4.0.0",
     "nanoid": "^3.1.30",
-    "nodemailer": "^6.7.2",
+    "nodemailer": "^6.7.5",
     "nodemon": "^2.0.15",
     "particles.js": "^2.0.0",
     "passport": "^0.5.0",

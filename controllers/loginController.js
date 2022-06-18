@@ -13,8 +13,42 @@ const transporter=nodemailer.createTransport(
         }
     }
 );
+module.exports.verify=async (req, res, next) => {
+    let user=req.body.user;
+    user=await User.register(user, req.body.password);
+    req.logIn(user, (err) => {
+        if (err) {
+            console.log(err);
+            res.send({ error: err.message });
+        }
+    });
+    const resetEmail={
+        to: user.email,
+        from: process.env.email,
+        subject: 'Account Has Been Successfully Verified',
+        text: `
+                    Account Has Been Successfully Created At BITDEV
+                    Please Login to https://${req.headers.host}/login
+            `,
+    }
+    transporter.sendMail(resetEmail, (err, info) => {
+        if (err) {
+            console.log(err);
+            res.send({ error: 'Error While Sending Mail' });
+        }
+        else {
+            console.log(info.response);
+            res.send({ success: 'Successfully Registered!' });
+        }
+    })
+}
 module.exports.register=async (req, res, next) => {
     console.log(req.body);
+    const alreadyuser=await User.findOne({ email: req.body.email });
+    if (alreadyuser!=undefined) {
+        res.send({ error: 'User with that email already exists!' });
+        return;
+    }
     const user=new User(
         {
             username: req.body.username,
@@ -27,14 +61,27 @@ module.exports.register=async (req, res, next) => {
             avatar: `https://avatars.dicebear.com/api/micah/${req.body.firstname}.svg`
         }
     );
-    // console.log(req.body);
-    // console.log(newUser, req.body);
-
-    const regUser=await User.register(user, req.body.password);
-
-    console.log(regUser);
-
-    res.send({ success: 'Successfully Registered!', user: user });
+    const token=Math.floor(Math.random()*900000+100000);
+    req.session.code=token;
+    const registerEmail={
+        from: process.env.email,
+        to: req.body.email,
+        subject: "Email Verfication",
+        text: `
+            CODE: ${token}
+            If you did not request this, please ignore this email.
+          `,
+    }
+    transporter.sendMail(registerEmail, (err, info) => {
+        if (err) {
+            console.log(err);
+            res.send({ error: 'Error While Sending Mail' });
+        }
+        else {
+            console.log(info);
+            res.send({ success: 'Verification mail is sent!', user: user, token: token, password: req.body.password });
+        }
+    })
 }
 
 module.exports.login=async (req, res, next) => {
@@ -79,8 +126,7 @@ module.exports.forgot=async (req, res, next) => {
     const token=nanoid(10);
     const user=await User.findOne({ email: req.body.email });
     if (user==undefined) {
-        req.flash('error', 'No account with that email address exists');
-        res.redirect('/forgot');
+        res.send({ error: 'No account with that email address exists' });
     }
     user.resetPasswordToken=token;
     user.resetPasswordExpires=Date.now()+43200;
@@ -92,19 +138,18 @@ module.exports.forgot=async (req, res, next) => {
         text: `
         You are receiving this because you (or someone else) have requested the reset of the password for your account.
         Please click on the following link, or paste this into your browser to complete the process:
-        http://${req.headers.host}/reset/${token}
+        CODE: ${token}
         If you did not request this, please ignore this email and your password will remain unchanged.
       `,
     }
     transporter.sendMail(resetEmail, (err, info) => {
         if (err) {
             console.log(err);
-            res.send('Error While Sending Mail');
+            res.send({ error: 'Error While Sending Mail' });
         }
         else {
             console.log(info.response);
-            req.flash('success', `An e-mail has been sent to ${req.body.email} with further instructions`);
-            res.redirect('/forgot');
+            res.send({ success: `An e-mail has been sent to ${req.body.email} with further instructions`, })
         }
     })
 }
@@ -125,8 +170,8 @@ module.exports.reset=async (req, res, next) => {
         req.flash('error', 'Both Fields Should Match!');
         res.redirect('/reset');
     }
-    let { password }=req.body;
-    const user=await User.findOne({ resetPasswordToken: req.params.token });
+    let { toekn, password }=req.body;
+    const user=await User.findOne({ resetPasswordToken: token });
     console.log(user, password);
     await user.setPassword(password);
     await user.save();

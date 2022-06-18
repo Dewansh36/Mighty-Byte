@@ -146,3 +146,7 @@ body {
 .hide {
   display: none;
 }
+
+.registrationform {
+  width: 60%;
+}
