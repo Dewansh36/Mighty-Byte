@@ -15,7 +15,9 @@ body {
   background: whitesmoke;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#7db9e8', GradientType=1);
 }
-
+.s-title-head{
+  margin-top: 15px;
+}
 .s-heading {
   font-size: 45px;
   font-weight: 600;
@@ -49,7 +51,7 @@ body {
   width: 100%;
   max-width: 960px;
   box-sizing: border-box;
-  padding: 50px;
+  /* padding: 50px; */
 }
 
 .s-heading-div {
@@ -57,14 +59,14 @@ body {
   left: 100px;
 }
 
-.s-image {
+/* .s-image {
   float: right;
   margin-top: -2%;
   margin-right: 15%;
-}
+} */
 
 .s-element-card {
-  position: relative;
+  /* position: relative; */
   width: 180px;
   height: 200px;
   transform-style: preserve-3d;
@@ -73,7 +75,7 @@ body {
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
   margin: 30px;
   cursor: pointer;
-  float: left;
+  /* float: left; */
 }
 
 .s-element-card:hover {
@@ -194,10 +196,18 @@ body {
   width: 100%;
   height: auto;
 }
-
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 768px) {
+  .s-image{
+    display: none;
+  }
+}
+@media screen and (max-width: 425px) {
   .s-image {
     display: none;
+  }
+  .s-element-card{
+    width: 140px;
+    height: 160px;
   }
 }
 
