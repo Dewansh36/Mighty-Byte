@@ -223,6 +223,21 @@ function Views() {
             </Carousel>
         );
     }
+    const postDeletor=async () => {
+        if (post.author._id!=curUser._id) {
+            notify('You are not Autherized', 'error');
+            return;
+        }
+        const response=(await axios.delete(`/posts/${post._id}`)).data;
+        let { success, error }=response;
+        if (success) {
+            notify(success, 'info');
+            navigate('/posts');
+        }
+        else {
+            notify(error, 'error');
+        }
+    }
     if (loading==true) {
         return (
             <Loading />
@@ -239,10 +254,13 @@ function Views() {
                         {
                             DarkVariantExample()
                         }
-                        <div >
-
+                        <div>
                             <div className="card-body">
-                                <h5 className="card-title">{post.title}</h5>
+                                <div className="d-flex justify-content-around">
+                                    <h5 className="card-title">{post.title}</h5>
+                                    <a href={"/posts/"+post._id+"/edit"}><button className="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
+                                    <button className="btn btn-danger" onClick={postDeletor}><i class="fa-solid fa-eraser"></i></button>
+                                </div>
                                 <p className="card-text">{post.description}</p>
                             </div>
                             <ul class="list-group list-group-flush">
@@ -252,7 +270,7 @@ function Views() {
                                         <span>Comment: {post.comments.length}</span>
                                     </div>
                                 </li>
-                                <li className="list-group-item">Posted By:<a href={"/users/"+post.author._id}>{post.author.displayname}</a></li>
+                                <li className="list-group-item">Posted By:<a href={"/users/"+post.author.id}>{post.author.displayname}</a></li>
                                 <li className="list-group-item">Tech-Stack: {post.techStack}</li>
                                 <li className="list-group-item">
                                     {
@@ -280,35 +298,49 @@ function Views() {
                                     <button className="btn btn-primary px-3 pe-5 ms-2" type="submit">Comment</button>
                                 </div>
                             </form>
-                            {
-                                post.comments.map((comment) => {
-                                    if (comment.author._id==curUser._id) {
-                                        return (
-                                            <div className="commented-section mt-2">
-                                                <div className="d-flex flex-row align-items-center commented-user">
-                                                    <img className="img-fluid img-responsive rounded-circle mx-3" src={comment.author.avatar} width="50" />
-                                                    <h5 className="mr-2">{comment.author.displayname}</h5><span className="dot mb-1 mx-3"></span><span className="mb-1 ml-2 mx-3">{comment.date}</span>
-                                                </div>
-                                                <div className="comment-text-sm"><span>{comment.text}</span></div>
-                                                <btn onClick={() => {
+                            <div class="container ms-5">
+                                <h2>Comments :</h2>
+                                {
+                                    post.comments.map((comment) => {
+                                        let deleteComment=(<></>);
+                                        if (comment.author._id==curUser._id) {
+                                            deleteComment=(
+                                                <button className="btn btn-danger" onClick={() => {
                                                     commentDeletor(comment);
-                                                }} className="btn btn-warning">Delete Comment</btn>
-                                            </div>
-                                        )
-                                    }
-                                    else {
+                                                }}><i class="fa-solid fa-eraser"></i></button>
+                                            )
+                                        }
                                         return (
-                                            <div className="commented-section mt-2">
-                                                <div className="d-flex flex-row align-items-center commented-user">
-                                                    <img className="img-fluid img-responsive rounded-circle mx-3" src={comment.author.avatar} width="50" />
-                                                    <h5 className="mr-2">{comment.author.displayname}</h5><span className="dot mb-1 mx-3"></span><span className="mb-1 ml-2 mx-3">{comment.date}</span>
+                                            <div class="be-comment">
+                                                <div class="be-img-comment">
+                                                    <a href={"/users/"+comment.author._id}>
+                                                        <img src={comment.author.avatar} alt="" class="be-ava-comment" />
+                                                    </a>
                                                 </div>
-                                                <div className="comment-text-sm"><span>{comment.text}</span></div>
+                                                <div class="be-comment-content">
+                                                    <span class="be-comment-name ">
+                                                        <a href={"/users/"+comment.author._id}>{comment.author.displayname}</a>
+                                                        <span className="mx-5">
+                                                            {
+                                                                deleteComment
+                                                            }
+                                                        </span>
+                                                    </span>
+                                                    <span class="be-comment-time">
+                                                        <i class="fa fa-clock-o"></i>
+                                                        {
+                                                            datetime(comment.date)
+                                                        }
+                                                    </span>
+                                                    <p class="be-comment-text">
+                                                        {comment.text}
+                                                    </p>
+                                                </div>
                                             </div>
                                         )
-                                    }
-                                })
-                            }
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -319,7 +351,32 @@ function Views() {
 
 export default Views
 
-
+/*
+if (comment.author._id==curUser._id) {
+    return (
+        <div className="commented-section mt-2">
+            <div className="d-flex flex-row align-items-center commented-user">
+                <img className="img-fluid img-responsive rounded-circle mx-3" src={comment.author.avatar} width="50" />
+                <h5 className="mr-2">{comment.author.displayname}</h5><span className="dot mb-1 mx-3"></span><span className="mb-1 ml-2 mx-3">{comment.date}</span>
+            </div>
+            <div className="comment-text-sm"><span>{comment.text}</span></div>
+            <btn onClick={() => {
+                commentDeletor(comment);
+            }} className="btn btn-warning">Delete Comment</btn>
+        </div>
+    )
+}
+else {
+    return (
+        <div className="commented-section mt-2">
+            <div className="d-flex flex-row align-items-center commented-user">
+                <img className="img-fluid img-responsive rounded-circle mx-3" src={comment.author.avatar} width="50" />
+                <h5 className="mr-2">{comment.author.displayname}</h5><span className="dot mb-1 mx-3"></span><span className="mb-1 ml-2 mx-3">{comment.date}</span>
+            </div>
+            <div className="comment-text-sm"><span>{comment.text}</span></div>
+        </div>
+    )
+}
 {/* <div className="container mt-5 viewBorder">
                 <div className="row">
                     <div className="col-12">
@@ -329,7 +386,7 @@ export default Views
                                     {/* <div className="card__background--main">
 
                                         <div className="card__background--layer"></div>
-                                    </div> */}
+                                    </div> */
             //                         <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
             //                             <div className="carousel-inner">
             //                                 {

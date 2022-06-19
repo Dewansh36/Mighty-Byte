@@ -10,6 +10,7 @@ import axios from "axios";
 import Navbar from '../navbar/navbar'
 import image from '../postview/calendar-solid.svg'
 import Carousel from 'react-bootstrap/Carousel';
+import Gbutton from '../GodBtn'
 
 function Views() {
     const { id }=useParams();
@@ -248,42 +249,47 @@ function Views() {
         <>
             <Navbar user={curUser} />
             <ToastContainer />
-            <div>
-                <div className="c-card">
-                    <div className="carousel-wrapper p-3">
-                        {
-                            DarkVariantExample()
-                        }
-                        <div>
-                            <div className="card-body">
-                                <div className="d-flex justify-content-around">
-                                    <h5 className="card-title">{post.title}</h5>
-                                    <a href={"/posts/"+post._id+"/edit"}><button className="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
-                                    <button className="btn btn-danger" onClick={postDeletor}><i class="fa-solid fa-eraser"></i></button>
-                                </div>
-                                <p className="card-text">{post.description}</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li className="list-grup-item">
-                                    <div className="d-flex justify-content-around">
-                                        <span>Like: {post.likes.length}</span>
-                                        <span>Comment: {post.comments.length}</span>
-                                    </div>
-                                </li>
-                                <li className="list-group-item">Posted By:<a href={"/users/"+post.author.id}>{post.author.displayname}</a></li>
-                                <li className="list-group-item">Tech-Stack: {post.techStack}</li>
-                                <li className="list-group-item">
-                                    {
-                                        likeElement()
-                                    }
-                                </li>
-                            </ul>
-                            <div class="card-footer d-flex justify-content-around">
-                                <img src={image} alt="" width={"30em"} />Posted On: {datetime(post.datePosted)}
-                            </div>
-                        </div>
-                    </div>
+            <div >
+                <div className=" card  container d-flex flex-row mx-auto">
+                    <div className='col-6'>
+                    {/* <img src="https://images.unsplash.com/photo-1615147342761-9238e15d8b96?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1001&q=80" className="card__image" alt="brown couch" /> */}
+                    {DarkVariantExample()}
 
+                    </div>
+                    <div className="container card-content col-6 mx-3">
+                        <div>
+                            <div className='row'>
+                            <time datetime="2021-03-30" className="card__date col-6">{datetime(post.datePosted)}</time>
+                            <a href={`/posts/${post._id}/edit`} className='col-2'>
+                                <Gbutton text="Edit"></Gbutton>
+                            </a>
+                            {/* <a href={`/users/${post.author._id}`} className='col-2'>
+                                <Gbutton text="Profile"></Gbutton>
+                            </a> */}
+                            </div>
+                            <span className="card__title">{post.title}</span>
+                            <br />
+                            <span className='card__title'>{post.techStack}</span>
+                            <p className='card__title1'>{post.description}</p>
+                            <a href={`/users/${post.author._id}`} style={{"text-decoration": "none"}}>
+                                <img src={post.author.avatar} alt="" width={"40px"}/>
+                                <p className='card__title1'>{post.author.displayname}</p>
+                            </a>
+                        </div>
+                        <div className='row'>
+                            <a href="" className='col-4'>
+                                like: {post.likes.length}
+                            </a>
+                            <a href="" className='col-4'>
+                                comment: {post.comments.length}
+                            </a>
+                        </div>
+                        <br />
+                        {/* <a href="">
+                            <button>Like</button>
+                        </a> */}
+                        {likeElement()}
+                    </div>
                 </div>
             </div>
             {/* comments  */}
