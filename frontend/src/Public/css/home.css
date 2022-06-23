@@ -14,6 +14,11 @@
   animation: Background 25s ease infinite;
 }
 
+.homelogo {
+  width: 12rem;
+  height: 5rem;
+}
+
 @-webkit-keyframes Background {
   0% {
     background-position: 0% 50%
@@ -85,16 +90,18 @@
   text-align: center;
   text-shadow: 1px 2px 1px rgba(0, 0, 0, .6);
 }
-.h-heading{
+
+.h-heading {
   z-index: 2;
   position: relative;
 }
+
 .homeh1:after {
   display: block;
   color: #fff;
   letter-spacing: 1px;
   font-family: 'Poiret One', sans-serif;
-  content: 'Subtitle goes here';
+  content: 'We help Great Developers do Greater Impact';
   font-size: .4em;
   text-align: center;
 }

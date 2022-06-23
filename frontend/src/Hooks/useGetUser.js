@@ -24,6 +24,7 @@ function useGetUser(intialState, id=undefined) {
                     }
                     else {
                         console.log('User Fetched!');
+                        
                         console.log(user);
                         setUser(user);
                     }
