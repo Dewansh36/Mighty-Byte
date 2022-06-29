@@ -1,2 +1,2 @@
-# Bit_Dev
+# Mighty Byte
 A developer connecting platform
