@@ -16,7 +16,6 @@ import ViewPost from './Components/postview/views';
 import EditPost from './Components/editPost/editpost';
 import EditProfile from './Components/editProfile/EditProfile';
 import Verify from './Components/Login/Verify';
-// import Project from './Components/project/Project'
 // import Conversation from './Components/Conversations/Conversations';
 import Messenger from './Components/Messenger/Messenger';
 function App() {
