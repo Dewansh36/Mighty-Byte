@@ -23,7 +23,7 @@ const Login=() => {
         e.preventDefault();
         // console.log(`${process.env.backend_url}`);
         setLoading(true);
-        axios.post(`http://localhost:4000/login`, {
+        axios.post(`${process.env.REACT_APP_Backend_url}/login`, {
             username: username,
             password: password
         }, { withCredentials: true }).then((response) => {

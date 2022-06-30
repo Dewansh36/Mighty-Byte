@@ -19,7 +19,7 @@ function Search(props) {
     const notify=(message, type) => toast(`${message}`, { type: type });
     useEffect(() => {
         if (curUser!=undefined) {
-            axios.post(`http://localhost:4000/search`, { query: query, type: type }, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_Backend_url}/search`, { query: query, type: type }, { withCredentials: true })
                 .then((res) => {
                     let { success, finalResult, error }=res.data;
                     if (error) {

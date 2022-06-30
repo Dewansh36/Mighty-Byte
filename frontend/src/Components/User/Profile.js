@@ -55,7 +55,7 @@ const Profile=() => {
   };
   const addFriend=async () => {
     setLoading(true);
-    await axios.get(`http://localhost:4000/user/${id}/addfriend`, {
+    await axios.get(`${process.env.REACT_APP_Backend_url}/user/${id}/addfriend`, {
       withCredentials: true
     })
       .then((response) => {
@@ -72,7 +72,7 @@ const Profile=() => {
   }
   const removeFriend=async () => {
     setLoading(true);
-    await axios.get(`http://localhost:4000/user/${id}/removefriend`, {
+    await axios.get(`${process.env.REACT_APP_Backend_url}/user/${id}/removefriend`, {
       withCredentials: true
     })
       .then((response) => {

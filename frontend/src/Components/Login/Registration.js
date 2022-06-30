@@ -159,7 +159,7 @@ const Register=() => {
             return;
         }
         // console.log(state);
-        axios.post('http://localhost:4000/register', state, { withCredentials: true })
+        axios.post(`${process.env.REACT_APP_Backend_url}`, state, { withCredentials: true })
             .then((response) => {
                 let { error, success, user, token, password }=response.data;
                 if (error!=undefined) {

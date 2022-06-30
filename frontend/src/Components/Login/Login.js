@@ -34,10 +34,11 @@ const Login=() => {
         }
         // console.log(`${process.env.backend_url}`);
         setLoading(true);
-        axios.post(`http://localhost:4000/login`, {
+        axios.post(`${process.env.REACT_APP_Backend_url}/login`, {
             username: username,
             password: password
         }, { withCredentials: true }).then((response) => {
+            console.log(response);
             let { success, error, user }=response.data;
             if (error!=undefined) {
                 notify(error, "error");

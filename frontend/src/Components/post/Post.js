@@ -84,7 +84,7 @@ function Post() {
     // console.log(state.images[0]);
     console.log("postdata:  ", postData);
     setLoading(true);
-    axios.post('http://localhost:4000/posts/new', postData, {
+    axios.post(`${process.env.REACT_APP_Backend_url}/posts/new`, postData, {
       withCredentials: true
     })
       .then((response) => {

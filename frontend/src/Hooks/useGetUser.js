@@ -12,8 +12,9 @@ function useGetUser(intialState, id=undefined) {
 
     useEffect(() => {
         if (id==undefined) {
-            axios.get('http://localhost:4000/getUser', { withCredentials: true })
+            axios.get(`${process.env.REACT_APP_Backend_url}/getUser`, { withCredentials: true })
                 .then((response) => {
+                    console.log("Getuser: ", response);
                     const { error, user }=response.data;
                     if (!user) {
                         notify(error, "error");
@@ -24,14 +25,14 @@ function useGetUser(intialState, id=undefined) {
                     }
                     else {
                         console.log('User Fetched!');
-                        
+
                         console.log(user);
                         setUser(user);
                     }
                 })
         }
         else {
-            axios.get(`http://localhost:4000/user/${id}`, { withCredentials: true })
+            axios.get(`${process.env.REACT_APP_Backend_url}/user/${id}`, { withCredentials: true })
                 .then((response) => {
                     const { error, user }=response.data;
                     if (!user) {

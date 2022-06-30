@@ -82,7 +82,7 @@ function Views() {
 
     const likefunc=() => {
         setLoading(true);
-        axios.get(`http://localhost:4000/posts/${id}/like`, {
+        axios.get(`${process.env.REACT_APP_Backend_url}/posts/${id}/like`, {
             withCredentials: true
         })
             .then((response) => {
@@ -105,7 +105,7 @@ function Views() {
     }
     const dislikefunc=() => {
         setLoading(true);
-        axios.get(`http://localhost:4000/posts/${id}/dislike`, {
+        axios.get(`${process.env.REACT_APP_Backend_url}/posts/${id}/dislike`, {
             withCredentials: true
         })
             .then((response) => {
@@ -128,7 +128,7 @@ function Views() {
     }
     const commentDeletor=(comment) => {
         setLoading(true);
-        axios.delete(`http://localhost:4000/posts/${id}/comments/${comment._id}`, {
+        axios.delete(`${process.env.REACT_APP_Backend_url}/posts/${id}/comments/${comment._id}`, {
             withCredentials: true
         })
             .then((respsonse) => {
@@ -151,7 +151,7 @@ function Views() {
     const commentCreator=(e) => {
         e.preventDefault();
         setLoading(true);
-        axios.post(`http://localhost:4000/posts/${id}/comments/new`, {
+        axios.post(`${process.env.REACT_APP_Backend_url}/posts/${id}/comments/new`, {
             text: commentText
         }, {
             withCredentials: true
@@ -178,7 +178,7 @@ function Views() {
     useEffect(() => {
         if (curUser!=undefined) {
             // console.log(id);
-            axios.get(`http://localhost:4000/posts/${id}`, {
+            axios.get(`${process.env.REACT_APP_Backend_url}/posts/${id}`, {
                 withCredentials: true
             })
                 .then((response) => {
@@ -252,18 +252,18 @@ function Views() {
             <div >
                 <div className=" card  container d-flex flex-row mx-auto">
                     <div className='col-6'>
-                    {/* <img src="https://images.unsplash.com/photo-1615147342761-9238e15d8b96?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1001&q=80" className="card__image" alt="brown couch" /> */}
-                    {DarkVariantExample()}
+                        {/* <img src="https://images.unsplash.com/photo-1615147342761-9238e15d8b96?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1001&q=80" className="card__image" alt="brown couch" /> */}
+                        {DarkVariantExample()}
 
                     </div>
                     <div className="container card-content col-6 mx-3">
                         <div>
                             <div className='row'>
-                            <time datetime="2021-03-30" className="card__date col-6">{datetime(post.datePosted)}</time>
-                            <a href={`/posts/${post._id}/edit`} className='col-2'>
-                                <Gbutton text="Edit"></Gbutton>
-                            </a>
-                            {/* <a href={`/users/${post.author._id}`} className='col-2'>
+                                <time datetime="2021-03-30" className="card__date col-6">{datetime(post.datePosted)}</time>
+                                <a href={`/posts/${post._id}/edit`} className='col-2'>
+                                    <Gbutton text="Edit"></Gbutton>
+                                </a>
+                                {/* <a href={`/users/${post.author._id}`} className='col-2'>
                                 <Gbutton text="Profile"></Gbutton>
                             </a> */}
                             </div>
@@ -271,8 +271,8 @@ function Views() {
                             <br />
                             <span className='card__title'>{post.techStack}</span>
                             <p className='card__title1'>{post.description}</p>
-                            <a href={`/users/${post.author._id}`} style={{"text-decoration": "none"}}>
-                                <img src={post.author.avatar} alt="" width={"40px"}/>
+                            <a href={`/users/${post.author._id}`} style={{ "text-decoration": "none" }}>
+                                <img src={post.author.avatar} alt="" width={"40px"} />
                                 <p className='card__title1'>{post.author.displayname}</p>
                             </a>
                         </div>
