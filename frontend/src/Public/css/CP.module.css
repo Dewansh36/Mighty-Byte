@@ -10,7 +10,6 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    /* float: left; */
 }
 .resFix a{
   text-decoration: none !important;
@@ -40,7 +39,7 @@ h4{
 
 .cf{
   padding-bottom: 15%;
-  /* display: flex; */
+  
 }
 .cfImg{
   flex: 10%;
@@ -97,7 +96,7 @@ a:hover{
   text-decoration: none;
 }
 
-/* responsive */
+
 
 @media screen and (max-width:1350px){
   

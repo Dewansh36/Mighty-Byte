@@ -11,7 +11,6 @@ body {
   font-family: 'helvetica', sans-serif;
   font-size: 16px;
   transform: translate3d(0, 0, 0);
-  /* background: linear-gradient(135deg, #f8f9f9 0%, #444344 100%); */
   background: whitesmoke;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#7db9e8', GradientType=1);
 }
@@ -51,7 +50,6 @@ body {
   width: 100%;
   max-width: 960px;
   box-sizing: border-box;
-  /* padding: 50px; */
 }
 
 .s-heading-div {
@@ -59,14 +57,8 @@ body {
   left: 100px;
 }
 
-/* .s-image {
-  float: right;
-  margin-top: -2%;
-  margin-right: 15%;
-} */
 
 .s-element-card {
-  /* position: relative; */
   width: 180px;
   height: 200px;
   transform-style: preserve-3d;
@@ -75,7 +67,6 @@ body {
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
   margin: 30px;
   cursor: pointer;
-  /* float: left; */
 }
 
 .s-element-card:hover {

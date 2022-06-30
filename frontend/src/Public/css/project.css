@@ -1,19 +1,14 @@
-.bgcolour { 
-    background-color: azure;
+.bgcolour {
+  background-color: azure;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.hiddenscroll::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .hiddenscroll {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  } 
 
-  /* .postbutton {
-    position: absolute; 
-    color: blue;
-  } */
+.hiddenscroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+.hiddenscroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

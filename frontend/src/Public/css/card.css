@@ -1,16 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
-/* body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: montserrat, arial, verdana;
-  background-color: #f1f1f1;
-} */
-
 .container .card .icon {
   position: absolute;
   top: 0;
@@ -71,8 +60,6 @@
   width: 30px;
   height: 4px;
   bottom: 15px;
-  /* left: 50%;
-  left: 50%; */
   transform: translateX(-50%);
   background: #2c73df;
 }
@@ -101,7 +88,7 @@ h4.card-time {
   color: #000000;
 }
 .button-dec {
-  background-color: #2c73df; /* Blue */
+  background-color: #2c73df; 
   border: none;
   border-radius: 4px;
   color: rgb(0, 0, 0);

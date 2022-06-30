@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
-/* This pen */
 .news_body {
   font-family: "Baloo 2", cursive;
   font-size: 16px;
@@ -28,7 +27,6 @@ a:hover {
   text-align: center;
   font-size: 2.5rem;
 }
-/* Cards */
 .news_postcard {
   flex-wrap: wrap;
   display: flex;
@@ -87,7 +85,7 @@ a:hover {
   flex-direction: column;
 }
 .news_postcard .news_postcard__preview-txt {
-  /* overflow: hidden; */
+
   text-overflow: ellipsis;
   text-align: justify;
   height: 100%;
@@ -192,7 +190,6 @@ a:hover {
     background: #e1e5ea;
   }
 }
-/* COLORS */
 .news_postcard .news_postcard__tagbox .green.play:hover {
   background: #79dd09;
   color: black;

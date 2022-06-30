@@ -20,13 +20,11 @@ li {
 
 ul.loop li ul {
     border-left: 1px solid white;
-    /* position: relative; */
 }
 
 ul.loop li ul ::before {
     content: '';
     border-bottom: 1px solid;
-    /* position: absolute; */
 
     top: 2em;
 }
