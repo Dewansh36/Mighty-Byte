@@ -19,6 +19,7 @@ const multer=require('multer');
 require('dotenv').config();
 
 //React-Node middleware
+app.enable('trust proxy');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
