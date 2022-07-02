@@ -33,15 +33,12 @@ function Cp() {
     let [rpRating, setrating]=useState(undefined);
     const [curUser]=useGetUser({});
     let [cfdata, setcfData]=useState(undefined);
-    // const [ccdata, setccData]=useState({});
     const [Upcomingdata, setUpcomingData]=useState(undefined);
     const [Problemdata, setProblemData]=useState(undefined);
     const [loading, setLoading]=useState(true);
     const [error, setError]=useState('');
     let flag=false;
-    // const ccname="dewansh_36";
     let cfname;
-    // const ccurl="https://competitive-programming-score.herokuapp.com/api/codechef/"+ccname;
     let cfurl=undefined;
     let cn1, cn2, cn3, cl1, cl2, cl3, ct1, ct2, ct3;
     let pn1, pn2, pn3, pl1, pl2, pl3;
@@ -49,55 +46,28 @@ function Cp() {
         if (curUser.cfhandle!=undefined) {
             cfname=curUser.cfhandle;
             cfurl="https://codeforces.com/api/user.info?handles="+cfname;
-            // console.log(cfname, cfurl);
             flag=true;
         }
     }, [curUser]);
-    // useEffect(async () => {
-    //     const response=await axios.get(cfurl);
-    //     setcfData(response.data);
-    //     rpRating=cfdata.rating;
-    //     console.log(response.data);
-    // }, [])
-    // console.log(rpRating);
-
-    // useEffect(async () => {
-    //     const response=await axios.get('https://competitive-programming-score.herokuapp.com/api/codechef/dewansh_36');
-    //     setccData(response.data);
-    //     console.log(response.data);
-    // }, [])
-    // useEffect(async () => {
-    //     const response=await axios.get('https://codeforces.com/api/contest.list?gym=false');
-    //     setUpcomingData(response.data);
-    //     console.log(response.data);
-    // }, [])
 
     useEffect(async () => {
         if (curUser.cfhandle!=undefined&&cfurl!=undefined) {
-            // console.log("CF: ", cfurl);
             const values=(await axios.get(cfurl)).data;
             setcfData(values.result[0]);
             setrating(values.result[0].rating);
-            // setLoading(false);
-            // console.log(cfdata);
-            // rpRating=cfdata.rating;
-            // console.log(rpRating);
         }
     }, [curUser, cfurl]);
     useEffect(async () => {
-        // console.log(rpRating);
         if (cfdata.rating!=undefined) {
             let val0=(await axios.get('https://codeforces.com/api/contest.list?gym=false')).data;
             let val1=(await axios.get('https://codeforces.com/api/problemset.problems')).data;
             setProblemData(val1.result);
             setUpcomingData(val0.result);
             console.log("Rating: ", rpRating);
-            // setLoading(false);
         }
     }, [cfdata, curUser])
     useEffect(() => {
         if (Upcomingdata!=undefined&&Problemdata.problems!=undefined&&rpRating!=undefined) {
-            // console.log(Upcomingdata);
             let upcomingRounds=Upcomingdata.filter((contest) => {
                 if (contest.phase=='BEFORE') {
                     return true;
@@ -108,7 +78,6 @@ function Cp() {
                 upcomingRounds.pop();
             }
             setUpcomingData(upcomingRounds);
-            // console.log(Problemdata.problems);
 
             if (rpRating<=800)
                 rpRating=800;
@@ -157,7 +126,6 @@ function Cp() {
                 }
                 if (y==3)
                     break;
-                // console.log(reqProblems);
                 setProblemData(reqProblems);
                 setLoading(false);
             }
@@ -190,14 +158,6 @@ function Cp() {
                                         <h3 className={Styles.resFix}>Max rating - {cfdata.maxRating} <span id="cfmrating"></span></h3>
                                     </p>
                                 </div>
-                                {/* <img className={Styles.logo_pic} src={ccImage} alt="codechef" />
-                                <p>
-                                    <h2>Codechef</h2>
-                                    <h3 className={Styles.resFix}> {ccname} <span id="cchandle"></span></h3>
-                                    <h3 className={Styles.resFix}>Current rating - {ccdata.rating} <span id="ccrating"></span></h3>
-                                    <h3 className={Styles.resFix}>Current rank - {ccdata.stars} <span id="cccrank"></span></h3>
-                                    <h3 className={Styles.resFix}>Max rating - {ccdata.highest_rating} <span id="ccmrating"></span></h3>
-                                </p> */}
                             </Col>
                             <Col lg={6} md={12} className={Styles.leftBorder}>
                                 <div className={Styles.bottomBorder}>
