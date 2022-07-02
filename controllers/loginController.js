@@ -85,7 +85,9 @@ module.exports.register=async (req, res, next) => {
 }
 
 module.exports.login=async (req, res, next) => {
-    // console.log(req.user);
+    console.log("user: ", req.user);
+    console.log("session: ", req.session);
+    console.log("req: ", req);
     res.send({
         user: req.user,
         success: "Welcome Back!"
@@ -93,7 +95,7 @@ module.exports.login=async (req, res, next) => {
 }
 
 module.exports.getUser=async (req, res, next) => {
-    // console.log(req.user);
+    console.log(req.user);
     if (req.user==undefined) {
         res.send({ error: 'You Must be Logged In!' });
         return;
