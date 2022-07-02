@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: "*", // <-- location of the react app were connecting to
+        origin: "https://62bd8d0e154cc5006ca219bb--regal-boba-bd69eb.netlify.app", // <-- location of the react app were connecting to
         credentials: true,
     })
 );
