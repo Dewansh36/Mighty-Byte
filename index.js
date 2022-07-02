@@ -62,6 +62,7 @@ app.listen(port, () => {
     console.log(`Listning on Port ${port}`);
 });
 
+app.set('trust proxy', 1) // trust first proxy
 //setting up sessions
 const sessionConfig=
 {
@@ -73,8 +74,8 @@ const sessionConfig=
     {
         expires: Date.now()+1000*60*60*24*7,
         maxAge: 1000*60*60*24*7,
-        httpOnly: true,
-        // secure: true,
+        // httpOnly: true,
+        secure: true,
     }
 }
 app.use(session(sessionConfig));
