@@ -19,7 +19,7 @@ const multer=require('multer');
 require('dotenv').config();
 
 //React-Node middleware
-app.use(cookieParser('linki'));
+app.use(cookieParser('BitDev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
