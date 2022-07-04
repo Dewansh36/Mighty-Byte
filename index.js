@@ -19,7 +19,7 @@ const multer=require('multer');
 require('dotenv').config();
 
 //React-Node middleware
-app.enable('trust proxy');
+app.use(cookieParser('linki'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
@@ -62,7 +62,6 @@ app.listen(port, () => {
     console.log(`Listning on Port ${port}`);
 });
 
-app.set('trust proxy', 1) // trust first proxy
 //setting up sessions
 const sessionConfig=
 {
@@ -70,12 +69,12 @@ const sessionConfig=
     secret: 'BitDev',
     resave: false,
     saveUninitialized: true,
-    cookie:
-    {
-        expires: Date.now()+1000*60*60*24*7,
-        maxAge: 1000*60*60*24*7,
-        secure: true,
-    }
+    // cookie:
+    // {
+    //     expires: Date.now()+1000*60*60*24*7,
+    //     maxAge: 1000*60*60*24*7,
+    //     secure: true,
+    // }
 }
 app.use(session(sessionConfig));
 app.use(passport.initialize());
