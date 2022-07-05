@@ -20,7 +20,6 @@ const initialState={
 
 const reducer=(state, action) => {
     let field=action.type;
-    // console.log(state);
     switch (field) {
         case "displayname":
             {
@@ -47,7 +46,6 @@ const reducer=(state, action) => {
             }
         case 'cchandle':
             {
-                // console.log(action.payload);
                 return {
                     ...state,
                     cchandle: action.payload,
@@ -78,7 +76,6 @@ const EditProfile=() => {
             dispatch({ type: 'collegename', payload: curUser[0].collegename });
             dispatch({ type: 'cfhandle', payload: curUser[0].cfhandle });
             dispatch({ type: 'cchandle', payload: curUser[0].cchandle });
-            // console.log("Post:  ", post);
             setLoading(false);
         }
     }, [curUser[0]])
@@ -87,8 +84,6 @@ const EditProfile=() => {
         e.preventDefault();
         setLoading(true);
         console.log(state)
-        // console.log(state.images[0]);
-        // setLoading(true);
         axios.put(`http://localhost:4000/user/${id}`, state, {
             withCredentials: true
         })

@@ -10,7 +10,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ParticleBackground from "../Select/Particlebackground";
 import GodBtn from '../GodBtn';
-// import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 const Login=() => {
     const navigate=useNavigate();
