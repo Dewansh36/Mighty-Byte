@@ -22,6 +22,17 @@ function Friends() {
                 </div>
             </div>
             {/* repeat  */}
+            <div className='d-flex h-heading'>
+        {/* <img className="homelogo" src="https://res.cloudinary.com/dewansh/image/upload/v1655988645/BitDev/d2-removebg-preview_erqroa.png"></img> */}
+        <a href='/login' className='ms-auto m-3'><button type="button" class="btn btn-outline-dark">Login</button></a>
+        <a href='/register' className='m-3'><button type="button" class="btn btn-outline-dark">Register</button></a>
+      </div>
+      <div className="full-screen">
+        <div>
+          <h1 className='homeh1'>Mighty Byte</h1>
+          <br />
+        </div>
+      </div>
             <div class="container mt-3 d-flex justify-content-center">
                 <div class="card p-3">
                     <div class="d-flex align-items-center">
