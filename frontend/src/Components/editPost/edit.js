@@ -43,16 +43,6 @@ export default function editForm() {
         });
     });
 
-    // var heart=document.querySelector(".fa-heart");
-    // heart.addEventListener('click', function () {
-    //     heart.classList.toggle('heart');
-    // });
-
-
-    // var share=document.querySelector(".fa-share-alt");
-    // share.addEventListener('click', function () {
-    //     share.classList.toggle('share');
-    // });
 
 
 
@@ -64,11 +54,6 @@ export default function editForm() {
     }
 
     function progress_forward() {
-        // step_list.forEach(list => {
-
-        //     list.classList.remove('active');
-
-        // }); 
 
 
         num.innerHTML=formnumber+1;
