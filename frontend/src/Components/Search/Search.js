@@ -34,7 +34,7 @@ function Search(props) {
 
     useEffect(() => {
         if (curUser!=undefined) {
-            axios.post(`${process.env.REACT_APP_Backend_url}/search`, { query: query, type: type }, { withCredentials: true })
+            axios.post(`/api/search`, { query: query, type: type }, { withCredentials: true })
                 .then((res) => {
                     let { success, finalResult, error }=res.data;
                     if (error) {

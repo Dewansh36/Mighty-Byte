@@ -82,7 +82,7 @@ function Views() {
 
     const likefunc=() => {
         setLoading(true);
-        axios.get(`${process.env.REACT_APP_Backend_url}/posts/${id}/like`, {
+        axios.get(`/api/posts/${id}/like`, {
             withCredentials: true
         })
             .then((response) => {
@@ -105,7 +105,7 @@ function Views() {
     }
     const dislikefunc=() => {
         setLoading(true);
-        axios.get(`${process.env.REACT_APP_Backend_url}/posts/${id}/dislike`, {
+        axios.get(`/api/posts/${id}/dislike`, {
             withCredentials: true
         })
             .then((response) => {
@@ -128,7 +128,7 @@ function Views() {
     }
     const commentDeletor=(comment) => {
         setLoading(true);
-        axios.delete(`${process.env.REACT_APP_Backend_url}/posts/${id}/comments/${comment._id}`, {
+        axios.delete(`/api/posts/${id}/comments/${comment._id}`, {
             withCredentials: true
         })
             .then((respsonse) => {
@@ -151,7 +151,7 @@ function Views() {
     const commentCreator=(e) => {
         e.preventDefault();
         setLoading(true);
-        axios.post(`${process.env.REACT_APP_Backend_url}/posts/${id}/comments/new`, {
+        axios.post(`/api/posts/${id}/comments/new`, {
             text: commentText
         }, {
             withCredentials: true
@@ -178,7 +178,7 @@ function Views() {
     useEffect(() => {
         if (curUser!=undefined) {
             // console.log(id);
-            axios.get(`${process.env.REACT_APP_Backend_url}/posts/${id}`, {
+            axios.get(`/api/posts/${id}`, {
                 withCredentials: true
             })
                 .then((response) => {

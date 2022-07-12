@@ -22,12 +22,12 @@ require('dotenv').config();
 app.use(cookieParser('BitDev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-    cors({
-        origin: "https://mighty-byte.netlify.app", // <-- location of the react app were connecting to
-        credentials: true,
-    })
-);
+// app.use(
+//     cors({
+//         origin: "http://localhost:3000", // <-- location of the react app were connecting to
+//         credentials: true,
+//     })
+// );
 // app.use(cors());
 //Setting Up mongoose
 const connectDatabase=() => {
@@ -104,6 +104,10 @@ app.use(session(sessionConfig));
 // });
 
 // For checking Login
+app.use(express.static('frontend/build'));
+ app.get('*', (req, res) => {
+ res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
+ });
 
 const checkLogin=require('./middleware/checkLogin');
 
@@ -123,16 +127,16 @@ app.get('/', (req, res) => {
 })
 
 //login Routes
-app.use('/', loginRoutes);
+app.use('/api/', loginRoutes);
 
 //User Routes
-app.use('/user', userRoutes);
+app.use('/api/user', userRoutes);
 
 //Posts Routes
-app.use('/posts', postRoutes);
+app.use('/api/posts', postRoutes);
 
 // Comments Routes
-app.use('/posts/:pid/comments', commentRoutes);
+app.use('/api/posts/:pid/comments', commentRoutes);
 
 //conversations Routes
 app.use("/api/conversations", conversations);
@@ -140,12 +144,12 @@ app.use("/api/conversations", conversations);
 //Messages routes
 app.use("/api/messages", messages);
 
-app.get('/cp', userAuth, async (req, res, next) => {
+app.get('/api/cp', userAuth, async (req, res, next) => {
     const curuser=await User.findById(req.user.id);
     res.render('CP', { curuser });
 });
 
-app.post('/search', catchAsync(async (req, res, next) => {
+app.post('/api/search', catchAsync(async (req, res, next) => {
     const { query, type }=req.body;
     const { finalResult }=await partialSearch(query, type);
     console.log("result:  ", finalResult);

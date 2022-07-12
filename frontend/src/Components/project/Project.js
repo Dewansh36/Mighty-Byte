@@ -34,7 +34,7 @@ const Project=() => {
 
   useEffect(async () => {
     if (curUser!=undefined) {
-      await axios.get(`${process.env.REACT_APP_Backend_url}/user`, {
+      await axios.get(`/api/user`, {
         withCredentials: true
       })
         .then((response) => {
@@ -52,7 +52,7 @@ const Project=() => {
   }, [curUser.friends])
   useEffect(() => {
     if (curUser!=undefined) {
-      axios.get(`${process.env.REACT_APP_Backend_url}/posts`, {
+      axios.get(`/api/posts`, {
         withCredentials: true
       })
         .then((response) => {

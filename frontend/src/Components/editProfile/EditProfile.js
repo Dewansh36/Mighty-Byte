@@ -84,7 +84,7 @@ const EditProfile=() => {
         e.preventDefault();
         setLoading(true);
         console.log(state)
-        axios.put(`http://localhost:4000/user/${id}`, state, {
+        axios.put(`/api/user/${id}`, state, {
             withCredentials: true
         })
             .then((response) => {

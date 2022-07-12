@@ -80,7 +80,7 @@ const Register=() => {
                 navigate(`/posts/${id}`);
                 return;
             }
-            axios.get(`http://localhost:4000/posts/${id}`, {
+            axios.get(`/api/posts/${id}`, {
                 withCredentials: true
             })
                 .then((response) => {
@@ -146,7 +146,7 @@ const Register=() => {
         // console.log(state.images[0]);
         console.log("postdata:  ", postData);
         // setLoading(true);
-        axios.put(`http://localhost:4000/posts/${id}`, postData, {
+        axios.put(`/api/posts/${id}`, postData, {
             withCredentials: true
         })
             .then((response) => {
