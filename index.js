@@ -103,7 +103,6 @@ app.use(session(sessionConfig));
 //     next();
 // });
 
-
 app.use(express.static('frontend/build'));
  app.get('*', (req, res) => {
  res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
