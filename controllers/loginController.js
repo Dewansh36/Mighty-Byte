@@ -92,7 +92,7 @@ module.exports.login=async (req, res, next) => {
         res.send({ error: "Invalid email" });
         return;
     }
-    const isPasswordMatched=user.comparePassword(password)
+    const isPasswordMatched=await user.comparePassword(password)
     if (!isPasswordMatched) {
         res.send({ error: "Invalid password" });
         return;
