@@ -5,7 +5,7 @@ const express=require('express');
 const { nanoid }=require('nanoid');
 const jwt=require('jsonwebtoken')
 const nodemailer=require('nodemailer');
-const sendToken = require('../utils/jwtToken');
+const sendToken=require('../utils/jwtToken');
 const transporter=nodemailer.createTransport(
     {
         service: 'hotmail',
@@ -17,13 +17,8 @@ const transporter=nodemailer.createTransport(
 );
 module.exports.verify=async (req, res, next) => {
     let user=req.body.user;
-    user=await User.register(user, req.body.password);
-    req.logIn(user, (err) => {
-        if (err) {
-            console.log(err);
-            res.send({ error: err.message });
-        }
-    });
+    user=await User.create(user);
+    res.send({ success: 'Account created successfully!', user: user });
     const resetEmail={
         to: user.email,
         from: process.env.email,
@@ -51,82 +46,68 @@ module.exports.register=async (req, res, next) => {
         res.send({ error: 'User with that email already exists!' });
         return;
     }
-    const user=await User.create(
-        {
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            displayname: req.body.firstName+" "+req.body.lastName,
-            collegename: req.body.collegename,
-            cfhandle: req.body.codeforces,
-            cchandle: req.body.codechef,
-            description: req.body.description,
-            avatar: `https://avatars.dicebear.com/api/micah/${req.body.firstname}.svg`
-        }
-    );
+    const user={
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        displayname: req.body.firstName+" "+req.body.lastName,
+        collegename: req.body.collegeName,
+        cfhandle: req.body.codeforces,
+        cchandle: req.body.codechef,
+        description: req.body.description,
+        avatar: `https://avatars.dicebear.com/api/micah/${req.body.firstName}.svg`
+    }
     console.log(user);
-    const token = user.getJWTToken();
-    
-    res.send({
-        success: "User registered",
-        token,
-        user
+    const token=Math.floor(Math.random()*900000+100000);
+    req.session.code=token;
+    const registerEmail={
+        from: process.env.email,
+        to: req.body.email,
+        subject: "Email Verfication",
+        text: `
+            CODE: ${token}
+            If you did not request this, please ignore this email.
+          `,
+    }
+    transporter.sendMail(registerEmail, (err, info) => {
+        if (err) {
+            console.log(err);
+            res.send({ error: 'Error While Sending Mail' });
+        }
+        else {
+            console.log(info);
+            res.send({ success: 'Verification mail is sent!', user: user, token: token });
+        }
     })
-    // const token=Math.floor(Math.random()*900000+100000);
-    // req.session.code=token;
-    // const registerEmail={
-    //     from: process.env.email,
-    //     to: req.body.email,
-    //     subject: "Email Verfication",
-    //     text: `
-    //         CODE: ${token}
-    //         If you did not request this, please ignore this email.
-    //       `,
-    // }
-    // transporter.sendMail(registerEmail, (err, info) => {
-    //     if (err) {
-    //         console.log(err);
-    //         res.send({ error: 'Error While Sending Mail' });
-    //     }
-    //     else {
-    //         console.log(info);
-    //         res.send({ success: 'Verification mail is sent!', user: user, token: token, password: req.body.password });
-    //     }
-    // })
 }
 
 module.exports.login=async (req, res, next) => {
-    const {email,password}=req.body;
-    if(!email || !password){
-        res.send({error: "Please enter email or password"});
+    const { email, password }=req.body;
+    if (!email||!password) {
+        res.send({ error: "Please enter email or password" });
         return;
     }
-    const user = await User.findOne({email}).select("+password");
-    if(!user){
-        res.send({error: "Invalid email"});
+    const user=await User.findOne({ email }).select("+password");
+    if (!user) {
+        res.send({ error: "Invalid email" });
         return;
     }
-    const isPasswordMatched = user.comparePassword(password)
-    if(!isPasswordMatched){
-        res.send({error: "Invalid password"});
+    const isPasswordMatched=user.comparePassword(password)
+    if (!isPasswordMatched) {
+        res.send({ error: "Invalid password" });
         return;
     }
     console.log(user);
-    sendToken(user,res);
+    req.session.user=user;
+    sendToken(user, res);
 }
 
 module.exports.getUser=async (req, res, next) => {
-    // console.log("user: ", req.user);
-    console.log("session: ", req.session);
-    // console.log(req.cookies)
-    const token=req.cookies.token;
-    const data=jwt.verify(token,process.env.JWT_SECRET)
-    req.user = await User.findById(data.id);
-    if (req.user==undefined) {
+    if (req.session.user==undefined) {
         res.send({ error: 'You Must be Logged In!' });
         return;
     }
-    let id=req.user.id;
+    let id=req.session.user._id;
     const curuser=await User.findById(id)
         .populate(
             {
@@ -231,10 +212,10 @@ module.exports.reset=async (req, res, next) => {
 
 
 module.exports.logout=(req, res, next) => {
-    res.cookie("token",null,{
-        expires:new Date(Date.now()),
-        httpOnly:true
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
     });
-
+    req.session.user=undefined;
     res.send({ success: 'Aloha! See you Soon!' });
 }

@@ -167,8 +167,8 @@ const Register=() => {
                 }
                 else {
                     notify(success, "success");
-                    // navigate('/verify', { state: { user: user, token: token, password: password } });
-                    navigate('/login')
+                    navigate('/verify', { state: { user: user, token: token } });
+                    // navigate('/login')
                 }
                 setLoading(false);
             })

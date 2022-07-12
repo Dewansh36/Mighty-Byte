@@ -1,17 +1,19 @@
-body{
+.CPbody{
   font-family: "Montserrat";
   font-weight: 400;
   line-height: 2;
-  background-color: #151515;
+  background-color: #fff;
 }
 
 .logo_pic{
+  padding-top: 5px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    float: left;
 }
-
+.resFix a{
+  text-decoration: none !important;
+}
 h2{
   font-size: 2rem;
   font-family: 'Montserrat', sans-serif;
@@ -21,15 +23,14 @@ h2{
 
 h3{
   font-size: 1.5rem;
-  color: #fff;
+  color: rgb(5, 5, 5);
   font-family: 'Montserrat', sans-serif;
   line-height: 1;
 }
 
 h4{
   font-size: 1rem;
-  color: #fff;
-}
+  color: rgb(5, 5, 5);}
 
 #stats{
   text-align: center;
@@ -38,24 +39,39 @@ h4{
 
 .cf{
   padding-bottom: 15%;
+  
+}
+.cfImg{
+  flex: 10%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cfDetails{
+  flex: 90%;
 }
 
 .heading{
-  color: #fff;
-  padding-bottom: 10%;
+  color: rgb(5, 5, 5);
+  padding-bottom: 2%;
   font-weight: 600;
+  border-bottom: 2px solid #000;
 }
-
+.para{
+  padding-top: 15px;
+}
 .heading2{
-  color: #fff;
-  padding-bottom: 5%;
+  color: rgb(5, 5, 5);
+    padding-bottom: 2%;
   font-weight: 600;
+    border-bottom: 2px solid #000;
 }
 
 .heading3{
-  color: #fff;
-  padding: 10% 0 5%;
+  color: rgb(5, 5, 5);
+    padding: 10% 0 2%;
   font-weight: 600;
+    border-bottom: 2px solid #000;
 }
 
 .left-border{
@@ -77,10 +93,10 @@ a{
 }
 
 a:hover{
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-/* responsive */
+
 
 @media screen and (max-width:1350px){
   
@@ -140,13 +156,7 @@ a:hover{
     padding-top: 10%;
   }
 
-  .stats{
-    padding-left: 15%;
-    padding-right: 15%;
-  }
-
 }
-
 @media screen and (max-width:850px){
   
   .logo_pic{
@@ -172,13 +182,20 @@ a:hover{
  }
 
 }
-
+h3 > span{
+  border-bottom: none !important;
+}
+.resFix:hover{
+  text-decoration: none !important;
+}
 @media screen and (max-width:650px){
   
   .logo_pic{
     float: none;
   }
-
+  .cf{
+    display: block;
+  }
 }
 
 @media screen and (max-width:400px){

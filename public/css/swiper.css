@@ -1,22 +1,7 @@
-/**
- * Swiper 3.0.6
- * Most modern mobile touch slider and framework with hardware accelerated transitions
- * 
- * http://www.idangero.us/swiper/
- * 
- * Copyright 2015, Vladimir Kharlampidi
- * The iDangero.us
- * http://www.idangero.us/
- * 
- * Licensed under MIT
- * 
- * Released on: May 20, 2015
- */
 .swiper-container {
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  /* Fix of Webkit flickering */
   z-index: 1;
 }
 .swiper-container-no-flexbox .swiper-slide {
@@ -87,7 +72,6 @@
   height: 100%;
   position: relative;
 }
-/* a11y */
 .swiper-container .swiper-notification {
   position: absolute;
   left: 0;
@@ -96,7 +80,6 @@
   opacity: 0;
   z-index: -1000;
 }
-/* IE10 Windows Phone 8 Fixes */
 .swiper-wp8-horizontal {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
@@ -105,7 +88,6 @@
   -ms-touch-action: pan-x;
   touch-action: pan-x;
 }
-/* Arrows */
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute;
@@ -155,7 +137,6 @@
 .swiper-container-rtl .swiper-button-prev.swiper-button-white {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E");
 }
-/* Pagination Styles */
 .swiper-pagination {
   position: absolute;
   text-align: center;
@@ -217,7 +198,6 @@
 .swiper-container-horizontal > .swiper-pagination .swiper-pagination-bullet {
   margin: 0 5px;
 }
-/* 3D Container */
 .swiper-container-3d {
   -webkit-perspective: 1200px;
   -moz-perspective: 1200px;
@@ -250,58 +230,56 @@
 }
 .swiper-container-3d .swiper-slide-shadow-left {
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));
-  /* Safari 4+, Chrome */
+
   background-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Chrome 10+, Safari 5.1+, iOS 5+ */
+
   background-image: -moz-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 3.6-15 */
+
   background-image: -o-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Opera 11.10-12.00 */
+
   background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 16+, IE10, Opera 12.50+ */
+
 }
 .swiper-container-3d .swiper-slide-shadow-right {
   background-image: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));
-  /* Safari 4+, Chrome */
+
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Chrome 10+, Safari 5.1+, iOS 5+ */
+
   background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 3.6-15 */
+
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Opera 11.10-12.00 */
+
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 16+, IE10, Opera 12.50+ */
+
 }
 .swiper-container-3d .swiper-slide-shadow-top {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));
-  /* Safari 4+, Chrome */
+
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Chrome 10+, Safari 5.1+, iOS 5+ */
+
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 3.6-15 */
+
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Opera 11.10-12.00 */
+
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 16+, IE10, Opera 12.50+ */
+
 }
 .swiper-container-3d .swiper-slide-shadow-bottom {
   background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));
-  /* Safari 4+, Chrome */
+
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Chrome 10+, Safari 5.1+, iOS 5+ */
+
   background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 3.6-15 */
+
   background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Opera 11.10-12.00 */
+
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  /* Firefox 16+, IE10, Opera 12.50+ */
+
 }
-/* Coverflow */
 .swiper-container-coverflow .swiper-wrapper {
-  /* Windows 8 IE 10 fix */
+
   -ms-perspective: 1200px;
 }
-/* Fade */
 .swiper-container-fade.swiper-container-free-mode .swiper-slide {
   -webkit-transition-timing-function: ease-out;
   -moz-transition-timing-function: ease-out;
@@ -315,7 +293,6 @@
 .swiper-container-fade .swiper-slide-active {
   pointer-events: auto;
 }
-/* Cube */
 .swiper-container-cube {
   overflow: visible;
 }
@@ -360,7 +337,6 @@
 .swiper-container-cube.swiper-container-vertical .swiper-cube-shadow {
   z-index: 0;
 }
-/* Scrollbar */
 .swiper-scrollbar {
   border-radius: 10px;
   position: relative;
@@ -395,7 +371,6 @@
 .swiper-scrollbar-cursor-drag {
   cursor: move;
 }
-/* Preloader */
 .swiper-lazy-preloader {
   width: 42px;
   height: 42px;

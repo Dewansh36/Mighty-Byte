@@ -16,7 +16,6 @@ const Navbar=(props) => {
     const logoutHandler=() => {
         axios.get(`${process.env.REACT_APP_Backend_url}/logout`, { withCredentials: true })
             .then((response) => {
-                console.log(response.data);
                 let { error }=response.data;
                 if (error==undefined) {
                     navigate('/');

@@ -109,7 +109,9 @@ function Post() {
       })
 
   }
-
+  const cancelCreate=() => {
+    navigate('/posts');
+  }
   if (loading==true) {
     return (
       <Loading />
@@ -163,7 +165,7 @@ function Post() {
                     <input className='Postapp-form-control' type="file" multiple onChange={(e) => { dispatch({ type: "images", payload: e.target.files }) }} />
                   </div>
                   <div className="Postapp-form-group buttons">
-                    <button className="Postapp-form-button" id="canBtn">CANCEL</button>
+                    <a onClick={cancelCreate}><button className="Postapp-form-button" id="canBtn">CANCEL</button></a>
                     <button className="Postapp-form-button" type='submit'>SEND</button>
                   </div>
                 </form>

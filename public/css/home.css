@@ -1,70 +1,125 @@
-/* .App {
-  /* text-align: center; */
-/* } */
-
-.text-center{
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-z-index: 999;
-}
-.top-right{
- position: relative;
-  z-index: 998;
- 
-}
-/* .losi{
-  display:;
-  justify-content: space-between;
-  z-index: 999;
-
-} */
-.btn{
-position: fixed;
-  float: right;
-  color:red;
-  z-index:9999 ;
-  
-}
-.m-b-30{
-  color: rgb(250, 250, 250);
-  margin-top: 25px;
-  height: 59px;
-}
-.block-title {
+.homebody {
   position: fixed;
-  z-index:9999 ;
-  color: rgb(250, 250, 250);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(253deg, #0cc898, #1797d2, #864fe1);
+  background-size: 300% 300%;
+  -webkit-animation: Background 25s ease infinite;
+  -moz-animation: Background 25s ease infinite;
+  animation: Background 25s ease infinite;
+}
+
+.homelogo {
+  width: 12rem;
+  height: 5rem;
+}
+
+@-webkit-keyframes Background {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@-moz-keyframes Background {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@keyframes Background {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+.full-screen {
+
+  background: url(https://i.imgur.com/wCG2csZ.png);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
   display: flex;
-justify-self: center;
-margin-left: 145px;
+  -webkit-flex-direction: column;
 
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: center;
 }
 
-
-
-.title{
-  position: fixed;
-  z-index:9999 ;
- top: 38%;
- left:45%;
- font-family: 'PT Sans', sans-serif;
- color:rgb(201, 140, 61);
- font-size: 55px;
+.homeh1 {
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  font-size: 4em;
+  letter-spacing: -2px;
+  text-align: center;
+  text-shadow: 1px 2px 1px rgba(0, 0, 0, .6);
 }
 
-@media only screen and (max-width: 1000px) {
-  .title{
-    top:21%;
-    left:37%;
-  }
-  .text-center{
-    height: 70%;
-  }
+.h-heading {
+  z-index: 2;
+  position: relative;
 }
 
-.m-b-20{
-  height: 130px;
-  width: 275px;
+.homeh1:after {
+  display: block;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: 'Poiret One', sans-serif;
+  content: 'We help Great Developers do Greater Impact';
+  font-size: .4em;
+  text-align: center;
+}
+
+.button-line {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+  font-size: 1.4em;
+  opacity: .8;
+  padding: 20px 40px;
+  text-decoration: none;
+  transition: all .5s ease;
+  margin: 0 auto;
+  display: block;
+  width: 100px;
+}
+
+.button-line:hover {
+  opacity: 1;
 }
