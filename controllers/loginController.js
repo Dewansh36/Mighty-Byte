@@ -103,6 +103,7 @@ module.exports.login=async (req, res, next) => {
 }
 
 module.exports.getUser=async (req, res, next) => {
+    console.log(req.session);
     if (req.session.user==undefined) {
         res.send({ error: 'You Must be Logged In!' });
         return;

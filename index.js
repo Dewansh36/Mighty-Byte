@@ -1,6 +1,6 @@
 const express=require('express');
 const mongoose=require('mongoose');
-// const Mongostore=require('connect-mongo');
+const MongoStore=require('connect-mongo');
 const app=express();
 const cors=require('cors');
 const passport=require('passport');
@@ -24,11 +24,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: "http://localhost:3000", // <-- location of the react app were connecting to
+        origin: "https://mighty-byte.netlify.app", // <-- location of the react app were connecting to
         credentials: true,
     })
 );
-
+// app.use(cors());
 //Setting Up mongoose
 const connectDatabase=() => {
     // console.log('Connecting!');
@@ -68,11 +68,15 @@ const sessionConfig=
     name: 'shhh',
     secret: 'BitDev',
     resave: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.db_url,
+    }),
     saveUninitialized: true,
     cookie:
     {
         expires: Date.now()+1000*60*60*24*7,
         maxAge: 1000*60*60*24*7,
+        httpOnly: false
     }
 }
 app.use(session(sessionConfig));
@@ -112,7 +116,8 @@ const catchAsync=require('./middleware/catchAsync');
 
 const conversations=require('./routes/conversations');
 const messages=require('./routes/messages');
-const userAuth = require('./middleware/userAuth');
+const userAuth=require('./middleware/userAuth');
+// const MongoStore=require('connect-mongo');
 app.get('/', (req, res) => {
     res.send('<h1>APi Running!</h1>');
 })
