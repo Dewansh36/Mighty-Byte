@@ -1,8 +1,8 @@
 const mongoose=require('mongoose');
+const validator=require('validator');
 const schema=mongoose.Schema;
-const passportLocalMongoose=require('passport-local-mongoose');
-const Post=require('./schemapost');
-const Comment=require('./schemacomment');
+const bcrypt= require('bcrypt')
+const jwt=require('jsonwebtoken')
 //const autoIncrement=require('mongoose-auto-increment');
 
 // mongoose.set('useCreateIndex', true);
@@ -14,10 +14,22 @@ const userSchema=new schema({
         type: String,
         // required: true
     },
+    username:{
+        type:String,
+        required: true,
+        unique: true
+    },
     email:
     {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        validate:[validator.isEmail,"Please enter a valid email address"]
+    },
+    password: {
+        type: String,
+        required: true,
+        select: false,
     },
     displayname: {
         type: String,
@@ -75,8 +87,22 @@ const userSchema=new schema({
     startAt: 1,
     incrementBy: 1
 });*/
+userSchema.pre("save",async function(next){
+    if(!this.isModified("password")){
+        next();
+    }
+    this.password = await bcrypt.hash(this.password,10);
+})
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.methods.getJWTToken = function  (){
+    return jwt.sign({id: this._id},process.env.JWT_SECRET,{
+        expiresIn: process.env.JWT_EXPIRE
+    });
+}
+
+userSchema.methods.comparePassword = async function(pass){
+    return await bcrypt.compare(pass,this.password)
+}
 
 const User=new mongoose.model('User', userSchema);
 

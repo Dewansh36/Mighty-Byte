@@ -48,7 +48,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ],
-    "proxy": "https://rocky-badlands-91975.herokuapp.com"
+    "proxy": "https://62c287902da6092de516bf8d--regal-boba-bd69eb.netlify.app/"
   },
   "devDependencies": {
     "dotenv-webpack": "^7.1.0"

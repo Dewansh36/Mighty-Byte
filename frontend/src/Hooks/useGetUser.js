@@ -14,7 +14,7 @@ function useGetUser(intialState, id=undefined) {
         if (id==undefined) {
             axios.get(`${process.env.REACT_APP_Backend_url}/getUser`, { withCredentials: true })
                 .then((response) => {
-                    console.log("Getuser: ", response);
+                    // console.log("Getuser: ", response);
                     const { error, user }=response.data;
                     if (!user) {
                         notify(error, "error");

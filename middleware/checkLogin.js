@@ -1,10 +1,11 @@
 const checkLogin=function (req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
+    let { token }=req.cookies;
+    if (!token) {
+        res.send({error: 'You Are Not Autherized!'})
+        res.redirect('/login');
+        return;
     }
-    req.session.returnTo=req.orignalUrl;
-    req.flash('error', 'You Must be Logged In');
-    res.redirect('/login');
+    next();
 }
 
 module.exports=checkLogin;

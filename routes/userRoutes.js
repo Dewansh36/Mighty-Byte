@@ -11,7 +11,7 @@ router.route('/con/:id')
     .get(userController.getUser)
 
 router.route('/')
-    .get(checkLogin, userController.getUsr);
+    .get(userAuth, userController.getUsr);
     
 router.route('/:id')
     .get(checkLogin, userController.profile)

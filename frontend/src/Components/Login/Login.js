@@ -15,7 +15,7 @@ import GodBtn from '../GodBtn';
 const Login=() => {
     const navigate=useNavigate();
     const [password, setPassword]=useState('');
-    const [username, setUsername]=useState('');
+    const [email, setEmail]=useState('');
     const [loading, setLoading]=useState(false);
 
     console.log(process.env.REACT_APP_Backend_url);
@@ -35,7 +35,7 @@ const Login=() => {
         // console.log(`${process.env.backend_url}`);
         setLoading(true);
         axios.post(`${process.env.REACT_APP_Backend_url}/login`, {
-            username: username,
+            email: email,
             password: password
         }, { withCredentials: true }).then((response) => {
             console.log(response);
@@ -68,7 +68,7 @@ const Login=() => {
                     <fieldset>
                         <h2 className="fs-title">Login</h2>
                         <h3 className="fs-subtitle">Login to your account</h3>
-                        <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value) }}></input>
+                        <input type="text" name="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}></input>
                         <input type="password" name="password" value={password} placeholder="Password" onChange={verify} />
                         <GodBtn text="Submit" pd="4rem" className="action-button">
                             Submit

@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: "https://62bd8d0e154cc5006ca219bb--regal-boba-bd69eb.netlify.app", // <-- location of the react app were connecting to
+        origin: "http://localhost:3000", // <-- location of the react app were connecting to
         credentials: true,
     })
 );
@@ -69,23 +69,22 @@ const sessionConfig=
     secret: 'BitDev',
     resave: false,
     saveUninitialized: true,
-    // cookie:
-    // {
-    //     expires: Date.now()+1000*60*60*24*7,
-    //     maxAge: 1000*60*60*24*7,
-    //     secure: true,
-    // }
+    cookie:
+    {
+        expires: Date.now()+1000*60*60*24*7,
+        maxAge: 1000*60*60*24*7,
+    }
 }
 app.use(session(sessionConfig));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new localStrat(User.authenticate()));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new localStrat(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
-//Setting up Flash messages
-app.use(flash());
+// //Setting up Flash messages
+// app.use(flash());
 
 // //Setting Up Method Override for Other Requests
 
@@ -113,6 +112,7 @@ const catchAsync=require('./middleware/catchAsync');
 
 const conversations=require('./routes/conversations');
 const messages=require('./routes/messages');
+const userAuth = require('./middleware/userAuth');
 app.get('/', (req, res) => {
     res.send('<h1>APi Running!</h1>');
 })
@@ -135,7 +135,7 @@ app.use("/api/conversations", conversations);
 //Messages routes
 app.use("/api/messages", messages);
 
-app.get('/cp', checkLogin, async (req, res, next) => {
+app.get('/cp', userAuth, async (req, res, next) => {
     const curuser=await User.findById(req.user.id);
     res.render('CP', { curuser });
 });
