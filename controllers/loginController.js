@@ -104,11 +104,14 @@ module.exports.login=async (req, res, next) => {
 
 module.exports.getUser=async (req, res, next) => {
     console.log(req.session);
-    if (req.session.user==undefined) {
+    let { token }=req.cookies;
+    const decodedData = jwt.verify(token,process.env.JWT_SECRET)
+    const user = await User.findById(decodedData.id);
+    if (user==undefined) {
         res.send({ error: 'You Must be Logged In!' });
         return;
     }
-    let id=req.session.user._id;
+    let id=decodedData.id;
     const curuser=await User.findById(id)
         .populate(
             {
