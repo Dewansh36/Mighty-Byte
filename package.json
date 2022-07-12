@@ -57,7 +57,4 @@
     "url": "https://github.com/Dewansh_36/Bit_Dev/issues"
   },
   "homepage": "https://github.com/Dewansh_36/Bit_Dev#readme",
-  "engines": {
-    "node": "14.17.6"
-  }
 }
