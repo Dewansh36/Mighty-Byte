@@ -37,8 +37,8 @@ const Login=() => {
             username: username,
             password: password
         }, { withCredentials: true }).then((response) => {
-            console.log(response);
             let { success, error, user }=response.data;
+            console.log(user);
             if (error!=undefined) {
                 notify(error, "error");
             }
