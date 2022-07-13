@@ -41,11 +41,14 @@ const Login=() => {
             console.log(user);
             if (error!=undefined) {
                 notify(error, "error");
+                setLoading(false);
+                return;
             }
             else {
                 navigate('/selectPage');
+                setLoading(false);
+                return;
             }
-            setLoading(false);
 
         })
             .catch((err) => {
