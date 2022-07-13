@@ -118,7 +118,7 @@ const conversations=require('./routes/conversations');
 const messages=require('./routes/messages');
 const userAuth=require('./middleware/userAuth');
 // const MongoStore=require('connect-mongo');
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send('<h1>APi Running!</h1>');
 })
 
@@ -158,6 +158,13 @@ app.use((err, req, res, next) => {
     res.send({ error: message });
 });
 
-app.get('*', (req, res) => {
+if (process.env.NODE_ENV==="production") {
+    app.use(express.static('frontend/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
+    });
+}
+
+app.get('/api/*', (req, res) => {
     res.status(404).send('404 Not Found!');
 })
