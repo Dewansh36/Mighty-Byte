@@ -31,11 +31,25 @@ function Select() {
 
     }
     const [loading, setLoading]=useState(true);
-    const [curUser, setUser]=useGetUser({});
+    const [curUser, setUser]=useState({});
     const navigate=useNavigate();
 
     const notify=(message, type) => toast(`${message}`, { type: type });
-
+    useEffect(async () => {
+        const response=(await (axios.get('/api/getUser'))).data;
+        const { error, success, user }=response;
+        if (error) {
+            notify(error, 'error');
+        }
+        else if (!user) {
+            notify('No User found', 'error');
+            navigate('/login');
+        }
+        else {
+            setUser(user);
+            notify('Welcome Back!', 'success');
+        }
+    }, [])
     useEffect(() => {
         console.log(curUser);
         if (curUser!=undefined&&curUser.displayname!=undefined) {

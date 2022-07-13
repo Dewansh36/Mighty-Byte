@@ -88,7 +88,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // //Setting up Flash messages
-// app.use(flash());
+app.use(flash());
 
 // //Setting Up Method Override for Other Requests
 

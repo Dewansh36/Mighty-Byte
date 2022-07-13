@@ -11,7 +11,7 @@ router.route('/register')
     .post(catchAsync(loginController.register));
 
 router.route('/login')
-    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/loginFail' }), loginController.login);
+    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/api/loginFail' }), loginController.login);
 
 router.route('/verify')
     .post(catchAsync(loginController.verify));
