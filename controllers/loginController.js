@@ -86,6 +86,7 @@ module.exports.register=async (req, res, next) => {
 
 module.exports.login=async (req, res, next) => {
     // console.log(req.user);
+    console.log("abc-login")
     res.send({
         user: req.user,
         success: "Welcome Back!"
@@ -94,6 +95,7 @@ module.exports.login=async (req, res, next) => {
 
 module.exports.getUser=async (req, res, next) => {
     console.log(req.user);
+    console.log("abc-getUser")
     if (req.user==undefined) {
         res.send({ error: 'You Must be Logged In!' });
         return;
