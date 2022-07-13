@@ -29,7 +29,7 @@ const Login=({ route }) => {
         }
         // console.log(`${process.env.backend_url}`);
         setLoading(true);
-        axios.post(`/api/verify`, { user: user },
+        axios.post(`/api/verify`, { user: user, password: password },
             { withCredentials: true }).then((response) => {
                 let { success, error, user }=response.data;
                 if (error!=undefined) {

@@ -80,12 +80,12 @@ const sessionConfig=
     }
 }
 app.use(session(sessionConfig));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.use(new localStrat(User.authenticate()));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrat(User.authenticate()));
 
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // //Setting up Flash messages
 // app.use(flash());
@@ -103,10 +103,10 @@ app.use(session(sessionConfig));
 //     next();
 // });
 
-app.use(express.static('frontend/build'));
- app.get('*', (req, res) => {
- res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
- });
+// app.use(express.static('frontend/build'));
+//  app.get('*', (req, res) => {
+//  res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
+//  });
 
 const checkLogin=require('./middleware/checkLogin');
 

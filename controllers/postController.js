@@ -6,7 +6,7 @@ const cloudinary=require('cloudinary').v2;
 
 module.exports.home=async (req, res, next) => {
     let posts=[];
-    let user=await User.findById(req.session.user._id)
+    let user=await User.findById(req.user.id)
         .populate({
             path: 'friends',
             populate: {
@@ -53,7 +53,7 @@ module.exports.getAllPosts=async (req, res, next) => {
     })
 }
 module.exports.create=async (req, res, next) => {
-    const user=await User.findById(req.session.user._id);
+    const user=await User.findById(req.user.id);
     const post=new Post(req.body);
     console.log(req.body);
     console.log(req.files);
@@ -118,7 +118,7 @@ module.exports.edit=async (req, res, next) => {
 module.exports.delete=async (req, res, next) => {
     let { id }=req.params;
     const post=await Post.findById(id).populate('author').populate('comments');
-    if (post.author.id!=req.session.user._id) {
+    if (post.author.id!=req.user.id) {
         res.send({ error: "You Cant Delete Others Posts" });
     }
     const user=await User.findById(post.author.id).populate('posts');
@@ -142,7 +142,7 @@ module.exports.like=async (req, res, next) => {
                 path: 'author'
             }
         });
-    post.likes.push(req.session.user._id);
+    post.likes.push(req.user.id);
     // console.log(post);
     await post.save();
     console.log("Post: ", post);
@@ -160,7 +160,7 @@ module.exports.dislike=async (req, res, next) => {
                 path: 'author'
             }
         });
-    let index=post.likes.indexOf(req.session.user._id);
+    let index=post.likes.indexOf(req.user.id);
     post.likes.splice(index, 1);
     await post.save();
     console.log("Post: ", post);

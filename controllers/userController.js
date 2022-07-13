@@ -88,11 +88,11 @@ module.exports.delete=async (req, res, next) => {
 
 module.exports.getUsr=async (req, res, next) => {
     try {
-        // console.log(req.session.user._id)
+        // console.log(req.user._id)
         const user= await User.find().limit(6);
         let suggestions=[];
         for (let usr of user) {
-            if(req.user.email!==usr.email && usr.friends.includes(req.session.user._id)==false){
+            if(req.user.email!==usr.email && usr.friends.includes(req.user._id)==false){
                 suggestions=suggestions.concat(usr);
             }
         }
@@ -109,7 +109,7 @@ module.exports.getUsr=async (req, res, next) => {
 
 module.exports.addFriend = async (req,res,next) => {
     let {id}=req.params;
-    let user1=await User.findById(req.session.user._id);
+    let user1=await User.findById(req.user._id);
     let user2=await User.findById(id);
     user1.friends.push(id);
     user2.friends.push(user1._id);
@@ -120,7 +120,7 @@ module.exports.addFriend = async (req,res,next) => {
 
 module.exports.removeFriend = async (req,res,next) => {
     let {id}=req.params;
-    let user1=await User.findById(req.session.user._id);
+    let user1=await User.findById(req.user._id);
     let user2=await User.findById(id);
     let index1=user1.friends.indexOf(id);
     let index2=user2.friends.indexOf(user1._id);

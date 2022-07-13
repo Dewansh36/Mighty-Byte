@@ -6,13 +6,12 @@ const loginController=require('../controllers/loginController');
 const passport=require('passport');
 const checkLogin=require('../middleware/checkLogin');
 const catchAsync=require('../middleware/catchAsync');
-const userAuth = require('../middleware/userAuth');
 
 router.route('/register')
     .post(catchAsync(loginController.register));
 
 router.route('/login')
-    .post(catchAsync(loginController.login));
+    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/loginFail' }), loginController.login);
 
 router.route('/verify')
     .post(catchAsync(loginController.verify));
@@ -21,7 +20,7 @@ router.route('/getUser')
     .get(loginController.getUser);
 
 router.route('/logout')
-    .get(userAuth, loginController.logout);
+    .get(checkLogin, loginController.logout);
 
 router.route('/forgot')
     .post(loginController.forgot);

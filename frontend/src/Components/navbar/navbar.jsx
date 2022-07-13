@@ -14,6 +14,7 @@ const Navbar=(props) => {
     const profileLink="/users/"+user._id;
     // console.log(profileLink);
     const logoutHandler=() => {
+        console.log("clicked")
         axios.get(`/api/logout`, { withCredentials: true })
             .then((response) => {
                 let { error }=response.data;

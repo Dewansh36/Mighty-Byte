@@ -14,7 +14,7 @@ module.exports.create=async (req, res, next) => {
                 path: 'author'
             }
         });
-    const user=await User.findById(req.session.user._id);
+    const user=await User.findById(req.user.id);
     const comment=new Comment(req.body);
     comment.author=user.id;
     comment.post=post.id;
@@ -50,7 +50,7 @@ module.exports.delete=async (req, res, next) => {
                 path: 'author'
             }
         });
-    const user=await User.findById(req.session.user._id)
+    const user=await User.findById(req.user.id)
         .populate('comments');
     post.comments=post.comments.filter((comment) => { return comment!=null });
     user.comments=user.comments.filter((comment) => { return comment!=null });

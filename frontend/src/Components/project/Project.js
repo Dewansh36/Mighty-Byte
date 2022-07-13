@@ -18,7 +18,6 @@ const Project=() => {
   const [posts, setPosts]=useState([]);
   const [suggestions, setSuggestions]=useState([])
   const [resultPerPage, setResultPerPage]=useState(6);
-  let [postcomp, setpostscomp]=useState(<></>);
   const notify=(message, type) => toast(`${message}`, { type: type });
 
   const indexOfLastPost=currentPage*resultPerPage;
@@ -74,74 +73,6 @@ const Project=() => {
         })
     }
   }, []);
-  useEffect(() => {
-    if (loading==false&&friendPosts!=undefined) {
-      if (friendPosts.length==0) {
-        setpostscomp(<>
-          <img src={"https://res.cloudinary.com/dewansh/image/upload/v1657622134/BitDev/nothing-to-do-here-bye-unscreen_r7nib0.gif"} className="img-fluid" />
-        </>
-        )
-      }
-      else {
-        setpostscomp(<>
-          {
-            friendPosts.map((post) => {
-              return (
-                <div class="container-fluid post-container">
-                  <div className="row">
-                    <div className="col-md-10 col-sm-12 my-">
-                      <Carousel>
-                        {
-                          post.images.map((image) => {
-                            return (
-                              <Carousel.Item className="carousel-item">
-                                <a href={`/posts/${post._id}`}><img
-                                  className="pImg"
-                                  src={image.url}
-                                  alt="First slide"
-                                /></a>
-                              </Carousel.Item>
-                            )
-                          })
-                        }
-                      </Carousel>
-                    </div>
-                    <div className="col-md-2 col-sm-12">
-                      <div class="post-container__text">
-                        <h1>{post.title}</h1>
-                        <a href={"/users/"+post.author._id}>
-                          <div className="d-flex my-2">
-                            <img src={post.author.avatar} className="post-avatar" />
-                            {post.author.displayname}
-                          </div>
-                        </a>
-                        <p className="post-description mb-5">
-                          {post.description}
-                        </p>
-                        <div class="post-container__text__timing ">
-                          <div class="post-container__text__timing_time sugg-lg">
-                            <h2>Likes</h2>
-                            <p>{post.likes.length}</p>
-                          </div>
-                          <div class="post-container__text__timing_time sugg-lg">
-                            <h2>Comments</h2>
-                            <p>{post.comments.length}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="container-fluid">
-                      <a href={"/posts/"+post._id}><button class="view-btn"><span>View Post</span><i class="fa fa-arrow-right"></i></button></a>
-                    </div>
-                  </div>
-                </div>
-              )
-            })
-          }
-        </>)
-      }
-    }
-  }, [loading, curUser, posts, friendPosts])
   const navigate=useNavigate();
   if (loading==true) {
     return (
@@ -158,19 +89,19 @@ const Project=() => {
             <div className="col-md-3 col-sm-12 mt-5">
               <a href="/createPost">
                 <button class="col-md-8 col-sm-6 continue-application my-3">
-                  <div>
-                    <div class="pencil"></div>
-                    <div class="folder">
-                      <div class="top">
-                        <svg viewBox="0 0 24 27">
-                          <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
-                        </svg>
-                      </div>
-                      <div class="paper"></div>
+                <div>
+                  <div class="pencil"></div>
+                  <div class="folder">
+                    <div class="top">
+                      <svg viewBox="0 0 24 27">
+                        <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                      </svg>
                     </div>
+                    <div class="paper"></div>
                   </div>
-                  <span>Create Post</span>
-                </button>
+                </div>
+                <span>Create Post</span>
+              </button>
               </a>
               <a href="/suggestions">
                 <button className="col-sm-6 btn btn-outline-dark sugg my-3">
@@ -186,7 +117,58 @@ const Project=() => {
                     style={{ height: "100%" }}
                   >
                     {
-                      postcomp
+                      friendPosts.map((post) => {
+                        return (
+                          <div class="container-fluid post-container">
+                            <div className="row">
+                              <div className="col-md-10 col-sm-12 my-">
+                                <Carousel>
+                                  {
+                                    post.images.map((image) => {
+                                      return (
+                                        <Carousel.Item className="carousel-item">
+                                          <a href={`/posts/${post._id}`}><img
+                                            className="pImg"
+                                            src={image.url}
+                                            alt="First slide"
+                                          /></a>
+                                        </Carousel.Item>
+                                      )
+                                    })
+                                  }
+                                </Carousel>
+                              </div>
+                              <div className="col-md-2 col-sm-12">
+                                <div class="post-container__text">
+                                  <h1>{post.title}</h1>
+                                  <a href={"/users/"+post.author._id}>
+                                    <div className="d-flex my-2">
+                                      <img src={post.author.avatar} className="post-avatar" />
+                                      {post.author.displayname}
+                                    </div>
+                                  </a>
+                                  <p className="post-description mb-5">
+                                    {post.description}
+                                  </p>
+                                  <div class="post-container__text__timing ">
+                                    <div class="post-container__text__timing_time sugg-lg">
+                                      <h2>Likes</h2>
+                                      <p>{post.likes.length}</p>
+                                    </div>
+                                    <div class="post-container__text__timing_time sugg-lg">
+                                      <h2>Comments</h2>
+                                      <p>{post.comments.length}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="container-fluid">
+                                <a href={"/posts/"+post._id}><button class="view-btn"><span>View Post</span><i class="fa fa-arrow-right"></i></button></a>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })
                     }
                     {
                       (resultPerPage<posts.length)? (<div className="paginationBox">
