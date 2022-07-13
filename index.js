@@ -103,13 +103,11 @@ passport.deserializeUser(User.deserializeUser());
 //     next();
 // });
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV==="production") {
     app.use(express.static('frontend/build'));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
     });
-    session.cookie.secure=true;
-    app.set("trust proxy", 1);
 }
 
 const checkLogin=require('./middleware/checkLogin');
