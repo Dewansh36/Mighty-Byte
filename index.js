@@ -56,6 +56,7 @@ const connectDatabase=() => {
 // store.on('error', function (e) {
 //     console.log(e);
 // });
+app.use(flash());
 const port=process.env.PORT||4000;
 connectDatabase()
 app.listen(port, () => {
@@ -88,7 +89,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // //Setting up Flash messages
-app.use(flash());
+
 
 // //Setting Up Method Override for Other Requests
 

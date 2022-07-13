@@ -11,7 +11,11 @@ router.route('/register')
     .post(catchAsync(loginController.register));
 
 router.route('/login')
-    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/api/loginFail' }), loginController.login);
+    .post(passport.authenticate('local', {
+        successRedirect: '/api/loginSuccess',
+        failureRedirect: '/api/loginFail',
+        failureFlash: true
+    }));
 
 router.route('/verify')
     .post(catchAsync(loginController.verify));
@@ -33,5 +37,7 @@ router.route('/loginFail')
     .get((req, res, next) => {
         res.send({ error: req.flash('error') });
     })
+router.route('/loginSuccess')
+    .get(loginController.login)
 
 module.exports=router;
