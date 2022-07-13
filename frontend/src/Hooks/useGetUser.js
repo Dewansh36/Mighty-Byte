@@ -10,45 +10,39 @@ function useGetUser(intialState, id=undefined) {
 
     const notify=(message, type) => toast(`${message}`, { type: type });
 
-    useEffect(() => {
+    useEffect(async () => {
         if (id==undefined) {
-            axios.get(`/api/getUser`, { withCredentials: true })
-                .then((response) => {
-                    // console.log("Getuser: ", response);
-                    const { error, user }=response.data;
-                    if (!user) {
-                        notify(error, "error");
-                        navigate('/login');
-                    }
-                    else if (error!=undefined) {
-                        notify(error, "error");
-                    }
-                    else {
-                        console.log('User Fetched!');
+            let response=(await axios.get(`/api/getUser`, { withCredentials: true })).data;
+            const { error, user }=response;
+            if (!user) {
+                notify(error, "error");
+                navigate('/login');
+            }
+            else if (error!=undefined) {
+                notify(error, "error");
+            }
+            else {
+                console.log('User Fetched!');
 
-                        console.log(user);
-                        setUser(user);
-                    }
-                })
+                console.log(user);
+                setUser(user);
+            }
         }
         else {
-            axios.get(`/api/user/${id}`, { withCredentials: true })
-                .then((response) => {
-                    const { error, user }=response.data;
-                    if (!user) {
-                        notify(error, "error");
-                        navigate('/login');
-                    }
-                    else if (error!=undefined) {
-                        notify(error, "error");
-                    }
-                    else {
-                        console.log('User Fetched!');
-                        setUser(user);
-                    }
-                })
+            let response=(await axios.get(`/api/user/${id}`, { withCredentials: true })).data;
+            const { error, user }=response;
+            if (!user) {
+                notify(error, "error");
+                navigate('/login');
+            }
+            else if (error!=undefined) {
+                notify(error, "error");
+            }
+            else {
+                console.log('User Fetched!');
+                setUser(user);
+            }
         }
-
     }, [])
     return [curUser];
 }

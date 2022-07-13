@@ -73,8 +73,8 @@ const Navbar=(props) => {
                                 </li>
                             </a>
                         </ul>
-                        <a className="nav-link">
-                            <button className='btn' onClick={logoutHandler}>
+                        <a className="nav-link" onClick={logoutHandler}>
+                            <button className='btn'>
                                 <i class="fa-solid fa-arrow-right-from-bracket fa-2xl"></i>
                             </button>
                         </a>

@@ -18,6 +18,7 @@
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "http-proxy-middleware": "^2.0.6",
     "index.js": "^0.0.3",
     "js": "^0.1.0",
     "jsonwebtoken": "^8.5.1",

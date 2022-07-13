@@ -37,7 +37,6 @@ function Select() {
     const notify=(message, type) => toast(`${message}`, { type: type });
 
     useEffect(() => {
-        // console.log("User: ", curUser.displayname);
         console.log(curUser);
         if (curUser!=undefined&&curUser.displayname!=undefined) {
             setLoading(false);

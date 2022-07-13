@@ -22,12 +22,12 @@ require('dotenv').config();
 app.use(cookieParser('BitDev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-    cors({
-        origin: "https://mighty--byte.herokuapp.com", // <-- location of the react app were connecting to
-        credentials: true,
-    })
-);
+// app.use(
+//     cors({
+//         origin: "https://mighty--byte.herokuapp.com", // <-- location of the react app were connecting to
+//         credentials: true,
+//     })
+// );
 // app.use(cors());
 //Setting Up mongoose
 const connectDatabase=() => {
@@ -128,7 +128,7 @@ app.get('/', (req, res) => {
 })
 
 //login Routes
-app.use('/api/', loginRoutes);
+app.use('/api', loginRoutes);
 
 //User Routes
 app.use('/api/user', userRoutes);
