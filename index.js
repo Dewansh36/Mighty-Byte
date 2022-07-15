@@ -16,7 +16,6 @@ const methodOverride=require('method-override');
 const axios=require('axios');
 require('dotenv').config();
 const multer=require('multer');
-require('dotenv').config();
 
 //React-Node middleware
 app.use(cookieParser('BitDev'));

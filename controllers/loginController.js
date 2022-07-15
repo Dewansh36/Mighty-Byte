@@ -6,7 +6,7 @@ const { nanoid }=require('nanoid');
 const nodemailer=require('nodemailer');
 const transporter=nodemailer.createTransport(
     {
-        service: 'hotmail',
+        service: 'gmail',
         auth: {
             user: process.env.email,
             pass: process.env.email_password,
@@ -27,8 +27,8 @@ module.exports.verify=async (req, res, next) => {
         from: process.env.email,
         subject: 'Account Has Been Successfully Verified',
         text: `
-                    Account Has Been Successfully Created At BITDEV
-                    Please Login to https://${req.headers.host}/login
+                    Account Has Been Successfully Created At MIGHTY BYTE
+                    Please Login to https://mighty--byte.herokuapp.com/login
             `,
     }
     transporter.sendMail(resetEmail, (err, info) => {
@@ -58,7 +58,7 @@ module.exports.register=async (req, res, next) => {
             cfhandle: req.body.codeforces,
             cchandle: req.body.codechef,
             description: req.body.description,
-            avatar: `https://avatars.dicebear.com/api/micah/${req.body.firstname}.svg`
+            avatar: `https://avatars.dicebear.com/api/micah/${req.body.firstName}.svg`
         }
     );
     const token=Math.floor(Math.random()*900000+100000);

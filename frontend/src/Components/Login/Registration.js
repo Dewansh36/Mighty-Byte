@@ -153,6 +153,7 @@ const Register=() => {
     const submitHandler=(e) => {
         e.preventDefault();
         setLoading(true);
+        setPos(0);
         if (state.password!=cpass) {
             notify("Password!=Confirm Password!", "error");
             setLoading(false);
@@ -167,7 +168,7 @@ const Register=() => {
                 }
                 else {
                     notify(success, "success");
-                    navigate('/verify', { state: { user: user, token: token, password: password} });
+                    navigate('/verify', { state: { user: user, token: token, password: password } });
                 }
                 setLoading(false);
             })
@@ -221,7 +222,7 @@ const Register=() => {
                     <input type="text" name="collegename" placeholder="College Name" value={state.collegeName} onChange={(e) => { dispatch({ type: "collegeName", payload: e.target.value }) }} />
                     <textarea name="description" placeholder="Your bio" value={state.bio} onChange={(e) => { dispatch({ type: "bio", payload: e.target.value }) }}></textarea>
                     <input type="button" name="previous" className="previous action-button" value="Previous" onClick={prevBtn} />
-                    <button className="action-button" >submit</button>
+                    <button type='button' className="action-button" onClick={submitHandler}>submit</button>
                 </fieldset>
 
             </form>
